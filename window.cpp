@@ -34,15 +34,15 @@ void QuakeWindow::createMainWidget()
 
   setCentralWidget(table); 
 }
+void QuakeWindow::onTextChanged(const QString &text) {
+  std::string stdText = text.toStdString();
+  std::cout << "Querying: " << stdText << std::endl;
+  model.Query(stdText);
+}
 
 
 void QuakeWindow::createFileSelectors()
 {
-  QStringList significanceOptions;
-  significanceOptions << "significant" << "4.5" << "2.5" << "1.0" << "all";
-  significance = new QComboBox();
-  significance->addItems(significanceOptions);
-
   QStringList periodOptions;
   periodOptions << "hour" << "day" << "week" << "month";
   period = new QComboBox();
@@ -56,32 +56,25 @@ void QuakeWindow::createButtons()
   statsButton = new QPushButton("Stats");
 
   connect(loadButton, SIGNAL(clicked()), this, SLOT(openCSV()));
-  connect(statsButton, SIGNAL(clicked()), this, SLOT(displayStats()));
+  // connect(statsButton, SIGNAL(clicked()), this, SLOT(displayStats()));
 }
 
 
-void QuakeWindow::createToolBar()
-{
+void QuakeWindow::createToolBar() {
   QToolBar* toolBar = new QToolBar();
 
-  QLabel* significanceLabel = new QLabel("Significance");
-  significanceLabel->setAlignment(Qt::AlignVCenter);
-  toolBar->addWidget(significanceLabel);
-  toolBar->addWidget(significance);
+  auto significanceSearch = new QLineEdit(this);
 
-  QLabel* periodLabel = new QLabel("Period");
-  periodLabel->setAlignment(Qt::AlignVCenter);
-  toolBar->addWidget(periodLabel);
-  toolBar->addWidget(period);
+  toolBar->addWidget(significanceSearch);
 
-  toolBar->addSeparator();
-
+  loadButton = new QPushButton("Load");
   toolBar->addWidget(loadButton);
-  toolBar->addWidget(statsButton);
+  connect(loadButton, &QPushButton::clicked, this, &QuakeWindow::openCSV);
 
-  addToolBar(Qt::LeftToolBarArea, toolBar);
+  this->addToolBar(toolBar);
+
+  connect(significanceSearch, &QLineEdit::textChanged, this, [this](const QString & text) { onTextChanged(text); });
 }
-
 
 void QuakeWindow::createStatusBar()
 {
@@ -143,8 +136,10 @@ void QuakeWindow::openCSV()
     return;
   }
 
-  auto filename = QString("%1_%2.csv")
-    .arg(significance->currentText()).arg(period->currentText());
+  // auto filename = QString("%1-%2.csv")
+  //   .arg(significance->currentText()).arg(period->currentText());
+
+  auto filename = QString("Y-2024.csv");
 
   auto path = dataLocation + "/" + filename;
 
@@ -160,25 +155,23 @@ void QuakeWindow::openCSV()
   table->resizeColumnsToContents();
 
   if (statsDialog != nullptr && statsDialog->isVisible()) {
-    statsDialog->update(model.meanDepth(), model.meanMagnitude());
+    statsDialog->update();
   }
 }
 
 
-void QuakeWindow::displayStats()
-{
-  if (model.hasData()) {
-    if (statsDialog == nullptr) {
-      statsDialog = new StatsDialog(this);
-    }
-
-    statsDialog->update(model.meanDepth(), model.meanMagnitude());
-
-    statsDialog->show();
-    statsDialog->raise();
-    statsDialog->activateWindow();
-  }
-}
+// void QuakeWindow::DisplayData()
+// {
+//   if (model.hasData()) {
+//     for (int i = 0; i < model.rowCount(); i++) {
+//       QList<QStandardItem *> newRow;
+//       newRow.append(new QStandardItem("Data 1")); // Replace "Data 1" with actual data
+//       newRow.append(new QStandardItem("Data 2")); // Replace "Data 2" with actual data
+//       newRow.append(new QStandardItem("Data 3")); // Replace "Data 3" with actual data
+//       model.appendRow(newRow);
+//     }
+//   }
+// }
 
 
 void QuakeWindow::about()
