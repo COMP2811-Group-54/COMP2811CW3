@@ -3,7 +3,7 @@
 #pragma once
 
 #include <QMainWindow>
-#include "model.hpp"
+#include "./utils/DataModel.hpp"
 
 class QString;
 class QComboBox;
@@ -12,35 +12,43 @@ class QPushButton;
 class QTableView;
 class StatsDialog;
 
-class QuakeWindow: public QMainWindow
-{
-  Q_OBJECT
+class QuakeWindow : public QMainWindow {
+    Q_OBJECT
 
-  public:
+public:
     QuakeWindow();
 
-  private:
+private:
     void createMainWidget();
+
+    void onTextChanged(const QString &text);
+
     void createFileSelectors();
+
     void createButtons();
+
     void createToolBar();
+
     void createStatusBar();
+
     void addFileMenu();
+
     void addHelpMenu();
 
-    QuakeModel model;          // data model used by table
-    QString dataLocation;      // location of CSV data files
-    QComboBox* significance;   // selector for quake feed significance level
-    QComboBox* period;         // selector for quake feed time period
-    QPushButton* loadButton;   // button to load a new CSV file
-    QPushButton* statsButton;  // button to display dataset stats
-    QTableView* table;         // table of quake data
-    QLabel* fileInfo;          // status bar info on current file
-    StatsDialog* statsDialog;  // dialog to display stats
+    DataModel model; // data model used by table
+    QString dataLocation; // location of CSV data files
+    QComboBox *significance; // selector for quake feed significance level
+    QComboBox *period; // selector for quake feed time period
+    QPushButton *loadButton; // button to load a new CSV file
+    QPushButton *statsButton; // button to display dataset stats
+    QTableView *table; // table of quake data
+    QLabel *fileInfo; // status bar info on current file
+    StatsDialog *statsDialog; // dialog to display stats
 
-  private slots:
+private slots:
     void setDataLocation();
+
     void openCSV();
-    void displayStats();
+
     void about();
 };
