@@ -14,32 +14,36 @@ class QLabel;
 
 class PersistentOrganicPollutants: public QWidget
 {
-  public:
-    PersistentOrganicPollutants();
+    public:
+        PersistentOrganicPollutants();
 
-  private:
-    void createChart();
-    void createButtons();
-    void createBoxes();
-    void createFilters();
-    void createComplianceLabels();
-    void arrangeWidgets();
+    private:
+        void createTitle();
+        void createChart();
+        void createButtons();
+        void createBoxes();
+        void createFilters();
+        void createComplianceLabels();
+        void arrangeWidgets();
 
-    // QLabel* title;
+        QLabel* title;
 
-    QLabel* locationLabel;
-    QLabel* timeRangeLabel;
-    QComboBox* location;
-    QComboBox* timeRange;
+        QLabel* locationLabel;
+        QLabel* timeRangeLabel;
+        QComboBox* location;
+        QComboBox* timeRange;
 
-    QLabel* red;
-    QLabel* orange;
-    QLabel* green;
+        QLabel* red;
+        QLabel* orange;
+        QLabel* green;
 
-    QChartView* popChartView;
+        QChartView* popChartView;
 
-    QLabel* pcbs;
-    QLabel* otherPops;
-    QPushButton* moreInfo;
-    QPushButton* viewList;
+        QLabel* pcbs;
+        QLabel* otherPops;
+        QPushButton* moreInfo;
+        QPushButton* viewList;
+
+    private slots:
+        void moreInfoMsgBox();
 };

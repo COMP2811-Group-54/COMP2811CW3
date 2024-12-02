@@ -6,7 +6,7 @@
 
 PersistentOrganicPollutants::PersistentOrganicPollutants(): QWidget()
 {
-    // createTitle();
+    createTitle();
     createChart();
     createButtons();
     createBoxes();
@@ -17,13 +17,13 @@ PersistentOrganicPollutants::PersistentOrganicPollutants(): QWidget()
     setWindowTitle("Persistent Organic Pollutants");
 }
 
-// void PersistentOrganicPollutants::createChart()
-// {
-//     title = new QLabel("Persistent Organic Pollutants");
-//     auto titleFont = QFont();
-//     titleFont->setPointSize(40);
-    
-// }
+void PersistentOrganicPollutants::createTitle()
+{
+    title = new QLabel("Persistent Organic Pollutants");
+    QFont titleFont("Arial", 20, QFont::Bold);
+    title->setFont(titleFont);
+    title->setAlignment(Qt::AlignCenter);
+}
 
 void PersistentOrganicPollutants::createChart()
 {
@@ -54,8 +54,9 @@ void PersistentOrganicPollutants::createChart()
 
 void PersistentOrganicPollutants::createButtons()
 {
-    viewList = new QPushButton("View List");
     moreInfo = new QPushButton("More Info");
+    connect(moreInfo, &QPushButton::clicked, this, &PersistentOrganicPollutants::moreInfoMsgBox);
+    viewList = new QPushButton("View List");
 }
 
 void PersistentOrganicPollutants::createBoxes()
@@ -109,7 +110,7 @@ void PersistentOrganicPollutants::arrangeWidgets()
     filters->addWidget(location);
     filters->addWidget(timeRangeLabel);
     filters->addWidget(timeRange);
-    filters->addSpacing(50);
+    filters->addSpacing(100);
     filters->addWidget(green);
     filters->addSpacing(50);
     filters->addWidget(orange);
@@ -125,14 +126,27 @@ void PersistentOrganicPollutants::arrangeWidgets()
     QVBoxLayout* info = new QVBoxLayout();
     info->addWidget(pcbs);
     info->addWidget(moreInfo);
+    info->addSpacing(100);
     info->addWidget(otherPops);
     info->addWidget(viewList);
     info->addStretch();
 
-    QHBoxLayout* layout = new QHBoxLayout();
-    layout->addLayout(chart);
-    layout->addLayout(info);
-    layout->addStretch();
+    QHBoxLayout* body = new QHBoxLayout();
+    body->addLayout(chart);
+    body->addLayout(info);
+    body->addStretch();
+
+    QVBoxLayout* layout = new QVBoxLayout();
+    layout->addWidget(title);
+    layout->addLayout(body);
 
     setLayout(layout);
+}
+
+void PersistentOrganicPollutants::moreInfoMsgBox()
+{
+  QMessageBox::information(this, "PCB Info", "more info about PCBs");
+    // "Quake Tool displays and analyzes earthquake data loaded from"
+    // "a CSV file produced by the USGS Earthquake Hazards Program.\n\n"
+    // "(c) 2024 Nick Efford");
 }
