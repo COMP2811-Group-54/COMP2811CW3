@@ -83,6 +83,7 @@ void PersistentOrganicPollutants::arrangeWidgets()
   filters->addWidget(location);
   filters->addWidget(timeRangeLabel);
   filters->addWidget(timeRange);
+  filters->addStretch();
 
   QVBoxLayout* chart = new QVBoxLayout();
   chart->addWidget(popChartView);
@@ -99,6 +100,7 @@ void PersistentOrganicPollutants::arrangeWidgets()
   QHBoxLayout* layout = new QHBoxLayout();
   layout->addLayout(chart);
   layout->addLayout(info);
+  layout->addStretch();
 
   setLayout(layout);
 }
