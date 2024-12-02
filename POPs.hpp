@@ -22,17 +22,19 @@ class PersistentOrganicPollutants: public QWidget
     void createButtons();
     void createBoxes();
     void createFilters();
-    // void createScale();
+    void createComplianceLabels();
     void arrangeWidgets();
+
+    // QLabel* title;
 
     QLabel* locationLabel;
     QLabel* timeRangeLabel;
     QComboBox* location;
     QComboBox* timeRange;
 
-    // QToolTip* red;
-    // QToolTip* orange;
-    // QToolTip* green;
+    QLabel* red;
+    QLabel* orange;
+    QLabel* green;
 
     QChartView* popChartView;
 
