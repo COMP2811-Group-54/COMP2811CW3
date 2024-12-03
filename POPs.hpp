@@ -30,8 +30,10 @@ class PersistentOrganicPollutants: public QWidget
 
         QLabel* locationLabel;
         QLabel* timeRangeLabel;
+        QLabel* pollutantLabel;
         QComboBox* location;
         QComboBox* timeRange;
+        QComboBox* pollutant;
 
         QLabel* red;
         QLabel* orange;
@@ -46,4 +48,5 @@ class PersistentOrganicPollutants: public QWidget
 
     private slots:
         void moreInfoMsgBox();
+        void viewListMsgBox();
 };

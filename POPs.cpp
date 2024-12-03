@@ -29,12 +29,20 @@ void PersistentOrganicPollutants::createChart()
 {
     auto popChart = new QChart();
 
+    // Graph data initialisation
+
+    // *** Implement appending the line series with specified data points
+
     auto series = new QLineSeries();
     series->append(0,0);
     series->append(10,10);
     popChart->addSeries(series);
 
     popChart->setTitle("POPs Chart");
+
+    // Axis creation
+
+    // *** Implement appending ranges for pollutant selected
 
     auto xAxis = new QValueAxis();
     xAxis->setTitleText("Time");
@@ -48,34 +56,45 @@ void PersistentOrganicPollutants::createChart()
     popChart->addAxis(yAxis, Qt::AlignLeft);
     series->attachAxis(yAxis);
 
+    // Chart view creation
+
     popChartView = new QChartView(popChart);
-    popChartView->setFixedSize(1000,500);
+    popChartView->setMinimumSize(750,500);
 }
 
 void PersistentOrganicPollutants::createButtons()
 {
     moreInfo = new QPushButton("More Info");
     connect(moreInfo, &QPushButton::clicked, this, &PersistentOrganicPollutants::moreInfoMsgBox);
+
     viewList = new QPushButton("View List");
+    connect(viewList, &QPushButton::clicked, this, &PersistentOrganicPollutants::viewListMsgBox);
 }
 
 void PersistentOrganicPollutants::createBoxes()
 {
+    QFont infoBoxFont("Arial", 8);
+
     pcbs = new QLabel("<h2>PCBs (Polychlorinated Byphenyls)<h2>"
                       "<p>PCBs are a group of man-made organic chemicals consisting of carbon, hydrogen and chlorine atoms<p>");
+    pcbs->setFont(infoBoxFont);
+    pcbs->setWordWrap(true);
+
     otherPops = new QLabel("<h2>Other POPs<h2>"
                            "Examples include DDT, chlordane and dioxins. These substances have various origins and effects<p>");
-    pcbs->setWordWrap(true);
+    otherPops->setFont(infoBoxFont);
     otherPops->setWordWrap(true);
 }
 
 void PersistentOrganicPollutants::createFilters()
 {
+
+    // *** Edit options to apply to dataset
+
     QStringList locationOptions;
     locationOptions << "All locations" << "1" << "2" << "3" << "4";
     location = new QComboBox();
     location->addItems(locationOptions);
-
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
 
@@ -83,13 +102,21 @@ void PersistentOrganicPollutants::createFilters()
     timeRangeOptions << "All time" << "day" << "week" << "month" << "year";
     timeRange = new QComboBox();
     timeRange->addItems(timeRangeOptions);
-
     timeRangeLabel = new QLabel("&Time Range:");
     timeRangeLabel->setBuddy(timeRange);
+
+    QStringList pollutantOptions;
+    pollutantOptions << "All pollutants" << "chlorine" << "ethanol";
+    pollutant = new QComboBox();
+    pollutant->addItems(pollutantOptions);
+    pollutantLabel = new QLabel("&Pollutant:");
+    pollutantLabel->setBuddy(pollutant);
 }
 
 void PersistentOrganicPollutants::createComplianceLabels()
 {
+    // *** (Save for 2nd iteration?) Implement changing threshold based on pollutant selected
+
     red = new QLabel("Red level: >10");
     red->setStyleSheet("background-color: red; color: white;");
     red->setToolTip("Info about red compliance level");
@@ -105,35 +132,73 @@ void PersistentOrganicPollutants::createComplianceLabels()
 
 void PersistentOrganicPollutants::arrangeWidgets()
 {
+    // Filters and Compliance Indicators
+
     QHBoxLayout* filters = new QHBoxLayout();
     filters->addWidget(locationLabel);
     filters->addWidget(location);
+    filters->addSpacing(15);
     filters->addWidget(timeRangeLabel);
     filters->addWidget(timeRange);
-    filters->addSpacing(100);
-    filters->addWidget(green);
-    filters->addSpacing(50);
-    filters->addWidget(orange);
-    filters->addSpacing(50);
-    filters->addWidget(red);
-    filters->addStretch();
+    filters->addSpacing(15);
+    filters->addWidget(pollutantLabel);
+    filters->addWidget(pollutant);
+
+
+    QHBoxLayout* chartContext = new QHBoxLayout();
+    chartContext->addLayout(filters);
+    chartContext->addStretch();
+    chartContext->addSpacing(20);
+    chartContext->addWidget(green);
+    chartContext->addSpacing(20);
+    chartContext->addStretch();
+    chartContext->addWidget(orange);
+    chartContext->addSpacing(20);
+    chartContext->addStretch();
+    chartContext->addWidget(red);
+    chartContext->addStretch();
+
+    // Graph layout
 
     QVBoxLayout* chart = new QVBoxLayout();
-    chart->addWidget(popChartView);
-    chart->addLayout(filters);
+    chart->addWidget(popChartView, 19);
+    chart->addLayout(chartContext, 1);
     chart->addStretch();
 
+    // Info box layout
+
+    auto moreInfoFrame = new QFrame();
+    moreInfoFrame->setFrameShape(QFrame::Box);
+    moreInfoFrame->setLineWidth(2);
+    moreInfoFrame->setMinimumSize(200, 200);
+
+    QVBoxLayout* moreInfoLayout = new QVBoxLayout(moreInfoFrame);
+    moreInfoLayout->addWidget(pcbs);
+    moreInfoLayout->addWidget(moreInfo);
+
+    auto viewListFrame = new QFrame();
+    viewListFrame->setFrameShape(QFrame::Box);
+    viewListFrame->setLineWidth(2);
+    viewListFrame->setMinimumSize(75, 75);
+
+    QVBoxLayout* viewListLayout = new QVBoxLayout(viewListFrame);
+    viewListLayout->addWidget(otherPops);
+    viewListLayout->addWidget(viewList);
+
     QVBoxLayout* info = new QVBoxLayout();
-    info->addWidget(pcbs);
-    info->addWidget(moreInfo);
-    info->addSpacing(100);
-    info->addWidget(otherPops);
-    info->addWidget(viewList);
+    info->addStretch();
+    info->addSpacing(50);
+    info->addWidget(moreInfoFrame);
+    info->addSpacing(50);
+    info->addWidget(viewListFrame);
+    info->addSpacing(50);
     info->addStretch();
 
+    // Main body layout
+
     QHBoxLayout* body = new QHBoxLayout();
-    body->addLayout(chart);
-    body->addLayout(info);
+    body->addLayout(chart, 4);
+    body->addLayout(info, 1);
     body->addStretch();
 
     QVBoxLayout* layout = new QVBoxLayout();
@@ -146,7 +211,9 @@ void PersistentOrganicPollutants::arrangeWidgets()
 void PersistentOrganicPollutants::moreInfoMsgBox()
 {
   QMessageBox::information(this, "PCB Info", "more info about PCBs");
-    // "Quake Tool displays and analyzes earthquake data loaded from"
-    // "a CSV file produced by the USGS Earthquake Hazards Program.\n\n"
-    // "(c) 2024 Nick Efford");
+}
+
+void PersistentOrganicPollutants::viewListMsgBox()
+{
+  QMessageBox::information(this, "List of Persistent Organic Pollutants", "List of POPs");
 }
