@@ -59,7 +59,7 @@ void PFApage::createChart()
     // Chart view creation
 
     pfaChartView = new QChartView(popChart);
-    pfaChartView->setMinimumSize(750,500);
+    pfaChartView->setMinimumSize(600,400);
 }
 
 void PFApage::createButtons()
@@ -75,15 +75,17 @@ void PFApage::createBoxes()
 {
     QFont infoBoxFont("Arial", 8);
 
-    pfas = new QLabel("<h2>pfas (Polychlorinated Byphenyls)<h2>"
-                      "<p>pfas are a group of man-made organic chemicals consisting of carbon, hydrogen and chlorine atoms<p>");
+    pfas = new QLabel("<h2>PFAs<h2>"
+                      "<p>Per- and polyfluoroalkyl substances (PFAS) are a large, complex group of synthetic chemicals<p>");
     pfas->setFont(infoBoxFont);
     pfas->setWordWrap(true);
+    pfas->setAlignment(Qt::AlignCenter);
 
-    otherPfas = new QLabel("<h2>Other POPs<h2>"
-                           "Examples include DDT, chlordane and dioxins. These substances have various origins and effects<p>");
+    otherPfas = new QLabel("<h2>Other PFAs<h2>"
+                           "Examples include PFOAs and PFOS. These substances have various origins and effects<p>");
     otherPfas->setFont(infoBoxFont);
     otherPfas->setWordWrap(true);
+    otherPfas->setAlignment(Qt::AlignCenter);
 }
 
 void PFApage::createFilters()
@@ -97,6 +99,8 @@ void PFApage::createFilters()
     location->addItems(locationOptions);
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
+    locationLabel->setWordWrap(true);
+    locationLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
 
     QStringList timeRangeOptions;
     timeRangeOptions << "All time" << "day" << "week" << "month" << "year";
@@ -135,6 +139,7 @@ void PFApage::arrangeWidgets()
     // Filters and Compliance Indicators
 
     QHBoxLayout* filters = new QHBoxLayout();
+    filters->setSizeConstraint(QLayout::SetMinimumSize);
     filters->addWidget(locationLabel);
     filters->addWidget(location);
     filters->addSpacing(15);
@@ -146,6 +151,7 @@ void PFApage::arrangeWidgets()
 
 
     QHBoxLayout* chartContext = new QHBoxLayout();
+    chartContext->setSizeConstraint(QLayout::SetMinimumSize);
     chartContext->addLayout(filters);
     chartContext->addStretch();
     chartContext->addSpacing(20);
@@ -161,6 +167,7 @@ void PFApage::arrangeWidgets()
     // Graph layout
 
     QVBoxLayout* chart = new QVBoxLayout();
+    chart->setSizeConstraint(QLayout::SetMinimumSize);
     chart->addWidget(pfaChartView, 19);
     chart->addLayout(chartContext, 1);
     chart->addStretch();
@@ -169,8 +176,8 @@ void PFApage::arrangeWidgets()
 
     auto moreInfoFrame = new QFrame();
     moreInfoFrame->setFrameShape(QFrame::Box);
-    moreInfoFrame->setLineWidth(2);
-    moreInfoFrame->setMinimumSize(200, 200);
+    moreInfoFrame->setLineWidth(1);
+    moreInfoFrame->setFixedSize(200, 200);
 
     QVBoxLayout* moreInfoLayout = new QVBoxLayout(moreInfoFrame);
     moreInfoLayout->addWidget(pfas);
@@ -178,8 +185,8 @@ void PFApage::arrangeWidgets()
 
     auto viewListFrame = new QFrame();
     viewListFrame->setFrameShape(QFrame::Box);
-    viewListFrame->setLineWidth(2);
-    viewListFrame->setMinimumSize(75, 75);
+    viewListFrame->setLineWidth(1);
+    viewListFrame->setFixedSize(200, 200);
 
     QVBoxLayout* viewListLayout = new QVBoxLayout(viewListFrame);
     viewListLayout->addWidget(otherPfas);
@@ -187,7 +194,6 @@ void PFApage::arrangeWidgets()
 
     QVBoxLayout* info = new QVBoxLayout();
     info->addStretch();
-    info->addSpacing(50);
     info->addWidget(moreInfoFrame);
     info->addSpacing(50);
     info->addWidget(viewListFrame);
@@ -197,11 +203,13 @@ void PFApage::arrangeWidgets()
     // Main body layout
 
     QHBoxLayout* body = new QHBoxLayout();
+    body->setSizeConstraint(QLayout::SetMinimumSize);
     body->addLayout(chart, 4);
     body->addLayout(info, 1);
     body->addStretch();
 
     QVBoxLayout* layout = new QVBoxLayout();
+    layout->setSizeConstraint(QLayout::SetMinimumSize);
     layout->addWidget(title);
     layout->addLayout(body);
 

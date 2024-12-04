@@ -1044,7 +1044,7 @@ CMakeFiles/waterQuality.dir/Dashboard.cpp.o: \
  /usr/include/qt6/QtCharts/qxylegendmarker.h \
  /usr/include/qt6/QtCore/QtCore \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.hpp \
- /usr/include/qt6/QtWidgets/QTabWidget \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.hpp \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.hpp
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.hpp \
+ /usr/include/qt6/QtWidgets/QTabWidget

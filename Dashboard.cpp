@@ -35,7 +35,7 @@ void Dashboard::createTopLayout()
     QFont titleFont("Arial", 30, QFont::Bold);
     title->setFont(titleFont);
     title->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
-    title->setMinimumSize(450, 100);
+    title->setMinimumSize(300, 100);
 
     //Add buttons and adjust font
     BtnPFA = new QPushButton("PFAs");
@@ -63,7 +63,7 @@ void Dashboard::createTopLayout()
 
 
     //Add widgets to the layout
-    topLayout->addWidget(title);    // Add title on the far left
+    topLayout->addWidget(title);  // Add title on the far left
     topLayout->addSpacing(20);  
 
     topLayout->addWidget(BtnPFA);
@@ -127,6 +127,7 @@ void Dashboard::createBottomLayout()
 void Dashboard::createStackedWidget()
 {
     stackedLayout = new QVBoxLayout();
+    stackedLayout->setSizeConstraint(QLayout::SetMinimumSize);
     QWidget *page1 = new OverviewCards();
     QWidget *page2 = new PersistentOrganicPollutants();
     QWidget *page3 = new PFApage();
@@ -136,19 +137,28 @@ void Dashboard::createStackedWidget()
     pages->addWidget(page2);
     pages->addWidget(page3);
 
-    pages->setMinimumSize(800, 800);
+    pages->setMinimumSize(1250, 600);
 
-    stackedLayout->addWidget(pages);
+    pagesFrame = new QFrame();
+    pagesFrame->setFrameShape(QFrame::Box);
+    pagesFrame->setLineWidth(2);
+
+    stackedLayoutFrame = new QVBoxLayout(pagesFrame);
+    stackedLayoutFrame->addWidget(pages);
+
+    stackedLayout->addWidget(pagesFrame);
 }
 
 void Dashboard::combineLayouts()
 {
     //Combine side and grid layout into one content layout
     QHBoxLayout *contentLayout = new QHBoxLayout();
+    contentLayout->setSizeConstraint(QLayout::SetMinimumSize);
     contentLayout->addLayout(sideLayout, 1);
     contentLayout->addLayout(stackedLayout, 6);
 
     //Add the top, content, and bottom layouts to the main layout
+    mainLayout->setSizeConstraint(QLayout::SetMinimumSize);
     mainLayout->addLayout(topLayout);
     mainLayout->addLayout(contentLayout);
     mainLayout->addLayout(bottomLayout);

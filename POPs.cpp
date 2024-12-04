@@ -59,7 +59,7 @@ void PersistentOrganicPollutants::createChart()
     // Chart view creation
 
     popChartView = new QChartView(popChart);
-    popChartView->setMinimumSize(750,500);
+    popChartView->setMinimumSize(1000,400);
 }
 
 void PersistentOrganicPollutants::createButtons()
@@ -79,11 +79,13 @@ void PersistentOrganicPollutants::createBoxes()
                       "<p>PCBs are a group of man-made organic chemicals consisting of carbon, hydrogen and chlorine atoms<p>");
     pcbs->setFont(infoBoxFont);
     pcbs->setWordWrap(true);
+    pcbs->setAlignment(Qt::AlignCenter);
 
     otherPops = new QLabel("<h2>Other POPs<h2>"
                            "Examples include DDT, chlordane and dioxins. These substances have various origins and effects<p>");
     otherPops->setFont(infoBoxFont);
     otherPops->setWordWrap(true);
+    otherPops->setAlignment(Qt::AlignCenter);
 }
 
 void PersistentOrganicPollutants::createFilters()
@@ -135,6 +137,7 @@ void PersistentOrganicPollutants::arrangeWidgets()
     // Filters and Compliance Indicators
 
     QHBoxLayout* filters = new QHBoxLayout();
+    filters->setSizeConstraint(QLayout::SetMinimumSize);
     filters->addWidget(locationLabel);
     filters->addWidget(location);
     filters->addSpacing(15);
@@ -146,6 +149,7 @@ void PersistentOrganicPollutants::arrangeWidgets()
 
 
     QHBoxLayout* chartContext = new QHBoxLayout();
+    chartContext->setSizeConstraint(QLayout::SetMinimumSize);
     chartContext->addLayout(filters);
     chartContext->addStretch();
     chartContext->addSpacing(20);
@@ -161,6 +165,7 @@ void PersistentOrganicPollutants::arrangeWidgets()
     // Graph layout
 
     QVBoxLayout* chart = new QVBoxLayout();
+    chart->setSizeConstraint(QLayout::SetMinimumSize);
     chart->addWidget(popChartView, 19);
     chart->addLayout(chartContext, 1);
     chart->addStretch();
@@ -169,8 +174,8 @@ void PersistentOrganicPollutants::arrangeWidgets()
 
     auto moreInfoFrame = new QFrame();
     moreInfoFrame->setFrameShape(QFrame::Box);
-    moreInfoFrame->setLineWidth(2);
-    moreInfoFrame->setMinimumSize(200, 200);
+    moreInfoFrame->setLineWidth(1);
+    moreInfoFrame->setFixedSize(200, 200);
 
     QVBoxLayout* moreInfoLayout = new QVBoxLayout(moreInfoFrame);
     moreInfoLayout->addWidget(pcbs);
@@ -178,8 +183,8 @@ void PersistentOrganicPollutants::arrangeWidgets()
 
     auto viewListFrame = new QFrame();
     viewListFrame->setFrameShape(QFrame::Box);
-    viewListFrame->setLineWidth(2);
-    viewListFrame->setMinimumSize(75, 75);
+    viewListFrame->setLineWidth(1);
+    viewListFrame->setFixedSize(200, 200);
 
     QVBoxLayout* viewListLayout = new QVBoxLayout(viewListFrame);
     viewListLayout->addWidget(otherPops);
@@ -187,7 +192,6 @@ void PersistentOrganicPollutants::arrangeWidgets()
 
     QVBoxLayout* info = new QVBoxLayout();
     info->addStretch();
-    info->addSpacing(50);
     info->addWidget(moreInfoFrame);
     info->addSpacing(50);
     info->addWidget(viewListFrame);
@@ -197,11 +201,13 @@ void PersistentOrganicPollutants::arrangeWidgets()
     // Main body layout
 
     QHBoxLayout* body = new QHBoxLayout();
+    body->setSizeConstraint(QLayout::SetMinimumSize);
     body->addLayout(chart, 4);
     body->addLayout(info, 1);
     body->addStretch();
 
     QVBoxLayout* layout = new QVBoxLayout();
+    layout->setSizeConstraint(QLayout::SetMinimumSize);
     layout->addWidget(title);
     layout->addLayout(body);
 

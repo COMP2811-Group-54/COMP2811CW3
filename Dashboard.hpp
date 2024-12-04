@@ -2,7 +2,6 @@
 
 #include <QtWidgets>
 #include <QtCharts>
-#include <QTabWidget>
 
 class QLabel;
 class QPushButton;
@@ -11,8 +10,8 @@ class QWidget;
 class QHBoxLayout;
 class QVBoxLayout;
 class QGridLayout;
-class QTabWidget;
 class QStackedWidget;
+class QFrame;
 
 class Dashboard: public QWidget
 {
@@ -35,7 +34,8 @@ class Dashboard: public QWidget
         QGridLayout* gridLayout;
         QHBoxLayout* bottomLayout;
         QVBoxLayout* stackedLayout;
-
+        QVBoxLayout* stackedLayoutFrame;
+        QFrame* pagesFrame;
         
         QLabel* title;
 

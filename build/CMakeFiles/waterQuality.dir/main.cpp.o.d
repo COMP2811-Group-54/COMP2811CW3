@@ -1043,5 +1043,4 @@ CMakeFiles/waterQuality.dir/main.cpp.o: \
  /usr/include/qt6/QtCharts/qvcandlestickmodelmapper.h \
  /usr/include/qt6/QtCharts/qvpiemodelmapper.h \
  /usr/include/qt6/QtCharts/qvxymodelmapper.h \
- /usr/include/qt6/QtCharts/qxylegendmarker.h \
- /usr/include/qt6/QtWidgets/QTabWidget
+ /usr/include/qt6/QtCharts/qxylegendmarker.h

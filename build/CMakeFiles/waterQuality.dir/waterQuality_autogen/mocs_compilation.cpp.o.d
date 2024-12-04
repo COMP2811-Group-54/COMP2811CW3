@@ -1045,7 +1045,6 @@ CMakeFiles/waterQuality.dir/waterQuality_autogen/mocs_compilation.cpp.o: \
  /usr/include/qt6/QtCharts/qvpiemodelmapper.h \
  /usr/include/qt6/QtCharts/qvxymodelmapper.h \
  /usr/include/qt6/QtCharts/qxylegendmarker.h \
- /usr/include/qt6/QtWidgets/QTabWidget \
  /usr/include/qt6/QtCharts/qabstractbarseries.h \
  /usr/include/qt6/QtCharts/qvbarmodelmapper.h \
  /usr/include/qt6/QtCharts/qboxplotseries.h \
@@ -1054,6 +1053,7 @@ CMakeFiles/waterQuality.dir/waterQuality_autogen/mocs_compilation.cpp.o: \
  /usr/include/qt6/QtCore/qtmochelpers.h \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/moc_OverviewCards.cpp \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../../OverviewCards.hpp \
+ /usr/include/qt6/QtWidgets/QTabWidget \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/moc_PFAs.cpp \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../../PFAs.hpp \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/moc_POPs.cpp \

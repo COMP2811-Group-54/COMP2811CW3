@@ -792,7 +792,6 @@
   /usr/include/qt6/QtWidgets/QGraphicsWidget \
   /usr/include/qt6/QtWidgets/QLayout \
   /usr/include/qt6/QtWidgets/QScrollerProperties \
-  /usr/include/qt6/QtWidgets/QTabWidget \
   /usr/include/qt6/QtWidgets/QWidget \
   /usr/include/qt6/QtWidgets/QtWidgets \
   /usr/include/qt6/QtWidgets/QtWidgetsDepends \
