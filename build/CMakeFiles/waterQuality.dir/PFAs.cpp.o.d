@@ -1,5 +1,5 @@
-CMakeFiles/waterQuality.dir/main.cpp.o: \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/main.cpp \
+CMakeFiles/waterQuality.dir/PFAs.cpp.o: \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.cpp \
  /usr/include/stdc-predef.h /usr/include/qt6/QtWidgets/QtWidgets \
  /usr/include/qt6/QtWidgets/QtWidgetsDepends \
  /usr/include/qt6/QtCore/QtCore /usr/include/qt6/QtCore/QtCoreDepends \
@@ -926,9 +926,7 @@ CMakeFiles/waterQuality.dir/main.cpp.o: \
  /usr/include/qt6/QtWidgets/qwhatsthis.h \
  /usr/include/qt6/QtWidgets/qwidget.h \
  /usr/include/qt6/QtWidgets/qwidgetaction.h \
- /usr/include/qt6/QtWidgets/qwizard.h \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.hpp \
- /usr/include/qt6/QtCharts/QtCharts \
+ /usr/include/qt6/QtWidgets/qwizard.h /usr/include/qt6/QtCharts/QtCharts \
  /usr/include/qt6/QtCharts/QtChartsDepends \
  /usr/include/qt6/QtWidgets/QtWidgets /usr/include/qt6/QtOpenGL/QtOpenGL \
  /usr/include/qt6/QtOpenGL/QtOpenGLDepends \
@@ -1043,4 +1041,8 @@ CMakeFiles/waterQuality.dir/main.cpp.o: \
  /usr/include/qt6/QtCharts/qvcandlestickmodelmapper.h \
  /usr/include/qt6/QtCharts/qvpiemodelmapper.h \
  /usr/include/qt6/QtCharts/qvxymodelmapper.h \
- /usr/include/qt6/QtCharts/qxylegendmarker.h
+ /usr/include/qt6/QtCharts/qxylegendmarker.h \
+ /usr/include/qt6/QtCore/QtCore \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.hpp \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/stats.hpp \
+ /usr/include/qt6/QtWidgets/QDialog

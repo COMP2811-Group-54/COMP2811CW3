@@ -354,9 +354,9 @@
 	"HEADERS" : 
 	[
 		[
-			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.hpp",
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.hpp",
 			"MU",
-			"EWIEGA46WW/moc_POPs.cpp",
+			"EWIEGA46WW/moc_PFAs.cpp",
 			null
 		]
 	],
@@ -419,7 +419,7 @@
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
-	"PARALLEL" : 8,
+	"PARALLEL" : 12,
 	"PARSE_CACHE_FILE" : "/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/CMakeFiles/waterQuality_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/usr/lib64/qt6/libexec/moc",
 	"QT_UIC_EXECUTABLE" : "/usr/lib64/qt6/libexec/uic",
@@ -429,7 +429,7 @@
 	"SOURCES" : 
 	[
 		[
-			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.cpp",
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.cpp",
 			"MU",
 			null
 		],

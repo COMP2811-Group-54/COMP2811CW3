@@ -1,11 +1,11 @@
 #include <QtWidgets>
-#include "POPs.hpp"
+#include "PFAs.hpp"
 
 int main(int argc, char* argv[])
 {
   QApplication app(argc, argv);
 
-  PersistentOrganicPollutants window;
+  PFApage window;
   window.show();
 
   return app.exec();

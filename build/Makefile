@@ -142,29 +142,29 @@ waterQuality_autogen/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality_autogen.dir/build.make CMakeFiles/waterQuality_autogen.dir/build
 .PHONY : waterQuality_autogen/fast
 
-POPs.o: POPs.cpp.o
-.PHONY : POPs.o
+PFAs.o: PFAs.cpp.o
+.PHONY : PFAs.o
 
 # target to build an object file
-POPs.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/POPs.cpp.o
-.PHONY : POPs.cpp.o
+PFAs.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/PFAs.cpp.o
+.PHONY : PFAs.cpp.o
 
-POPs.i: POPs.cpp.i
-.PHONY : POPs.i
+PFAs.i: PFAs.cpp.i
+.PHONY : PFAs.i
 
 # target to preprocess a source file
-POPs.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/POPs.cpp.i
-.PHONY : POPs.cpp.i
+PFAs.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/PFAs.cpp.i
+.PHONY : PFAs.cpp.i
 
-POPs.s: POPs.cpp.s
-.PHONY : POPs.s
+PFAs.s: PFAs.cpp.s
+.PHONY : PFAs.s
 
 # target to generate assembly for a file
-POPs.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/POPs.cpp.s
-.PHONY : POPs.cpp.s
+PFAs.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/PFAs.cpp.s
+.PHONY : PFAs.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -224,9 +224,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... waterQuality_autogen"
 	@echo "... waterQuality"
-	@echo "... POPs.o"
-	@echo "... POPs.i"
-	@echo "... POPs.s"
+	@echo "... PFAs.o"
+	@echo "... PFAs.i"
+	@echo "... PFAs.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
