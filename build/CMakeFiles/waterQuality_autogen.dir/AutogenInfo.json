@@ -354,9 +354,27 @@
 	"HEADERS" : 
 	[
 		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.hpp",
+			"MU",
+			"EWIEGA46WW/moc_Dashboard.cpp",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.hpp",
+			"MU",
+			"EWIEGA46WW/moc_OverviewCards.cpp",
+			null
+		],
+		[
 			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.hpp",
 			"MU",
 			"EWIEGA46WW/moc_PFAs.cpp",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.hpp",
+			"MU",
+			"EWIEGA46WW/moc_POPs.cpp",
 			null
 		]
 	],
@@ -429,7 +447,22 @@
 	"SOURCES" : 
 	[
 		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.cpp",
+			"MU",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.cpp",
+			"MU",
+			null
+		],
+		[
 			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.cpp",
+			"MU",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.cpp",
 			"MU",
 			null
 		],

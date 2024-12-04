@@ -4,7 +4,7 @@
 #include "PFAs.hpp"
 #include "stats.hpp"
 
-PFApage::PFApage(): QWidget()
+PFApage::PFApage(QWidget *parent): QWidget(parent)
 {
     createTitle();
     createChart();

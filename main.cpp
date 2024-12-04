@@ -1,11 +1,11 @@
 #include <QtWidgets>
-#include "PFAs.hpp"
+#include "Dashboard.hpp"
 
 int main(int argc, char* argv[])
 {
   QApplication app(argc, argv);
 
-  PFApage window;
+  Dashboard window;
   window.show();
 
   return app.exec();

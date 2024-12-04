@@ -97,10 +97,38 @@ CMakeFiles/waterQuality.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/waterQuality.dir/main.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/main.cpp -o CMakeFiles/waterQuality.dir/main.cpp.s
 
+CMakeFiles/waterQuality.dir/Dashboard.cpp.o: CMakeFiles/waterQuality.dir/flags.make
+CMakeFiles/waterQuality.dir/Dashboard.cpp.o: /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.cpp
+CMakeFiles/waterQuality.dir/Dashboard.cpp.o: CMakeFiles/waterQuality.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/waterQuality.dir/Dashboard.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/waterQuality.dir/Dashboard.cpp.o -MF CMakeFiles/waterQuality.dir/Dashboard.cpp.o.d -o CMakeFiles/waterQuality.dir/Dashboard.cpp.o -c /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.cpp
+
+CMakeFiles/waterQuality.dir/Dashboard.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/waterQuality.dir/Dashboard.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.cpp > CMakeFiles/waterQuality.dir/Dashboard.cpp.i
+
+CMakeFiles/waterQuality.dir/Dashboard.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/waterQuality.dir/Dashboard.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.cpp -o CMakeFiles/waterQuality.dir/Dashboard.cpp.s
+
+CMakeFiles/waterQuality.dir/OverviewCards.cpp.o: CMakeFiles/waterQuality.dir/flags.make
+CMakeFiles/waterQuality.dir/OverviewCards.cpp.o: /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.cpp
+CMakeFiles/waterQuality.dir/OverviewCards.cpp.o: CMakeFiles/waterQuality.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/waterQuality.dir/OverviewCards.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/waterQuality.dir/OverviewCards.cpp.o -MF CMakeFiles/waterQuality.dir/OverviewCards.cpp.o.d -o CMakeFiles/waterQuality.dir/OverviewCards.cpp.o -c /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.cpp
+
+CMakeFiles/waterQuality.dir/OverviewCards.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/waterQuality.dir/OverviewCards.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.cpp > CMakeFiles/waterQuality.dir/OverviewCards.cpp.i
+
+CMakeFiles/waterQuality.dir/OverviewCards.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/waterQuality.dir/OverviewCards.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.cpp -o CMakeFiles/waterQuality.dir/OverviewCards.cpp.s
+
 CMakeFiles/waterQuality.dir/PFAs.cpp.o: CMakeFiles/waterQuality.dir/flags.make
 CMakeFiles/waterQuality.dir/PFAs.cpp.o: /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.cpp
 CMakeFiles/waterQuality.dir/PFAs.cpp.o: CMakeFiles/waterQuality.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/waterQuality.dir/PFAs.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/waterQuality.dir/PFAs.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/waterQuality.dir/PFAs.cpp.o -MF CMakeFiles/waterQuality.dir/PFAs.cpp.o.d -o CMakeFiles/waterQuality.dir/PFAs.cpp.o -c /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.cpp
 
 CMakeFiles/waterQuality.dir/PFAs.cpp.i: cmake_force
@@ -111,18 +139,38 @@ CMakeFiles/waterQuality.dir/PFAs.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/waterQuality.dir/PFAs.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.cpp -o CMakeFiles/waterQuality.dir/PFAs.cpp.s
 
+CMakeFiles/waterQuality.dir/POPs.cpp.o: CMakeFiles/waterQuality.dir/flags.make
+CMakeFiles/waterQuality.dir/POPs.cpp.o: /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.cpp
+CMakeFiles/waterQuality.dir/POPs.cpp.o: CMakeFiles/waterQuality.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/waterQuality.dir/POPs.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/waterQuality.dir/POPs.cpp.o -MF CMakeFiles/waterQuality.dir/POPs.cpp.o.d -o CMakeFiles/waterQuality.dir/POPs.cpp.o -c /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.cpp
+
+CMakeFiles/waterQuality.dir/POPs.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/waterQuality.dir/POPs.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.cpp > CMakeFiles/waterQuality.dir/POPs.cpp.i
+
+CMakeFiles/waterQuality.dir/POPs.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/waterQuality.dir/POPs.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.cpp -o CMakeFiles/waterQuality.dir/POPs.cpp.s
+
 # Object files for target waterQuality
 waterQuality_OBJECTS = \
 "CMakeFiles/waterQuality.dir/waterQuality_autogen/mocs_compilation.cpp.o" \
 "CMakeFiles/waterQuality.dir/main.cpp.o" \
-"CMakeFiles/waterQuality.dir/PFAs.cpp.o"
+"CMakeFiles/waterQuality.dir/Dashboard.cpp.o" \
+"CMakeFiles/waterQuality.dir/OverviewCards.cpp.o" \
+"CMakeFiles/waterQuality.dir/PFAs.cpp.o" \
+"CMakeFiles/waterQuality.dir/POPs.cpp.o"
 
 # External object files for target waterQuality
 waterQuality_EXTERNAL_OBJECTS =
 
 waterQuality: CMakeFiles/waterQuality.dir/waterQuality_autogen/mocs_compilation.cpp.o
 waterQuality: CMakeFiles/waterQuality.dir/main.cpp.o
+waterQuality: CMakeFiles/waterQuality.dir/Dashboard.cpp.o
+waterQuality: CMakeFiles/waterQuality.dir/OverviewCards.cpp.o
 waterQuality: CMakeFiles/waterQuality.dir/PFAs.cpp.o
+waterQuality: CMakeFiles/waterQuality.dir/POPs.cpp.o
 waterQuality: CMakeFiles/waterQuality.dir/build.make
 waterQuality: /usr/lib64/libQt6Charts.so.6.6.2
 waterQuality: /usr/lib64/libQt6OpenGLWidgets.so.6.6.2
@@ -133,7 +181,7 @@ waterQuality: /usr/lib64/libQt6Core.so.6.6.2
 waterQuality: /usr/lib64/libGLX.so
 waterQuality: /usr/lib64/libOpenGL.so
 waterQuality: CMakeFiles/waterQuality.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX executable waterQuality"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable waterQuality"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/waterQuality.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

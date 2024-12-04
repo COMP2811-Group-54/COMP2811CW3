@@ -14,8 +14,9 @@ class QLabel;
 
 class PersistentOrganicPollutants: public QWidget
 {
+        Q_OBJECT
     public:
-        PersistentOrganicPollutants();
+        explicit PersistentOrganicPollutants(QWidget *parent = nullptr);
 
     private:
         void createTitle();

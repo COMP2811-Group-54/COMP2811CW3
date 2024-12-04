@@ -142,6 +142,54 @@ waterQuality_autogen/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality_autogen.dir/build.make CMakeFiles/waterQuality_autogen.dir/build
 .PHONY : waterQuality_autogen/fast
 
+Dashboard.o: Dashboard.cpp.o
+.PHONY : Dashboard.o
+
+# target to build an object file
+Dashboard.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/Dashboard.cpp.o
+.PHONY : Dashboard.cpp.o
+
+Dashboard.i: Dashboard.cpp.i
+.PHONY : Dashboard.i
+
+# target to preprocess a source file
+Dashboard.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/Dashboard.cpp.i
+.PHONY : Dashboard.cpp.i
+
+Dashboard.s: Dashboard.cpp.s
+.PHONY : Dashboard.s
+
+# target to generate assembly for a file
+Dashboard.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/Dashboard.cpp.s
+.PHONY : Dashboard.cpp.s
+
+OverviewCards.o: OverviewCards.cpp.o
+.PHONY : OverviewCards.o
+
+# target to build an object file
+OverviewCards.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/OverviewCards.cpp.o
+.PHONY : OverviewCards.cpp.o
+
+OverviewCards.i: OverviewCards.cpp.i
+.PHONY : OverviewCards.i
+
+# target to preprocess a source file
+OverviewCards.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/OverviewCards.cpp.i
+.PHONY : OverviewCards.cpp.i
+
+OverviewCards.s: OverviewCards.cpp.s
+.PHONY : OverviewCards.s
+
+# target to generate assembly for a file
+OverviewCards.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/OverviewCards.cpp.s
+.PHONY : OverviewCards.cpp.s
+
 PFAs.o: PFAs.cpp.o
 .PHONY : PFAs.o
 
@@ -165,6 +213,30 @@ PFAs.s: PFAs.cpp.s
 PFAs.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/PFAs.cpp.s
 .PHONY : PFAs.cpp.s
+
+POPs.o: POPs.cpp.o
+.PHONY : POPs.o
+
+# target to build an object file
+POPs.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/POPs.cpp.o
+.PHONY : POPs.cpp.o
+
+POPs.i: POPs.cpp.i
+.PHONY : POPs.i
+
+# target to preprocess a source file
+POPs.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/POPs.cpp.i
+.PHONY : POPs.cpp.i
+
+POPs.s: POPs.cpp.s
+.PHONY : POPs.s
+
+# target to generate assembly for a file
+POPs.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/POPs.cpp.s
+.PHONY : POPs.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -224,9 +296,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... waterQuality_autogen"
 	@echo "... waterQuality"
+	@echo "... Dashboard.o"
+	@echo "... Dashboard.i"
+	@echo "... Dashboard.s"
+	@echo "... OverviewCards.o"
+	@echo "... OverviewCards.i"
+	@echo "... OverviewCards.s"
 	@echo "... PFAs.o"
 	@echo "... PFAs.i"
 	@echo "... PFAs.s"
+	@echo "... POPs.o"
+	@echo "... POPs.i"
+	@echo "... POPs.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

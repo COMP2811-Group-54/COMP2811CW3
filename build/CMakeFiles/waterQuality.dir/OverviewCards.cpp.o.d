@@ -1,9 +1,6 @@
-CMakeFiles/waterQuality.dir/waterQuality_autogen/mocs_compilation.cpp.o: \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/mocs_compilation.cpp \
- /usr/include/stdc-predef.h \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/moc_Dashboard.cpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../../Dashboard.hpp \
- /usr/include/qt6/QtWidgets/QtWidgets \
+CMakeFiles/waterQuality.dir/OverviewCards.cpp.o: \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.cpp \
+ /usr/include/stdc-predef.h /usr/include/qt6/QtWidgets/QtWidgets \
  /usr/include/qt6/QtWidgets/QtWidgetsDepends \
  /usr/include/qt6/QtCore/QtCore /usr/include/qt6/QtCore/QtCoreDepends \
  /usr/include/qt6/QtCore/qglobal.h /usr/include/c++/11/type_traits \
@@ -1045,16 +1042,6 @@ CMakeFiles/waterQuality.dir/waterQuality_autogen/mocs_compilation.cpp.o: \
  /usr/include/qt6/QtCharts/qvpiemodelmapper.h \
  /usr/include/qt6/QtCharts/qvxymodelmapper.h \
  /usr/include/qt6/QtCharts/qxylegendmarker.h \
- /usr/include/qt6/QtWidgets/QTabWidget \
- /usr/include/qt6/QtCharts/qabstractbarseries.h \
- /usr/include/qt6/QtCharts/qvbarmodelmapper.h \
- /usr/include/qt6/QtCharts/qboxplotseries.h \
- /usr/include/qt6/QtCharts/qcandlestickseries.h \
- /usr/include/qt6/QtCharts/qpieseries.h \
- /usr/include/qt6/QtCore/qtmochelpers.h \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/moc_OverviewCards.cpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../../OverviewCards.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/moc_PFAs.cpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../../PFAs.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/moc_POPs.cpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../../POPs.hpp
+ /usr/include/qt6/QtCore/QtCore \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.hpp \
+ /usr/include/qt6/QtWidgets/QTabWidget

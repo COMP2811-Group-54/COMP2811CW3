@@ -4,7 +4,7 @@
 #include "POPs.hpp"
 #include "stats.hpp"
 
-PersistentOrganicPollutants::PersistentOrganicPollutants(): QWidget()
+PersistentOrganicPollutants::PersistentOrganicPollutants(QWidget *parent): QWidget(parent)
 {
     createTitle();
     createChart();

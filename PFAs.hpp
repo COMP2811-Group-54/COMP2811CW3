@@ -14,8 +14,9 @@ class QLabel;
 
 class PFApage: public QWidget
 {
+        Q_OBJECT
     public:
-        PFApage();
+        explicit PFApage(QWidget *parent = nullptr);
 
     private:
         void createTitle();

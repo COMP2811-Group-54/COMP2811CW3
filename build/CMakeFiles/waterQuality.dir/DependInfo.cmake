@@ -8,7 +8,10 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
+  "/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.cpp" "CMakeFiles/waterQuality.dir/Dashboard.cpp.o" "gcc" "CMakeFiles/waterQuality.dir/Dashboard.cpp.o.d"
+  "/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.cpp" "CMakeFiles/waterQuality.dir/OverviewCards.cpp.o" "gcc" "CMakeFiles/waterQuality.dir/OverviewCards.cpp.o.d"
   "/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.cpp" "CMakeFiles/waterQuality.dir/PFAs.cpp.o" "gcc" "CMakeFiles/waterQuality.dir/PFAs.cpp.o.d"
+  "/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.cpp" "CMakeFiles/waterQuality.dir/POPs.cpp.o" "gcc" "CMakeFiles/waterQuality.dir/POPs.cpp.o.d"
   "/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/main.cpp" "CMakeFiles/waterQuality.dir/main.cpp.o" "gcc" "CMakeFiles/waterQuality.dir/main.cpp.o.d"
   "/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/mocs_compilation.cpp" "CMakeFiles/waterQuality.dir/waterQuality_autogen/mocs_compilation.cpp.o" "gcc" "CMakeFiles/waterQuality.dir/waterQuality_autogen/mocs_compilation.cpp.o.d"
   )
