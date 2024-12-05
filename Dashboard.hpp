@@ -43,12 +43,12 @@ class Dashboard: public QWidget
 
         QPushButton* BtnPFA;
         QPushButton* BtnPOP;
-        QPushButton* BtnLitter;
         QPushButton* BtnHelp;
         QPushButton* BtnDS;
         QPushButton* BtnDashboard;
         QPushButton* BtnPO;
         QPushButton* BtnCD;
+        QPushButton* BtnDP;
 
         QComboBox* language; 
 
@@ -66,6 +66,14 @@ class Dashboard: public QWidget
         void goToPFAs()
         {
             pages->setCurrentIndex(2);
+        }
+        void goToPO()
+        {
+            pages->setCurrentIndex(3);
+        }
+        void goToDP()
+        {
+            pages->setCurrentIndex(4);
         }
         
 };

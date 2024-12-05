@@ -13,8 +13,6 @@ PFApage::PFApage(QWidget *parent): QWidget(parent)
     createFilters();
     createComplianceLabels();
     arrangeWidgets();
-
-    setWindowTitle("Poly-fluorinated Compounds");
 }
 
 void PFApage::createTitle()

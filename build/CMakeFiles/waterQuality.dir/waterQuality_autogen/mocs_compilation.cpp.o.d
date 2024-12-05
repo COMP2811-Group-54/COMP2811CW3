@@ -1056,5 +1056,14 @@ CMakeFiles/waterQuality.dir/waterQuality_autogen/mocs_compilation.cpp.o: \
  /usr/include/qt6/QtWidgets/QTabWidget \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/moc_PFAs.cpp \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../../PFAs.hpp \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/moc_PO.cpp \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../../PO.hpp \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/moc_POPs.cpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../../POPs.hpp
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../../POPs.hpp \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/moc_window.cpp \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../../window.hpp \
+ /usr/include/qt6/QtWidgets/QMainWindow \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../.././utils/DataModel.hpp \
+ /usr/include/qt6/QtCore/QAbstractTableModel \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../.././utils/Dataset.hpp \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/waterQuality_autogen/EWIEGA46WW/../../.././utils/Measurement.hpp

@@ -372,9 +372,33 @@
 			null
 		],
 		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PO.hpp",
+			"MU",
+			"EWIEGA46WW/moc_PO.cpp",
+			null
+		],
+		[
 			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.hpp",
 			"MU",
 			"EWIEGA46WW/moc_POPs.cpp",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/utils/DataModel.hpp",
+			"MU",
+			"7HEHEGDA3T/moc_DataModel.cpp",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/utils/Measurement.hpp",
+			"MU",
+			"7HEHEGDA3T/moc_Measurement.cpp",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/window.hpp",
+			"MU",
+			"EWIEGA46WW/moc_window.cpp",
 			null
 		]
 	],
@@ -437,7 +461,7 @@
 	"MOC_RELAXED_MODE" : false,
 	"MOC_SKIP" : [],
 	"MULTI_CONFIG" : false,
-	"PARALLEL" : 12,
+	"PARALLEL" : 8,
 	"PARSE_CACHE_FILE" : "/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/build/CMakeFiles/waterQuality_autogen.dir/ParseCache.txt",
 	"QT_MOC_EXECUTABLE" : "/usr/lib64/qt6/libexec/moc",
 	"QT_UIC_EXECUTABLE" : "/usr/lib64/qt6/libexec/uic",
@@ -462,12 +486,37 @@
 			null
 		],
 		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PO.cpp",
+			"MU",
+			null
+		],
+		[
 			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.cpp",
 			"MU",
 			null
 		],
 		[
 			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/main.cpp",
+			"MU",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/utils/DataModel.cpp",
+			"MU",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/utils/Measurement.cpp",
+			"MU",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/utils/dataset.cpp",
+			"MU",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/window.cpp",
 			"MU",
 			null
 		]

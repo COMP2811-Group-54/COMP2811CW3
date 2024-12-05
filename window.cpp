@@ -5,116 +5,123 @@
 #include <iostream>
 #include "window.hpp"
 #include "stats.hpp"
+#include "./utils/DataModel.hpp"
 
 static const int MIN_WIDTH = 620;
 
 
-QuakeWindow::QuakeWindow(): QMainWindow(), statsDialog(nullptr)
+DataPage::DataPage(QWidget *parent): QWidget(parent)
 {
   createMainWidget();
-  createFileSelectors();
+  // createFileSelectors();
   createButtons();
-  createToolBar();
-  createStatusBar();
-  addFileMenu();
-  addHelpMenu();
+  // createToolBar();
+  setMainLayout();
+  // createStatusBar();
+  // addFileMenu();
+  // addHelpMenu();
 
   setMinimumWidth(MIN_WIDTH);
-  setWindowTitle("Quake Tool");
 }
 
 
-void QuakeWindow::createMainWidget()
+void DataPage::createMainWidget()
 {
   table = new QTableView();
   table->setModel(&model);
 
   QFont tableFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
   table->setFont(tableFont);
-
-  setCentralWidget(table); 
-}
-void QuakeWindow::onTextChanged(const QString &text) {
-  std::string stdText = text.toStdString();
-  std::cout << "Querying: " << stdText << std::endl;
-  model.Query(stdText);
 }
 
-
-void QuakeWindow::createFileSelectors()
-{
-  QStringList periodOptions;
-  periodOptions << "hour" << "day" << "week" << "month";
-  period = new QComboBox();
-  period->addItems(periodOptions);
-}
+// void DataPage::onTextChanged(const QString &text) {
+//   std::string stdText = text.toStdString();
+//   std::cout << "Querying: " << stdText << std::endl;
+//   model.Query(stdText);
+// }
 
 
-void QuakeWindow::createButtons()
+// void DataPage::createFileSelectors()
+// {
+//   QStringList periodOptions;
+//   periodOptions << "hour" << "day" << "week" << "month";
+//   period = new QComboBox();
+//   period->addItems(periodOptions);
+// }
+
+
+void DataPage::createButtons()
 {
   loadButton = new QPushButton("Load");
-  statsButton = new QPushButton("Stats");
 
   connect(loadButton, SIGNAL(clicked()), this, SLOT(openCSV()));
-  // connect(statsButton, SIGNAL(clicked()), this, SLOT(displayStats()));
 }
 
-
-void QuakeWindow::createToolBar() {
-  QToolBar* toolBar = new QToolBar();
-
-  auto significanceSearch = new QLineEdit(this);
-
-  toolBar->addWidget(significanceSearch);
-
-  loadButton = new QPushButton("Load");
-  toolBar->addWidget(loadButton);
-  connect(loadButton, &QPushButton::clicked, this, &QuakeWindow::openCSV);
-
-  this->addToolBar(toolBar);
-
-  connect(significanceSearch, &QLineEdit::textChanged, this, [this](const QString & text) { onTextChanged(text); });
-}
-
-void QuakeWindow::createStatusBar()
+void DataPage::setMainLayout()
 {
-  fileInfo = new QLabel("Current file: <none>");
-  QStatusBar* status = statusBar();
-  status->addWidget(fileInfo);
+  QHBoxLayout* dataPage = new QHBoxLayout();
+  dataPage->addWidget(loadButton, 1);
+  dataPage->addWidget(table, 9);
+
+  setLayout(dataPage);
 }
 
 
-void QuakeWindow::addFileMenu()
-{
-  QAction* locAction = new QAction("Set Data &Location", this);
-  locAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_L));
-  connect(locAction, SIGNAL(triggered()), this, SLOT(setDataLocation()));
+// void DataPage::createToolBar() {
+//   QToolBar* toolBar = new QToolBar();
 
-  QAction* closeAction = new QAction("Quit", this);
-  closeAction->setShortcut(QKeySequence::Close);
-  connect(closeAction, SIGNAL(triggered()), this, SLOT(close()));
+//   auto significanceSearch = new QLineEdit(this);
 
-  QMenu* fileMenu = menuBar()->addMenu("&File");
-  fileMenu->addAction(locAction);
-  fileMenu->addAction(closeAction);
-}
+//   toolBar->addWidget(significanceSearch);
 
+  // loadButton = new QPushButton("Load");
+  // toolBar->addWidget(loadButton);
+  // connect(loadButton, &QPushButton::clicked, this, &DataPage::openCSV);
 
-void QuakeWindow::addHelpMenu()
-{
-  QAction* aboutAction = new QAction("&About", this);
-  connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
+//   this->addToolBar(toolBar);
 
-  QAction* aboutQtAction = new QAction("About &Qt", this);
-  connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+//   connect(significanceSearch, &QLineEdit::textChanged, this, [this](const QString & text) { onTextChanged(text); });
+// }
 
-  QMenu* helpMenu = menuBar()->addMenu("&Help");
-  helpMenu->addAction(aboutAction);
-  helpMenu->addAction(aboutQtAction);
-}
+// void DataPage::createStatusBar()
+// {
+//   fileInfo = new QLabel("Current file: <none>");
+//   QStatusBar* status = statusBar();
+//   status->addWidget(fileInfo);
+// }
 
 
-void QuakeWindow::setDataLocation()
+// void DataPage::addFileMenu()
+// {
+//   QAction* locAction = new QAction("Set Data &Location", this);
+//   locAction->setShortcut(QKeySequence(Qt::CTRL | Qt::Key_L));
+//   connect(locAction, SIGNAL(triggered()), this, SLOT(setDataLocation()));
+
+//   QAction* closeAction = new QAction("Quit", this);
+//   closeAction->setShortcut(QKeySequence::Close);
+//   connect(closeAction, SIGNAL(triggered()), this, SLOT(close()));
+
+//   QMenu* fileMenu = menuBar()->addMenu("&File");
+//   fileMenu->addAction(locAction);
+//   fileMenu->addAction(closeAction);
+// }
+
+
+// void DataPage::addHelpMenu()
+// {
+//   QAction* aboutAction = new QAction("&About", this);
+//   connect(aboutAction, SIGNAL(triggered()), this, SLOT(about()));
+
+//   QAction* aboutQtAction = new QAction("About &Qt", this);
+//   connect(aboutQtAction, SIGNAL(triggered()), qApp, SLOT(aboutQt()));
+
+//   QMenu* helpMenu = menuBar()->addMenu("&Help");
+//   helpMenu->addAction(aboutAction);
+//   helpMenu->addAction(aboutQtAction);
+// }
+
+
+void DataPage::setDataLocation()
 {
   QString directory = QFileDialog::getExistingDirectory(
     this, "Data Location", ".",
@@ -126,7 +133,7 @@ void QuakeWindow::setDataLocation()
 }
 
 
-void QuakeWindow::openCSV()
+void DataPage::openCSV()
 {
   if (dataLocation == "") {
     QMessageBox::critical(this, "Data Location Error",
@@ -154,13 +161,13 @@ void QuakeWindow::openCSV()
   fileInfo->setText(QString("Current file: <kbd>%1</kbd>").arg(filename));
   table->resizeColumnsToContents();
 
-  if (statsDialog != nullptr && statsDialog->isVisible()) {
-    statsDialog->update();
-  }
+  // if (statsDialog != nullptr && statsDialog->isVisible()) {
+  //   statsDialog->update();
+  // }
 }
 
 
-// void QuakeWindow::DisplayData()
+// void DataPage::DisplayData()
 // {
 //   if (model.hasData()) {
 //     for (int i = 0; i < model.rowCount(); i++) {
@@ -174,10 +181,10 @@ void QuakeWindow::openCSV()
 // }
 
 
-void QuakeWindow::about()
-{
-  QMessageBox::about(this, "About Quake Tool",
-    "Quake Tool displays and analyzes earthquake data loaded from"
-    "a CSV file produced by the USGS Earthquake Hazards Program.\n\n"
-    "(c) 2024 Nick Efford");
-}
+// void DataPage::about()
+// {
+//   QMessageBox::about(this, "About Quake Tool",
+//     "Quake Tool displays and analyzes earthquake data loaded from"
+//     "a CSV file produced by the USGS Earthquake Hazards Program.\n\n"
+//     "(c) 2024 Nick Efford");
+// }

@@ -1,12 +1,12 @@
 /****************************************************************************
-** Meta object code from reading C++ file 'Dashboard.hpp'
+** Meta object code from reading C++ file 'PO.hpp'
 **
 ** Created by: The Qt Meta Object Compiler version 68 (Qt 6.6.2)
 **
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../Dashboard.hpp"
+#include "../../../PO.hpp"
 #include <QtGui/qtextcursor.h>
 #include <QtGui/qscreen.h>
 #include <QtCharts/qlineseries.h>
@@ -44,7 +44,7 @@ QT_BEGIN_MOC_NAMESPACE
 #include <memory>
 
 #if !defined(Q_MOC_OUTPUT_REVISION)
-#error "The header file 'Dashboard.hpp' doesn't include <QObject>."
+#error "The header file 'PO.hpp' doesn't include <QObject>."
 #elif Q_MOC_OUTPUT_REVISION != 68
 #error "This file was generated using the moc from 6.6.2. It"
 #error "cannot be used with the include files from this version of Qt."
@@ -61,58 +61,50 @@ QT_WARNING_DISABLE_GCC("-Wuseless-cast")
 namespace {
 
 #ifdef QT_MOC_HAS_STRINGDATA
-struct qt_meta_stringdata_CLASSDashboardENDCLASS_t {};
-constexpr auto qt_meta_stringdata_CLASSDashboardENDCLASS = QtMocHelpers::stringData(
-    "Dashboard",
-    "goToOverviewCards",
+struct qt_meta_stringdata_CLASSPollutantOverviewENDCLASS_t {};
+constexpr auto qt_meta_stringdata_CLASSPollutantOverviewENDCLASS = QtMocHelpers::stringData(
+    "PollutantOverview",
+    "moreInfoMsgBox",
     "",
-    "goToPOPs",
-    "goToPFAs",
-    "goToPO",
-    "goToDP"
+    "viewListMsgBox",
+    "searchQuery"
 );
 #else  // !QT_MOC_HAS_STRING_DATA
-struct qt_meta_stringdata_CLASSDashboardENDCLASS_t {
-    uint offsetsAndSizes[14];
-    char stringdata0[10];
-    char stringdata1[18];
+struct qt_meta_stringdata_CLASSPollutantOverviewENDCLASS_t {
+    uint offsetsAndSizes[10];
+    char stringdata0[18];
+    char stringdata1[15];
     char stringdata2[1];
-    char stringdata3[9];
-    char stringdata4[9];
-    char stringdata5[7];
-    char stringdata6[7];
+    char stringdata3[15];
+    char stringdata4[12];
 };
 #define QT_MOC_LITERAL(ofs, len) \
-    uint(sizeof(qt_meta_stringdata_CLASSDashboardENDCLASS_t::offsetsAndSizes) + ofs), len 
-Q_CONSTINIT static const qt_meta_stringdata_CLASSDashboardENDCLASS_t qt_meta_stringdata_CLASSDashboardENDCLASS = {
+    uint(sizeof(qt_meta_stringdata_CLASSPollutantOverviewENDCLASS_t::offsetsAndSizes) + ofs), len 
+Q_CONSTINIT static const qt_meta_stringdata_CLASSPollutantOverviewENDCLASS_t qt_meta_stringdata_CLASSPollutantOverviewENDCLASS = {
     {
-        QT_MOC_LITERAL(0, 9),  // "Dashboard"
-        QT_MOC_LITERAL(10, 17),  // "goToOverviewCards"
-        QT_MOC_LITERAL(28, 0),  // ""
-        QT_MOC_LITERAL(29, 8),  // "goToPOPs"
-        QT_MOC_LITERAL(38, 8),  // "goToPFAs"
-        QT_MOC_LITERAL(47, 6),  // "goToPO"
-        QT_MOC_LITERAL(54, 6)   // "goToDP"
+        QT_MOC_LITERAL(0, 17),  // "PollutantOverview"
+        QT_MOC_LITERAL(18, 14),  // "moreInfoMsgBox"
+        QT_MOC_LITERAL(33, 0),  // ""
+        QT_MOC_LITERAL(34, 14),  // "viewListMsgBox"
+        QT_MOC_LITERAL(49, 11)   // "searchQuery"
     },
-    "Dashboard",
-    "goToOverviewCards",
+    "PollutantOverview",
+    "moreInfoMsgBox",
     "",
-    "goToPOPs",
-    "goToPFAs",
-    "goToPO",
-    "goToDP"
+    "viewListMsgBox",
+    "searchQuery"
 };
 #undef QT_MOC_LITERAL
 #endif // !QT_MOC_HAS_STRING_DATA
 } // unnamed namespace
 
-Q_CONSTINIT static const uint qt_meta_data_CLASSDashboardENDCLASS[] = {
+Q_CONSTINIT static const uint qt_meta_data_CLASSPollutantOverviewENDCLASS[] = {
 
  // content:
       12,       // revision
        0,       // classname
        0,    0, // classinfo
-       5,   14, // methods
+       3,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -120,88 +112,78 @@ Q_CONSTINIT static const uint qt_meta_data_CLASSDashboardENDCLASS[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags, initial metatype offsets
-       1,    0,   44,    2, 0x08,    1 /* Private */,
-       3,    0,   45,    2, 0x08,    2 /* Private */,
-       4,    0,   46,    2, 0x08,    3 /* Private */,
-       5,    0,   47,    2, 0x08,    4 /* Private */,
-       6,    0,   48,    2, 0x08,    5 /* Private */,
+       1,    0,   32,    2, 0x08,    1 /* Private */,
+       3,    0,   33,    2, 0x08,    2 /* Private */,
+       4,    0,   34,    2, 0x08,    3 /* Private */,
 
  // slots: parameters
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
-    QMetaType::Void,
+    QMetaType::QString,
 
        0        // eod
 };
 
-Q_CONSTINIT const QMetaObject Dashboard::staticMetaObject = { {
+Q_CONSTINIT const QMetaObject PollutantOverview::staticMetaObject = { {
     QMetaObject::SuperData::link<QWidget::staticMetaObject>(),
-    qt_meta_stringdata_CLASSDashboardENDCLASS.offsetsAndSizes,
-    qt_meta_data_CLASSDashboardENDCLASS,
+    qt_meta_stringdata_CLASSPollutantOverviewENDCLASS.offsetsAndSizes,
+    qt_meta_data_CLASSPollutantOverviewENDCLASS,
     qt_static_metacall,
     nullptr,
-    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSDashboardENDCLASS_t,
+    qt_incomplete_metaTypeArray<qt_meta_stringdata_CLASSPollutantOverviewENDCLASS_t,
         // Q_OBJECT / Q_GADGET
-        QtPrivate::TypeAndForceComplete<Dashboard, std::true_type>,
-        // method 'goToOverviewCards'
+        QtPrivate::TypeAndForceComplete<PollutantOverview, std::true_type>,
+        // method 'moreInfoMsgBox'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'goToPOPs'
+        // method 'viewListMsgBox'
         QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'goToPFAs'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'goToPO'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>,
-        // method 'goToDP'
-        QtPrivate::TypeAndForceComplete<void, std::false_type>
+        // method 'searchQuery'
+        QtPrivate::TypeAndForceComplete<QString, std::false_type>
     >,
     nullptr
 } };
 
-void Dashboard::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
+void PollutantOverview::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
 {
     if (_c == QMetaObject::InvokeMetaMethod) {
-        auto *_t = static_cast<Dashboard *>(_o);
+        auto *_t = static_cast<PollutantOverview *>(_o);
         (void)_t;
         switch (_id) {
-        case 0: _t->goToOverviewCards(); break;
-        case 1: _t->goToPOPs(); break;
-        case 2: _t->goToPFAs(); break;
-        case 3: _t->goToPO(); break;
-        case 4: _t->goToDP(); break;
+        case 0: _t->moreInfoMsgBox(); break;
+        case 1: _t->viewListMsgBox(); break;
+        case 2: { QString _r = _t->searchQuery();
+            if (_a[0]) *reinterpret_cast< QString*>(_a[0]) = std::move(_r); }  break;
         default: ;
         }
     }
-    (void)_a;
 }
 
-const QMetaObject *Dashboard::metaObject() const
+const QMetaObject *PollutantOverview::metaObject() const
 {
     return QObject::d_ptr->metaObject ? QObject::d_ptr->dynamicMetaObject() : &staticMetaObject;
 }
 
-void *Dashboard::qt_metacast(const char *_clname)
+void *PollutantOverview::qt_metacast(const char *_clname)
 {
     if (!_clname) return nullptr;
-    if (!strcmp(_clname, qt_meta_stringdata_CLASSDashboardENDCLASS.stringdata0))
+    if (!strcmp(_clname, qt_meta_stringdata_CLASSPollutantOverviewENDCLASS.stringdata0))
         return static_cast<void*>(this);
     return QWidget::qt_metacast(_clname);
 }
 
-int Dashboard::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
+int PollutantOverview::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
 {
     _id = QWidget::qt_metacall(_c, _id, _a);
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 5)
+        if (_id < 3)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 5;
+        _id -= 3;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 5)
+        if (_id < 3)
             *reinterpret_cast<QMetaType *>(_a[0]) = QMetaType();
-        _id -= 5;
+        _id -= 3;
     }
     return _id;
 }

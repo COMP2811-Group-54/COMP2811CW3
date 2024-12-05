@@ -5,6 +5,8 @@
 #include "POPs.hpp"
 #include "PFAs.hpp"
 #include "OverviewCards.hpp"
+#include "PO.hpp"
+#include "window.hpp"
 
 Dashboard::Dashboard(): QWidget()
 {
@@ -40,16 +42,13 @@ void Dashboard::createTopLayout()
     //Add buttons and adjust font
     BtnPFA = new QPushButton("PFAs");
     BtnPOP = new QPushButton("POPs");
-    BtnLitter = new QPushButton("Litter");
 
     QFont topBtnFont("Arial", 22, QFont::Normal);
     BtnPFA->setFont(topBtnFont);
     BtnPOP->setFont(topBtnFont);
-    BtnLitter->setFont(topBtnFont);
 
     BtnPFA->setMinimumSize(150, 50);
     BtnPOP->setMinimumSize(150, 50);
-    BtnLitter->setMinimumSize(150, 50);
 
     //Connect buttons to slots
     connect(BtnPOP, &QPushButton::clicked, this, &Dashboard::goToPOPs);
@@ -70,8 +69,6 @@ void Dashboard::createTopLayout()
     topLayout->addSpacing(20);
     topLayout->addWidget(BtnPOP);
     topLayout->addSpacing(20);
-    topLayout->addWidget(BtnLitter);
-    topLayout->addSpacing(20);
     topLayout->addWidget(language);
 }
 
@@ -83,19 +80,23 @@ void Dashboard::createLeftLayout()
     BtnDashboard = new QPushButton("Dashboard");
     BtnPO = new QPushButton("Pollutant Overview");
     BtnCD = new QPushButton("Compliance Dashboard");
+    BtnDP = new QPushButton("Data Page");
 
     BtnDashboard->setMinimumSize(200, 100);
     BtnPO->setMinimumSize(200, 100);
     BtnCD->setMinimumSize(200, 100);
+    BtnDP->setMinimumSize(200, 100);
 
     QFont sideBtnFont("Arial", 13, QFont::Bold);
     BtnDashboard->setFont(sideBtnFont);
     BtnPO->setFont(sideBtnFont);
     BtnCD->setFont(sideBtnFont);
+    BtnDP->setFont(sideBtnFont);
 
     //Add widgets to the layout
     sideLayout->addStretch();
     sideLayout->addWidget(BtnDashboard);
+    sideLayout->addWidget(BtnDP);
     sideLayout->addWidget(BtnPO);
     sideLayout->addWidget(BtnCD);
     sideLayout->addStretch(); // Push everything up
@@ -103,6 +104,8 @@ void Dashboard::createLeftLayout()
 
     //Connect buttons to slots
     connect(BtnDashboard, &QPushButton::clicked, this, &Dashboard::goToOverviewCards);
+    connect(BtnPO, &QPushButton::clicked, this, &Dashboard::goToPO);
+    connect(BtnDP, &QPushButton::clicked, this, &Dashboard::goToDP);
 }
 
 void Dashboard::createBottomLayout()
@@ -131,11 +134,15 @@ void Dashboard::createStackedWidget()
     QWidget *page1 = new OverviewCards();
     QWidget *page2 = new PersistentOrganicPollutants();
     QWidget *page3 = new PFApage();
+    QWidget *page4 = new PollutantOverview();
+    QWidget *page5 = new DataPage();
 
     pages = new QStackedWidget();
     pages->addWidget(page1);
     pages->addWidget(page2);
     pages->addWidget(page3);
+    pages->addWidget(page4);
+    pages->addWidget(page5);
 
     pages->setMinimumSize(1250, 600);
 

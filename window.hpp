@@ -10,45 +10,46 @@ class QComboBox;
 class QLabel;
 class QPushButton;
 class QTableView;
-class StatsDialog;
+// class StatsDialog;
 
-class QuakeWindow : public QMainWindow {
+class DataPage : public QWidget 
+{
     Q_OBJECT
 
 public:
-    QuakeWindow();
+    explicit DataPage(QWidget *parent = nullptr);
 
 private:
     void createMainWidget();
 
     void onTextChanged(const QString &text);
 
-    void createFileSelectors();
+    // void createFileSelectors();
 
     void createButtons();
 
-    void createToolBar();
+    void setMainLayout();
 
-    void createStatusBar();
+    // void createToolBar();
 
-    void addFileMenu();
+    // void createStatusBar();
 
-    void addHelpMenu();
+    // void addFileMenu();
+
+    // void addHelpMenu();
 
     DataModel model; // data model used by table
     QString dataLocation; // location of CSV data files
-    QComboBox *significance; // selector for quake feed significance level
-    QComboBox *period; // selector for quake feed time period
+    // QComboBox *significance; // selector for quake feed significance level
+    // QComboBox *period; // selector for quake feed time period
     QPushButton *loadButton; // button to load a new CSV file
-    QPushButton *statsButton; // button to display dataset stats
+    // QPushButton *statsButton; // button to display dataset stats
     QTableView *table; // table of quake data
     QLabel *fileInfo; // status bar info on current file
-    StatsDialog *statsDialog; // dialog to display stats
+    // StatsDialog *statsDialog; // dialog to display stats
 
 private slots:
     void setDataLocation();
 
     void openCSV();
-
-    void about();
 };

@@ -2,4 +2,6 @@
 #include "EWIEGA46WW/moc_Dashboard.cpp"
 #include "EWIEGA46WW/moc_OverviewCards.cpp"
 #include "EWIEGA46WW/moc_PFAs.cpp"
+#include "EWIEGA46WW/moc_PO.cpp"
 #include "EWIEGA46WW/moc_POPs.cpp"
+#include "EWIEGA46WW/moc_window.cpp"

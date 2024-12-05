@@ -1,5 +1,5 @@
-CMakeFiles/waterQuality.dir/Dashboard.cpp.o: \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.cpp \
+CMakeFiles/waterQuality.dir/window.cpp.o: \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/window.cpp \
  /usr/include/stdc-predef.h /usr/include/qt6/QtWidgets/QtWidgets \
  /usr/include/qt6/QtWidgets/QtWidgetsDepends \
  /usr/include/qt6/QtCore/QtCore /usr/include/qt6/QtCore/QtCoreDepends \
@@ -926,132 +926,12 @@ CMakeFiles/waterQuality.dir/Dashboard.cpp.o: \
  /usr/include/qt6/QtWidgets/qwhatsthis.h \
  /usr/include/qt6/QtWidgets/qwidget.h \
  /usr/include/qt6/QtWidgets/qwidgetaction.h \
- /usr/include/qt6/QtWidgets/qwizard.h /usr/include/qt6/QtCharts/QtCharts \
- /usr/include/qt6/QtCharts/QtChartsDepends \
- /usr/include/qt6/QtWidgets/QtWidgets /usr/include/qt6/QtOpenGL/QtOpenGL \
- /usr/include/qt6/QtOpenGL/QtOpenGLDepends \
- /usr/include/qt6/QtOpenGL/qtopenglglobal.h \
- /usr/include/qt6/QtOpenGL/qtopenglexports.h \
- /usr/include/qt6/QtOpenGL/qopenglbuffer.h \
- /usr/include/qt6/QtOpenGL/qtopenglglobal.h \
- /usr/include/qt6/QtOpenGL/qopengldebug.h \
- /usr/include/qt6/QtOpenGL/qopenglframebufferobject.h \
- /usr/include/qt6/QtOpenGL/qopenglpaintdevice.h \
- /usr/include/qt6/QtOpenGL/qopenglpixeltransferoptions.h \
- /usr/include/qt6/QtCore/QSharedDataPointer \
- /usr/include/qt6/QtOpenGL/qopenglshaderprogram.h \
- /usr/include/qt6/QtGui/qmatrix4x4.h \
- /usr/include/qt6/QtOpenGL/qopengltexture.h \
- /usr/include/qt6/QtOpenGL/qopengltextureblitter.h \
- /usr/include/qt6/QtGui/QMatrix3x3 \
- /usr/include/qt6/QtOpenGL/qopengltimerquery.h \
- /usr/include/qt6/QtOpenGL/qopenglversionfunctions.h \
- /usr/include/qt6/QtOpenGL/qopenglversionfunctionsfactory.h \
- /usr/include/qt6/QtOpenGL/qopenglversionprofile.h \
- /usr/include/qt6/QtCore/QPair \
- /usr/include/qt6/QtOpenGL/qopenglversionprofile.h \
- /usr/include/qt6/QtOpenGL/qopenglvertexarrayobject.h \
- /usr/include/qt6/QtOpenGL/qopenglwindow.h \
- /usr/include/qt6/QtGui/QOpenGLContext /usr/include/qt6/QtGui/QImage \
- /usr/include/qt6/QtOpenGL/qtopenglversion.h \
- /usr/include/qt6/QtOpenGLWidgets/QtOpenGLWidgets \
- /usr/include/qt6/QtOpenGLWidgets/QtOpenGLWidgetsDepends \
- /usr/include/qt6/QtOpenGLWidgets/qtopenglwidgetsglobal.h \
- /usr/include/qt6/QtOpenGLWidgets/qtopenglwidgetsexports.h \
- /usr/include/qt6/QtOpenGLWidgets/qopenglwidget.h \
- /usr/include/qt6/QtOpenGLWidgets/qtopenglwidgetsglobal.h \
- /usr/include/qt6/QtWidgets/QWidget \
- /usr/include/qt6/QtOpenGLWidgets/qtopenglwidgetsversion.h \
- /usr/include/qt6/QtCharts/qchartglobal.h \
- /usr/include/qt6/QtCharts/qtcharts-config.h \
- /usr/include/qt6/QtCharts/qtchartsexports.h \
- /usr/include/qt6/QtCharts/qabstractaxis.h \
- /usr/include/qt6/QtCharts/QChartGlobal /usr/include/qt6/QtGui/QPen \
- /usr/include/qt6/QtGui/QFont \
- /usr/include/qt6/QtCharts/qabstractbarseries.h \
- /usr/include/qt6/QtCharts/QAbstractSeries \
- /usr/include/qt6/QtCharts/qabstractseries.h \
- /usr/include/qt6/QtCharts/QAbstractAxis \
- /usr/include/qt6/QtCharts/qarealegendmarker.h \
- /usr/include/qt6/QtCharts/QLegendMarker \
- /usr/include/qt6/QtCharts/qlegendmarker.h \
- /usr/include/qt6/QtCharts/QLegend /usr/include/qt6/QtCharts/qlegend.h \
- /usr/include/qt6/QtWidgets/QGraphicsWidget /usr/include/qt6/QtGui/QBrush \
- /usr/include/qt6/QtCharts/QAreaSeries \
- /usr/include/qt6/QtCharts/qareaseries.h \
- /usr/include/qt6/QtCharts/qbarcategoryaxis.h \
- /usr/include/qt6/QtCharts/qbarlegendmarker.h \
- /usr/include/qt6/QtCharts/QAbstractBarSeries \
- /usr/include/qt6/QtCharts/QBarSet /usr/include/qt6/QtCharts/qbarset.h \
- /usr/include/qt6/QtCharts/qchartglobal.h \
- /usr/include/qt6/QtCharts/qbarmodelmapper.h \
- /usr/include/qt6/QtCharts/qbarseries.h \
- /usr/include/qt6/QtCharts/qboxplotlegendmarker.h \
- /usr/include/qt6/QtCharts/QBoxPlotSeries \
- /usr/include/qt6/QtCharts/qboxplotseries.h \
- /usr/include/qt6/QtCharts/QBoxSet /usr/include/qt6/QtCharts/qboxset.h \
- /usr/include/qt6/QtCharts/qboxplotmodelmapper.h \
- /usr/include/qt6/QtCharts/qcandlesticklegendmarker.h \
- /usr/include/qt6/QtCharts/QCandlestickSeries \
- /usr/include/qt6/QtCharts/qcandlestickseries.h \
- /usr/include/qt6/QtCharts/qcandlestickmodelmapper.h \
- /usr/include/qt6/QtCharts/qcandlestickset.h \
- /usr/include/qt6/QtCharts/qcategoryaxis.h \
- /usr/include/qt6/QtCharts/QValueAxis \
- /usr/include/qt6/QtCharts/qvalueaxis.h \
- /usr/include/qt6/QtCharts/qchart.h \
- /usr/include/qt6/QtCharts/qchartview.h /usr/include/qt6/QtCharts/QChart \
- /usr/include/qt6/QtWidgets/QGraphicsView \
- /usr/include/qt6/QtCharts/qcoloraxis.h \
- /usr/include/qt6/QtCharts/qdatetimeaxis.h \
- /usr/include/qt6/QtCharts/qhbarmodelmapper.h \
- /usr/include/qt6/QtCharts/QBarModelMapper \
- /usr/include/qt6/QtCharts/qhboxplotmodelmapper.h \
- /usr/include/qt6/QtCharts/QBoxPlotModelMapper \
- /usr/include/qt6/QtCharts/qhcandlestickmodelmapper.h \
- /usr/include/qt6/QtCharts/QCandlestickModelMapper \
- /usr/include/qt6/QtCharts/qhorizontalbarseries.h \
- /usr/include/qt6/QtCharts/qhorizontalpercentbarseries.h \
- /usr/include/qt6/QtCharts/qhorizontalstackedbarseries.h \
- /usr/include/qt6/QtCharts/qhpiemodelmapper.h \
- /usr/include/qt6/QtCharts/QPieModelMapper \
- /usr/include/qt6/QtCharts/qpiemodelmapper.h \
- /usr/include/qt6/QtCharts/qhxymodelmapper.h \
- /usr/include/qt6/QtCharts/QXYModelMapper \
- /usr/include/qt6/QtCharts/qxymodelmapper.h \
- /usr/include/qt6/QtCharts/qlineseries.h \
- /usr/include/qt6/QtCharts/QXYSeries \
- /usr/include/qt6/QtCharts/qxyseries.h \
- /usr/include/qt6/QtCharts/qlogvalueaxis.h \
- /usr/include/qt6/QtCharts/qpercentbarseries.h \
- /usr/include/qt6/QtCharts/qpielegendmarker.h \
- /usr/include/qt6/QtCharts/QPieSeries \
- /usr/include/qt6/QtCharts/qpieseries.h \
- /usr/include/qt6/QtCharts/QPieSlice \
- /usr/include/qt6/QtCharts/qpieslice.h \
- /usr/include/qt6/QtCharts/qpolarchart.h \
- /usr/include/qt6/QtCharts/qscatterseries.h \
- /usr/include/qt6/QtCharts/qxyseries.h \
- /usr/include/qt6/QtCharts/qsplineseries.h \
- /usr/include/qt6/QtCharts/qlineseries.h \
- /usr/include/qt6/QtCharts/qstackedbarseries.h \
- /usr/include/qt6/QtCharts/qtchartsversion.h \
- /usr/include/qt6/QtCharts/qvbarmodelmapper.h \
- /usr/include/qt6/QtCharts/qvboxplotmodelmapper.h \
- /usr/include/qt6/QtCharts/qvcandlestickmodelmapper.h \
- /usr/include/qt6/QtCharts/qvpiemodelmapper.h \
- /usr/include/qt6/QtCharts/qvxymodelmapper.h \
- /usr/include/qt6/QtCharts/qxylegendmarker.h \
- /usr/include/qt6/QtCore/QtCore \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.hpp \
- /usr/include/qt6/QtWidgets/QTabWidget \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PO.hpp \
+ /usr/include/qt6/QtWidgets/qwizard.h /usr/include/c++/11/iostream \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/window.hpp \
  /usr/include/qt6/QtWidgets/QMainWindow \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/./utils/DataModel.hpp \
  /usr/include/qt6/QtCore/QAbstractTableModel \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/./utils/Dataset.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/./utils/Measurement.hpp
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/./utils/Measurement.hpp \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/stats.hpp \
+ /usr/include/qt6/QtWidgets/QDialog

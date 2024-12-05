@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(Qt6 REQUIRED COMPONENTS Widgets Charts Core)
 qt_standard_project_setup()
 
-qt_add_executable(waterQuality main.cpp Dashboard.cpp OverviewCards.cpp PFAs.cpp POPs.cpp)
+qt_add_executable(waterQuality main.cpp Dashboard.cpp OverviewCards.cpp PFAs.cpp POPs.cpp PO.cpp window.cpp utils/DataModel.cpp utils/dataset.cpp utils/Measurement.cpp)
 
 target_link_libraries(waterQuality PRIVATE Qt6::Widgets)
 target_link_libraries(waterQuality PRIVATE Qt6::Charts)
