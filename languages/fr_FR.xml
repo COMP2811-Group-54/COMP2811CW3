@@ -1,17 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE TS>
-
-<!-- Translated from en_GB using ChatGPT -->
 <TS version="2.1" language="fr_FR">
     <context>
         <name>Dashboard</name>
         <message>
             <source>DASHBOARD_TITLE</source>
-            <translation>Moniteur de Qualité de l'Eau</translation>
+            <translation>Moniteur de qualité de l'eau</translation>
         </message>
         <message>
             <source>DASHBOARD_BUTTON</source>
-            <translation>Tableau de Bord</translation>
+            <translation>Tableau de bord</translation>
         </message>
         <message>
             <source>DASHBOARD_PFAS</source>
@@ -19,19 +17,19 @@
         </message>
         <message>
             <source>DASHBOARD_POPS</source>
-            <translation>POPS</translation>
+            <translation>POPs</translation>
         </message>
         <message>
             <source>DASHBOARD_LITTER</source>
-            <translation>DÉCHETS</translation>
+            <translation>DETRITUS</translation>
         </message>
         <message>
             <source>DASHBOARD_PO</source>
-            <translation>Vue d'Ensemble des Polluants</translation>
+            <translation>Vue d'ensemble des polluants</translation>
         </message>
         <message>
             <source>DASHBOARD_CD</source>
-            <translation>Tableau de Bord de Conformité</translation>
+            <translation>Tableau de bord de conformité</translation>
         </message>
         <message>
             <source>DASHBOARD_HELP</source>
@@ -39,7 +37,95 @@
         </message>
         <message>
             <source>DASHBOARD_DS</source>
-            <translation>Sources de Données</translation>
+            <translation>Sources de données</translation>
+        </message>
+    </context>
+
+    <context>
+        <name>PFApage</name>
+        <message>
+            <source>PFA_TITLE</source>
+            <translation>Composés polyfluorés</translation>
+        </message>
+        <message>
+            <source>PFA_CHART_TITLE</source>
+            <translation>Graphique des PFAs</translation>
+        </message>
+        <message>
+            <source>PFA_TIME</source>
+            <translation>Temps</translation>
+        </message>
+        <message>
+            <source>PFA_LEVEL</source>
+            <translation>Niveau</translation>
+        </message>
+        <message>
+            <source>PFA_MORE_INFO</source>
+            <translation>Plus d'infos</translation>
+        </message>
+        <message>
+            <source>PFA_VIEW_LIST</source>
+            <translation>Voir la liste</translation>
+        </message>
+        <message>
+            <source>PFA_PFAS_DESCRIPTION</source>
+            <translation>&lt;h2&gt;PFAs&lt;/h2&gt;&lt;p&gt;Les substances per- et polyfluoroalkylées (PFAS) sont un groupe
+                large et complexe de produits chimiques synthétiques&lt;/p&gt;
+            </translation>
+        </message>
+        <message>
+            <source>PFA_OTHER_PFAS_DESCRIPTION</source>
+            <translation>&lt;h2&gt;Autres PFAs&lt;/h2&gt;&lt;p&gt;Des exemples incluent les PFOA et PFOS. Ces substances ont
+                diverses origines et effets&lt;/p&gt;
+            </translation>
+        </message>
+        <message>
+            <source>PFA_ALL_LOCATIONS</source>
+            <translation>Toutes les localisations</translation>
+        </message>
+        <message>
+            <source>PFA_LOCATION</source>
+            <translation>Localisation</translation>
+        </message>
+        <message>
+            <source>PFA_ALL_TIME</source>
+            <translation>Toute la période</translation>
+        </message>
+        <message>
+            <source>PFA_TIME_RANGE</source>
+            <translation>Période</translation>
+        </message>
+        <message>
+            <source>PFA_ALL_POLLUTANTS</source>
+            <translation>Tous les polluants</translation>
+        </message>
+        <message>
+            <source>PFA_POLLUTANT</source>
+            <translation>Polluant</translation>
+        </message>
+        <message>
+            <source>PFA_RED_LEVEL</source>
+            <translation>Niveau rouge : &gt;10</translation>
+        </message>
+        <message>
+            <source>PFA_ORANGE_LEVEL</source>
+            <translation>Niveau orange : 5-10</translation>
+        </message>
+        <message>
+            <source>PFA_GREEN_LEVEL</source>
+            <translation>Niveau vert : &lt;5</translation>
+        </message>
+        <message>
+            <source>PFA_RED_TOOL_TIP</source>
+            <translation>Indique le niveau d'avertissement le plus élevé</translation>
+        </message>
+        <message>
+            <source>PFA_ORANGE_TOOL_TIP</source>
+            <translation>Indique un niveau d'avertissement modéré</translation>
+        </message>
+        <message>
+            <source>PFA_GREEN_TOOL_TIP</source>
+            <translation>Indique le niveau d'avertissement le plus bas ou aucun niveau d'avertissement</translation>
         </message>
     </context>
 </TS>

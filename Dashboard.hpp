@@ -1,7 +1,10 @@
 #pragma once
 
+#include <iostream>
 #include <QtWidgets>
 #include <QtCharts>
+
+#include "PFAs.hpp"
 
 class QLabel;
 class QPushButton;
@@ -77,5 +80,13 @@ private slots:
 
     void goToPFAs() {
         pages->setCurrentIndex(2);
+
+        retranslateUI();
+
+        auto page = qobject_cast<PFApage *>(pages->currentWidget());
+        if (page) {
+            std::cout << "retranslating" << std::endl;
+            page->retranslateUI();
+        }
     }
 };

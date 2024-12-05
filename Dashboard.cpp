@@ -165,6 +165,7 @@ void Dashboard::combineLayouts() {
 }
 
 void Dashboard::onLanguageChanged(int index) {
+    // Load the appropriate translation file for the language
     QString languageCode = language->currentData().toString();
 
     std::cout << "Selected language: " << languageCode.toStdString() << std::endl;
@@ -177,8 +178,12 @@ void Dashboard::onLanguageChanged(int index) {
         std::cerr << "Failed to load translation file for: " << languageCode.toStdString() << std::endl;
     }
 
-    // Re-translate the UI elements
+    // Retranslate both the dashboard and the current page
     retranslateUI();
+    auto page = qobject_cast<PFApage *>(pages->currentWidget());
+    if (page) {
+        page->retranslateUI(); // Retranslate the current page
+    }
 }
 
 void Dashboard::retranslateUI() {
@@ -194,4 +199,10 @@ void Dashboard::retranslateUI() {
     BtnDS->setText(tr("DASHBOARD_DS"));
     language->setItemText(0, tr("English"));
     language->setItemText(1, tr("French"));
+
+    // Retranslate the current page as well
+    auto page = qobject_cast<PFApage *>(pages->currentWidget());
+    if (page) {
+        page->retranslateUI();
+    }
 }

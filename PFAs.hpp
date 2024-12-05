@@ -18,6 +18,8 @@ class PFApage: public QWidget
     public:
         explicit PFApage(QWidget *parent = nullptr);
 
+        void retranslateUI();
+
     private:
         void createTitle();
         void createChart();

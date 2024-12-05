@@ -25,7 +25,6 @@ const std::string DETERMINAND_NOTATION_COLUMN = "determinand.notation";
 // Measurement createMeasurement(const csv::CSVRow &row) {
 //
 // }
-
 int levenshteinDist(const std::string &word1, const std::string &word2);
 
 void Dataset::loadDataset(const std::string &path) {
