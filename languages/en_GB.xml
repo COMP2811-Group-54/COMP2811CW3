@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+<TS version="2.1" language="en_GB">
+    <context>
+        <name>Dashboard</name>
+        <message>
+            <source>DASHBOARD_TITLE</source>
+            <translation>Water Quality Monitor</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_BUTTON</source>
+            <translation>Dashboard</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_PFAS</source>
+            <translation>PFA</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_POPS</source>
+            <translation>POPS</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_LITTER</source>
+            <translation>LITTER</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_PO</source>
+            <translation>Pollutant Overview</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_CD</source>
+            <translation>Compliance Dashboard</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_HELP</source>
+            <translation>Help</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_DS</source>
+            <translation>Data Sources</translation>
+        </message>
+        <message>
+
+        </message>
+    </context>
+</TS>

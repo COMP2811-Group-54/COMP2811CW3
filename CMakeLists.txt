@@ -26,6 +26,15 @@ target_link_libraries(waterQuality PRIVATE Qt6::Charts)
 target_link_libraries(waterQuality PRIVATE Qt6::Core)
 
 set_target_properties(waterQuality PROPERTIES
-    WIN32_EXECUTABLE ON
-    MACOSX_BUNDLE OFF
+        WIN32_EXECUTABLE ON
+        MACOSX_BUNDLE OFF
+)
+
+# Ensure precompiled .qm files are copied to the runtime directory
+file(GLOB QM_FILES "${CMAKE_SOURCE_DIR}/languages/*.qm")
+add_custom_command(
+        TARGET waterQuality POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:waterQuality>/languages
+        COMMAND ${CMAKE_COMMAND} -E copy ${QM_FILES} $<TARGET_FILE_DIR:waterQuality>/languages
+        COMMENT "Copying precompiled .qm files to runtime directory"
 )

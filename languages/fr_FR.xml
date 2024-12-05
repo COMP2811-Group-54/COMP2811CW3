@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE TS>
+
+<!-- Translated from en_GB using ChatGPT -->
+<TS version="2.1" language="fr_FR">
+    <context>
+        <name>Dashboard</name>
+        <message>
+            <source>DASHBOARD_TITLE</source>
+            <translation>Moniteur de Qualité de l'Eau</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_BUTTON</source>
+            <translation>Tableau de Bord</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_PFAS</source>
+            <translation>PFA</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_POPS</source>
+            <translation>POPS</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_LITTER</source>
+            <translation>DÉCHETS</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_PO</source>
+            <translation>Vue d'Ensemble des Polluants</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_CD</source>
+            <translation>Tableau de Bord de Conformité</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_HELP</source>
+            <translation>Aide</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_DS</source>
+            <translation>Sources de Données</translation>
+        </message>
+    </context>
+</TS>
