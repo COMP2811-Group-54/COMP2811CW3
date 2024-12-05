@@ -40,7 +40,95 @@
             <translation>Data Sources</translation>
         </message>
         <message>
+        </message>
+    </context>
 
+
+    <context>
+        <name>PFApage</name>
+        <message>
+            <source>PFA_TITLE</source>
+            <translation>Poly-fluorinated Compounds</translation>
+        </message>
+        <message>
+            <source>PFA_CHART_TITLE</source>
+            <translation>PFAs Chart</translation>
+        </message>
+        <message>
+            <source>PFA_TIME</source>
+            <translation>Time</translation>
+        </message>
+        <message>
+            <source>PFA_LEVEL</source>
+            <translation>Level</translation>
+        </message>
+        <message>
+            <source>PFA_MORE_INFO</source>
+            <translation>More Info</translation>
+        </message>
+        <message>
+            <source>PFA_VIEW_LIST</source>
+            <translation>View List</translation>
+        </message>
+        <message>
+            <source>PFA_PFAS_DESCRIPTION</source>
+            <translation>&lt;h2&gt;PFAs&lt;/h2&gt;&lt;p&gt;Per- and polyfluoroalkyl substances (PFAS) are a large,
+                complex group of synthetic chemicals&lt;/p&gt;
+            </translation>
+        </message>
+        <message>
+            <source>PFA_OTHER_PFAS_DESCRIPTION</source>
+            <translation>&lt;h2&gt;Other PFAs&lt;/h2&gt;&lt;p&gt;Examples include PFOAs and PFOS. These substances have
+                various origins and effects&lt;/p&gt;
+            </translation>
+        </message>
+        <message>
+            <source>PFA_ALL_LOCATIONS</source>
+            <translation>All Locations</translation>
+        </message>
+        <message>
+            <source>PFA_LOCATION</source>
+            <translation>Location</translation>
+        </message>
+        <message>
+            <source>PFA_ALL_TIME</source>
+            <translation>All Time</translation>
+        </message>
+        <message>
+            <source>PFA_TIME_RANGE</source>
+            <translation>Time Range</translation>
+        </message>
+        <message>
+            <source>PFA_ALL_POLLUTANTS</source>
+            <translation>All Pollutants</translation>
+        </message>
+        <message>
+            <source>PFA_POLLUTANT</source>
+            <translation>Pollutant</translation>
+        </message>
+        <message>
+            <source>PFA_RED_LEVEL</source>
+            <translation>Red Level: &gt;10</translation>
+        </message>
+        <message>
+            <source>PFA_ORANGE_LEVEL</source>
+            <translation>Orange Level: 5-10</translation>
+        </message>
+        <message>
+            <source>PFA_GREEN_LEVEL</source>
+            <translation>Green Level: &lt;5</translation>
+        </message>
+        <message>
+            <source>PFA_RED_TOOL_TIP</source>
+            <translation>Indicates the highest warning level</translation>
+        </message>
+        <message>
+            <source>PFA_ORANGE_TOOL_TIP</source>
+            <translation>Indicates a moderate warning level</translation>
+        </message>
+        <message>
+            <source>PFA_GREEN_TOOL_TIP</source>
+            <translation>Indicates the lowest or no warning level</translation>
         </message>
     </context>
 </TS>

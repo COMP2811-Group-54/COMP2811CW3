@@ -225,3 +225,19 @@ void PFApage::viewListMsgBox()
 {
   QMessageBox::information(this, "List of Poly-fluorinated Compounds", "List of PFAs");
 }
+
+void PFApage::retranslateUI() {
+    title->setText(tr("PFA_TITLE"));
+    pfas->setText(tr("PFA_PFAS_DESCRIPTION"));
+    otherPfas->setText(tr("PFA_OTHER_PFAS_DESCRIPTION"));
+    moreInfo->setText(tr("PFA_MORE_INFO"));
+    viewList->setText(tr("PFA_VIEW_LIST"));
+
+    locationLabel->setText(tr("PFA_LOCATION"));
+    timeRangeLabel->setText(tr("PFA_TIME_RANGE"));
+    pollutantLabel->setText(tr("PFA_POLLUTANT"));
+
+    red->setText(tr("PFA_COMPLIANCE_RED"));
+    orange->setText(tr("PFA_COMPLIANCE_ORANGE"));
+    green->setText(tr("PFA_COMPLIANCE_GREEN"));
+}
