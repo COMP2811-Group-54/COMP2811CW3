@@ -43,6 +43,7 @@ private:
     // QComboBox *significance; // selector for quake feed significance level
     // QComboBox *period; // selector for quake feed time period
     QPushButton *loadButton; // button to load a new CSV file
+    QPushButton *setLocationButton;
     // QPushButton *statsButton; // button to display dataset stats
     QTableView *table; // table of quake data
     QLabel *fileInfo; // status bar info on current file

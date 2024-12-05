@@ -52,15 +52,21 @@ void DataPage::createMainWidget()
 
 void DataPage::createButtons()
 {
+  setLocationButton = new QPushButton("Set Data Location");
   loadButton = new QPushButton("Load");
 
   connect(loadButton, SIGNAL(clicked()), this, SLOT(openCSV()));
+  connect(setLocationButton, SIGNAL(clicked()), this, SLOT(setDataLocation()));
 }
 
 void DataPage::setMainLayout()
 {
+  QVBoxLayout* buttons = new QVBoxLayout();
+  buttons->addWidget(setLocationButton);
+  buttons->addWidget(loadButton);
+
   QHBoxLayout* dataPage = new QHBoxLayout();
-  dataPage->addWidget(loadButton, 1);
+  dataPage->addLayout(buttons, 1);
   dataPage->addWidget(table, 9);
 
   setLayout(dataPage);
