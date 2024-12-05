@@ -10,7 +10,7 @@ class QComboBox;
 class QLabel;
 class QPushButton;
 class QTableView;
-// class StatsDialog;
+class StatsDialog;
 
 class DataPage : public QWidget 
 {
@@ -44,13 +44,15 @@ private:
     // QComboBox *period; // selector for quake feed time period
     QPushButton *loadButton; // button to load a new CSV file
     QPushButton *setLocationButton;
-    // QPushButton *statsButton; // button to display dataset stats
+    QPushButton *statsButton;
     QTableView *table; // table of quake data
     QLabel *fileInfo; // status bar info on current file
-    // StatsDialog *statsDialog; // dialog to display stats
+    StatsDialog *statsDialog; // dialog to display stats
 
 private slots:
     void setDataLocation();
 
     void openCSV();
+
+    // void displayStats();
 };

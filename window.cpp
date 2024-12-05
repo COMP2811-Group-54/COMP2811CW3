@@ -10,7 +10,7 @@
 static const int MIN_WIDTH = 620;
 
 
-DataPage::DataPage(QWidget *parent): QWidget(parent)
+DataPage::DataPage(QWidget *parent): QWidget(parent), statsDialog(nullptr)
 {
   createMainWidget();
   // createFileSelectors();
@@ -54,9 +54,11 @@ void DataPage::createButtons()
 {
   setLocationButton = new QPushButton("Set Data Location");
   loadButton = new QPushButton("Load");
+  statsButton = new QPushButton("Stats");
 
   connect(loadButton, SIGNAL(clicked()), this, SLOT(openCSV()));
   connect(setLocationButton, SIGNAL(clicked()), this, SLOT(setDataLocation()));
+  // connect(statsButton, SIGNAL(clicked()), this, SLOT(displayStats()));
 }
 
 void DataPage::setMainLayout()
@@ -64,6 +66,7 @@ void DataPage::setMainLayout()
   QVBoxLayout* buttons = new QVBoxLayout();
   buttons->addWidget(setLocationButton);
   buttons->addWidget(loadButton);
+  buttons->addWidget(statsButton);
 
   QHBoxLayout* dataPage = new QHBoxLayout();
   dataPage->addLayout(buttons, 1);
@@ -167,9 +170,9 @@ void DataPage::openCSV()
   fileInfo->setText(QString("Current file: <kbd>%1</kbd>").arg(filename));
   table->resizeColumnsToContents();
 
-  // if (statsDialog != nullptr && statsDialog->isVisible()) {
-  //   statsDialog->update();
-  // }
+  if (statsDialog != nullptr && statsDialog->isVisible()) {
+    statsDialog->update();
+  }
 }
 
 
