@@ -5,19 +5,19 @@ ComplianceChecker::ComplianceChecker()
 {
     complianceThresholds = {
         // PFAs
-        {"Perfluorooctanesulfonamide", -1},
+        {"FOSA", -1},
         {"Perfluorooctanoic", -1},
-        {"Perfluorooctanoic Acid", -1},
-        {"Perfluorohaxanesulfonamide", -1},
-        {"Perfluorodecanoic Acid", -1},
-        {"Perfluorohexanoic", -1},
-        {"Perfluoropentanoic", -1},
+        {"PFoctncAcid", -1},
+        {"PFHxSA", -1},
+        {"PFdecncAcid", -1},
+        {"PFhexncAcid", -1},
+        {"PFpentncAcid", -1},
 
         // POPs
-        {"PCB", -1},
-        {"DDT", -1},
-        {"Hexachlorobenzene", -1},
-        {"Cis-chlordane", -1},
+        {"PCB Con 052", -1},
+        {"DDT (PP)", -1},
+        {"Hexachlorbnz", -1},
+        {"Chlrdn-cs/Z/", -1},
         {"Aldrin", -1},
         {"Dieldrin", -1},
         {"Endrin", -1},
@@ -25,59 +25,51 @@ ComplianceChecker::ComplianceChecker()
         {"Carbofuran", -1},
 
         // Heavy Metals
-        {"Arsenic", 50},
-        {"Chromium(III)", 4.7},
-        {"Chromium(IV)", 3.4},
-        {"Copper", 1},
-        {"Iron", 1},
-        {"Maganese", 123},
-        {"Zinc", 10.9},
+        {"As-Filtered", 50},
+        {"Chromium -Cr", 4.7},
+        {"Copper - Cu", 1},
+        {"Iron - as Fe", 1},
+        {"Manganse-Mn", 123},
+        {"Zinc - as Zn", 10.9},
 
         // Organic Chemicals
-        {"Carbenazim", 0.15},
-        {"Chlorothalonil", 0.035},
+        {"Carbendazim", 0.15},
+        {"Chlorothalnl", 0.035},
         {"Cypermethrin", 0.1},
         {"Diazinon", 0.01},
         {"Dimethoate", 0.48},
         {"Glyphosate", 196},
         {"Linuron", 0.5},
         {"Mecoprop", 18},
-        {"Pendimethalin", 0.3},
-        {"Permethrin", 0.001},
+        {"Pendimethaln", 0.3},
+        {"Permethrn-cs", 0.001},
         {"Methiocarb", 0.01},
-        {"Benzyl butyl phthalate", 7.5},
-        {"Tetrachloroethene", 140},
+        {"BenzButPhtha", 7.5},
+        {"1122TetClEth", 140},
         {"Toluene", 74},
-        {"2,4-dichlorophenol", 4.2},
+        {"24Dichloropl", 4.2},
         {"Phenol", 7.7},
         {"Triclosan", 0.1},
         {"Chlorine", 2},
-        {"Cyanide", 1},
-        {"Fluoride", -1},
-        {"Silica", -1},
-        {"Bicorbonate", -1},
+        {"Cyanide - CN", 1},
+        {"Fluoride - F", -1},
+        {"SiO2 Rv", -1},
+        {"Bicarb HCO3", -1},
 
         // Nutrients
-        {"Nitrate", -1},
-        {"Ammonia", -1},
-        {"Phosphate", -1},
-        {"Phosphorus", -1},
+        {"Nitrate-N", -1},
+        {"Ammonia(N)", -1},
+        {"Phosphorus-P", -1},
 
         // Volatile Organic Compounds
-        {"Benzene", -1},
         {"Ethylbenzene", -1},
-        {"Xylenes", -1},
+        {"o-Xylene", -1},
         {"Chloroform", -1},
-        {"Trichloroethylene", -1},
-
-        {"Tetrachloroethylene", -1},
-        {"Perchloroethylene", -1},
-
-        {"Vinyl Chloride", -1},
-        {"Carbon Tetrachloride", -1},
-
-        {"Dichloromethane", -1},
-        {"Methylene Chloride", -1}
+        {"Trichloroeth", -1},
+        {"TetClEthene", -1},
+        {"Vinyl Cl", -1},
+        {"Carbon Tet", -1},
+        {"DiClMe", -1}
     };
 }
 
@@ -86,7 +78,7 @@ bool ComplianceChecker::complianceCheck(string name, double value) const
 {
     double threshold = complianceThresholds.at(name);
 
-    return threshold > value;
+    return threshold >= value;
 }
 
 
