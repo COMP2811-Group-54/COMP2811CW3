@@ -17,6 +17,8 @@ class PersistentOrganicPollutants: public QWidget
         Q_OBJECT
     public:
         explicit PersistentOrganicPollutants(QWidget *parent = nullptr);
+        void retranslateUI();
+
 
     private:
         void createTitle();

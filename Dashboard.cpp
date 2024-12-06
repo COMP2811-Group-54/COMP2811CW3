@@ -9,6 +9,9 @@
 #include "POPs.hpp"
 #include "PFAs.hpp"
 #include "OverviewCards.hpp"
+#include "PO.hpp"
+#include "DataPage.hpp"
+#include "CD.hpp"
 
 Dashboard::Dashboard() : QWidget(), translator(new QTranslator(this)) {
     createMainLayout();
@@ -40,16 +43,13 @@ void Dashboard::createTopLayout() {
     // Add buttons and adjust font
     BtnPFA = new QPushButton(tr("DASHBOARD_PFAS"));
     BtnPOP = new QPushButton(tr("DASHBOARD_POPS"));
-    BtnLitter = new QPushButton(tr("DASHBOARD_LITTER"));
 
     QFont topBtnFont("Arial", 22, QFont::Normal);
     BtnPFA->setFont(topBtnFont);
     BtnPOP->setFont(topBtnFont);
-    BtnLitter->setFont(topBtnFont);
 
     BtnPFA->setMinimumSize(150, 50);
     BtnPOP->setMinimumSize(150, 50);
-    BtnLitter->setMinimumSize(150, 50);
 
     // Connect buttons to slots
     connect(BtnPOP, &QPushButton::clicked, this, &Dashboard::goToPOPs);
@@ -72,8 +72,6 @@ void Dashboard::createTopLayout() {
     topLayout->addSpacing(20);
     topLayout->addWidget(BtnPOP);
     topLayout->addSpacing(20);
-    topLayout->addWidget(BtnLitter);
-    topLayout->addSpacing(20);
     topLayout->addWidget(language);
 }
 
@@ -84,19 +82,24 @@ void Dashboard::createLeftLayout() {
     BtnDashboard = new QPushButton(tr("DASHBOARD_BUTTON"));
     BtnPO = new QPushButton(tr("DASHBOARD_PO"));
     BtnCD = new QPushButton(tr("DASHBOARD_CD"));
+    BtnDP = new QPushButton("Data Page");
+
 
     BtnDashboard->setMinimumSize(200, 100);
     BtnPO->setMinimumSize(200, 100);
     BtnCD->setMinimumSize(200, 100);
+    BtnDP->setMinimumSize(200, 100);
 
     QFont sideBtnFont("Arial", 13, QFont::Bold);
     BtnDashboard->setFont(sideBtnFont);
     BtnPO->setFont(sideBtnFont);
     BtnCD->setFont(sideBtnFont);
+    BtnDP->setFont(sideBtnFont);
 
     // Add widgets to the layout
     sideLayout->addStretch();
     sideLayout->addWidget(BtnDashboard);
+    sideLayout->addWidget(BtnDP);
     sideLayout->addWidget(BtnPO);
     sideLayout->addWidget(BtnCD);
     sideLayout->addStretch(); // Push everything up
@@ -104,6 +107,9 @@ void Dashboard::createLeftLayout() {
 
     // Connect buttons to slots
     connect(BtnDashboard, &QPushButton::clicked, this, &Dashboard::goToOverviewCards);
+    connect(BtnPO, &QPushButton::clicked, this, &Dashboard::goToPO);
+    connect(BtnDP, &QPushButton::clicked, this, &Dashboard::goToDP);
+    connect(BtnCD, &QPushButton::clicked, this, &Dashboard::goToCD);
 }
 
 void Dashboard::createBottomLayout() {
@@ -130,11 +136,17 @@ void Dashboard::createStackedWidget() {
     QWidget *page1 = new OverviewCards();
     QWidget *page2 = new PersistentOrganicPollutants();
     QWidget *page3 = new PFApage();
+    QWidget *page4 = new PollutantOverview();
+    QWidget *page5 = new DataPage();
+    QWidget *page6 = new ComplianceDashboard();
 
     pages = new QStackedWidget();
     pages->addWidget(page1);
     pages->addWidget(page2);
     pages->addWidget(page3);
+    pages->addWidget(page4);
+    pages->addWidget(page5);
+    pages->addWidget(page6);
 
     pages->setMinimumSize(1250, 600);
 
@@ -191,7 +203,6 @@ void Dashboard::retranslateUI() {
     title->setText(tr("DASHBOARD_TITLE"));
     BtnPFA->setText(tr("DASHBOARD_PFAS"));
     BtnPOP->setText(tr("DASHBOARD_POPS"));
-    BtnLitter->setText(tr("DASHBOARD_LITTER"));
     BtnDashboard->setText(tr("DASHBOARD_BUTTON"));
     BtnPO->setText(tr("DASHBOARD_PO"));
     BtnCD->setText(tr("DASHBOARD_CD"));
@@ -200,9 +211,15 @@ void Dashboard::retranslateUI() {
     language->setItemText(0, tr("English"));
     language->setItemText(1, tr("French"));
 
-    // Retranslate the current page as well
+    // Retranslate the current page as well (will be updated to be more efficient)
     auto page = qobject_cast<PFApage *>(pages->currentWidget());
     if (page) {
         page->retranslateUI();
+    }
+
+    auto page_1 = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
+    if (page_1) {
+        std::cout << "retranslating" << std::endl;
+        page_1->retranslateUI();
     }
 }

@@ -1,14 +1,6 @@
-/*
-To implement:
-
-- Receiving model from DataPage
-- ComboBox options adapting to data set
-- currentPollutant label showing selected pollutant
-- currentPollutantCompliance shows compliance of selected pollutant
-- Column showing compliance of each entry
-
-*/
-
+//
+// Created by Josh Mundray on 06/12/2024.
+//
 #include <QtWidgets>
 #include <stdexcept>
 #include <iostream>

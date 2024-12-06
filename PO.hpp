@@ -15,44 +15,44 @@ class QLineEdit;
 
 class PollutantOverview: public QWidget
 {
-        Q_OBJECT
-    public:
-        explicit PollutantOverview(QWidget *parent = nullptr);
+    Q_OBJECT
+public:
+    explicit PollutantOverview(QWidget *parent = nullptr);
 
-    private:
-        void createTitle();
-        void createSearchBar();
-        void createChart();
-        void createButtons();
-        void createBoxes();
-        void createFilters();
-        void createComplianceLabels();
-        void arrangeWidgets();
+private:
+    void createTitle();
+    void createSearchBar();
+    void createChart();
+    void createButtons();
+    void createBoxes();
+    void createFilters();
+    void createComplianceLabels();
+    void arrangeWidgets();
 
-        QLabel* title;
+    QLabel* title;
 
-        QLineEdit* searchBar;
+    QLineEdit* searchBar;
 
-        QLabel* locationLabel;
-        QLabel* timeRangeLabel;
-        QLabel* pollutantLabel;
-        QComboBox* location;
-        QComboBox* timeRange;
-        QComboBox* pollutant;
+    QLabel* locationLabel;
+    QLabel* timeRangeLabel;
+    QLabel* pollutantLabel;
+    QComboBox* location;
+    QComboBox* timeRange;
+    QComboBox* pollutant;
 
-        QLabel* red;
-        QLabel* orange;
-        QLabel* green;
+    QLabel* red;
+    QLabel* orange;
+    QLabel* green;
 
-        QChartView* overviewChartView;
+    QChartView* overviewChartView;
 
-        QLabel* pcbs;
-        QLabel* otherPops;
-        QPushButton* moreInfo;
-        QPushButton* viewList;
+    QLabel* pcbs;
+    QLabel* otherPops;
+    QPushButton* moreInfo;
+    QPushButton* viewList;
 
     private slots:
         void moreInfoMsgBox();
-        void viewListMsgBox();
-        QString searchQuery();
+    void viewListMsgBox();
+    QString searchQuery();
 };

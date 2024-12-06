@@ -10,7 +10,7 @@ class QPushButton;
 class QTableView;
 class StatsDialog;
 
-class ComplianceDashboard : public QWidget 
+class ComplianceDashboard : public QWidget
 {
     Q_OBJECT
 
@@ -40,6 +40,6 @@ private:
     QLabel *fileInfo; // status bar info on current file
     StatsDialog *statsDialog; // dialog to display stats
 
-private slots:
+    private slots:
 
-};
+    };

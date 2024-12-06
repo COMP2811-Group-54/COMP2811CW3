@@ -10,7 +10,7 @@ class QPushButton;
 class QTableView;
 class StatsDialog;
 
-class DataPage : public QWidget 
+class DataPage : public QWidget
 {
     Q_OBJECT
 
@@ -32,8 +32,8 @@ private:
     QLabel *fileInfo; // status bar info on current file
     StatsDialog *statsDialog; // dialog to display stats
 
-private slots:
-    void setDataLocation();
+    private slots:
+        void setDataLocation();
 
     void openCSV();
 

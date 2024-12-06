@@ -97,7 +97,7 @@ void DataPage::openCSV()
     return;
   }
 
-  fileInfo->setText(QString("Current file: <kbd>%1</kbd>").arg(filename));
+  // fileInfo->setText(QString("Current file: <kbd>%1</kbd>").arg(filename));
   table->resizeColumnsToContents();
 
   if (statsDialog != nullptr && statsDialog->isVisible()) {

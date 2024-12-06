@@ -4,6 +4,7 @@ To implement:
 - Create line series for each PFA by feeding in each data point
 - ComboBox options adapting to data set
 - When a pollutant is selected, only their line series is shown on the chart
+- Append range for PFAs
 
 */
 
@@ -231,7 +232,6 @@ void PFApage::viewListMsgBox()
 {
   QMessageBox::information(this, "List of Poly-fluorinated Compounds", "List of PFAs");
 }
-
 void PFApage::retranslateUI() {
     title->setText(tr("PFA_TITLE"));
     pfas->setText(tr("PFA_PFAS_DESCRIPTION"));

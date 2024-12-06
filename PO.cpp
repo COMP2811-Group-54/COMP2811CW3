@@ -35,7 +35,7 @@ void PollutantOverview::createSearchBar()
 {
     searchBar = new QLineEdit();
     searchBar->setPlaceholderText("Search for pollutants");
-    
+
     connect(searchBar, &QLineEdit::returnPressed, this, &PollutantOverview::searchQuery);
 }
 
@@ -255,4 +255,4 @@ QString PollutantOverview::searchQuery()
 {
     QString query = searchBar->text();
     return query;
-} 
+}
