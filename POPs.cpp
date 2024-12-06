@@ -1,3 +1,12 @@
+/*
+To implement:
+
+- Create line series for each PFA by feeding in each data point
+- ComboBox options adapting to data set
+- When a pollutant is selected, only their line series is shown on the chart
+
+*/
+
 #include <QtWidgets>
 #include <QtCharts>
 #include <QtCore>
