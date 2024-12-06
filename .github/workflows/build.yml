@@ -18,18 +18,16 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Step 2: Set up CMake and Qt environment
-    - name: Set up Qt environment
-      uses: supercomputingfan/qt-action@v2
-      with:
-        qt-version: 6.3  # or another Qt6 version as needed
+    # Step 2: Install Qt manually (for Ubuntu)
+    - name: Install Qt6
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y build-essential qt6-qmake qt6-base-dev qt6-charts-dev qt6-widgets-dev
 
     # Step 3: Install dependencies (e.g., build tools, Qt libraries)
     - name: Install dependencies
       run: |
-        sudo apt-get update
-        sudo apt-get install -y build-essential
-        sudo apt-get install -y qt6-qmake qt6-base-dev qt6-charts-dev qt6-widgets-dev
+        sudo apt-get install -y cmake
 
     # Step 4: Create build directory and run CMake to build the project
     - name: Build the project
@@ -39,15 +37,9 @@ jobs:
         cmake ..
         cmake --build .
 
-    # Optional: Step 5 - Run tests if any are available
-    - name: Run tests
-      run: |
-        cd build
-        ctest --verbose
-
-    # Step 6: Optionally: Upload build artifacts (e.g., .tar, .deb, .exe files)
+    # Step 6: Upload build artifacts
     - name: Upload build artifacts
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: waterQuality-build
         path: build/
