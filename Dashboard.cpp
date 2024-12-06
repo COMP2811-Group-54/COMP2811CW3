@@ -32,17 +32,20 @@ void Dashboard::createMainLayout() {
 void Dashboard::createTopLayout() {
     topLayout = new QHBoxLayout();
 
-    // Add title and adjust font
+    // Add title
     title = new QLabel(tr("DASHBOARD_TITLE"));
+    title->setObjectName("title"); // Set object name for styling
 
     QFont titleFont("Arial", 30, QFont::Bold);
     title->setFont(titleFont);
     title->setAlignment(Qt::AlignLeft | Qt::AlignVCenter);
     title->setMinimumSize(300, 100);
 
-    // Add buttons and adjust font
+    // Add buttons
     BtnPFA = new QPushButton(tr("DASHBOARD_PFAS"));
     BtnPOP = new QPushButton(tr("DASHBOARD_POPS"));
+    BtnPFA->setObjectName("BtnPFA");
+    BtnPOP->setObjectName("BtnPOP");
 
     QFont topBtnFont("Arial", 22, QFont::Normal);
     BtnPFA->setFont(topBtnFont);
@@ -51,23 +54,20 @@ void Dashboard::createTopLayout() {
     BtnPFA->setMinimumSize(150, 50);
     BtnPOP->setMinimumSize(150, 50);
 
-    // Connect buttons to slots
-    connect(BtnPOP, &QPushButton::clicked, this, &Dashboard::goToPOPs);
-    connect(BtnPFA, &QPushButton::clicked, this, &Dashboard::goToPFAs);
-
-    // Add ComboBox and adjust font
+    // Add ComboBox
     language = new QComboBox();
     language->addItem("English", "en_GB");
     language->addItem("French", "fr_FR");
     language->setFont(topBtnFont);
 
-    // Connect dropdown to language change function
+    // Connect signals for buttons and language dropdown
+    connect(BtnPFA, &QPushButton::clicked, this, &Dashboard::goToPFAs);
+    connect(BtnPOP, &QPushButton::clicked, this, &Dashboard::goToPOPs);
     connect(language, &QComboBox::currentIndexChanged, this, &Dashboard::onLanguageChanged);
 
     // Add widgets to the layout
-    topLayout->addWidget(title); // Add title on the far left
+    topLayout->addWidget(title); // Add title
     topLayout->addSpacing(20);
-
     topLayout->addWidget(BtnPFA);
     topLayout->addSpacing(20);
     topLayout->addWidget(BtnPOP);
@@ -78,12 +78,15 @@ void Dashboard::createTopLayout() {
 void Dashboard::createLeftLayout() {
     sideLayout = new QVBoxLayout();
 
-    // Add buttons and adjust size and font
+    // Add buttons
     BtnDashboard = new QPushButton(tr("DASHBOARD_BUTTON"));
+    BtnDashboard->setObjectName("BtnDashboard"); // Set object name for styling
     BtnPO = new QPushButton(tr("DASHBOARD_PO"));
+    BtnPO->setObjectName("BtnPO");
     BtnCD = new QPushButton(tr("DASHBOARD_CD"));
+    BtnCD->setObjectName("BtnCD");
     BtnDP = new QPushButton("Data Page");
-
+    BtnDP->setObjectName("BtnDP");
 
     BtnDashboard->setMinimumSize(200, 100);
     BtnPO->setMinimumSize(200, 100);
@@ -96,21 +99,22 @@ void Dashboard::createLeftLayout() {
     BtnCD->setFont(sideBtnFont);
     BtnDP->setFont(sideBtnFont);
 
+    // Connect signals for side buttons to the specific functions
+    connect(BtnDashboard, &QPushButton::clicked, this, &Dashboard::goToOverviewCards);
+    connect(BtnPO, &QPushButton::clicked, this, &Dashboard::goToPO);
+    connect(BtnCD, &QPushButton::clicked, this, &Dashboard::goToCD);
+    connect(BtnDP, &QPushButton::clicked, this, &Dashboard::goToDP);
+
     // Add widgets to the layout
     sideLayout->addStretch();
     sideLayout->addWidget(BtnDashboard);
     sideLayout->addWidget(BtnDP);
     sideLayout->addWidget(BtnPO);
     sideLayout->addWidget(BtnCD);
-    sideLayout->addStretch(); // Push everything up
+    sideLayout->addStretch();
     sideLayout->setSpacing(30);
-
-    // Connect buttons to slots
-    connect(BtnDashboard, &QPushButton::clicked, this, &Dashboard::goToOverviewCards);
-    connect(BtnPO, &QPushButton::clicked, this, &Dashboard::goToPO);
-    connect(BtnDP, &QPushButton::clicked, this, &Dashboard::goToDP);
-    connect(BtnCD, &QPushButton::clicked, this, &Dashboard::goToCD);
 }
+
 
 void Dashboard::createBottomLayout() {
     bottomLayout = new QHBoxLayout();
@@ -167,7 +171,7 @@ void Dashboard::combineLayouts() {
     contentLayout->addLayout(sideLayout, 1);
     contentLayout->addLayout(stackedLayout, 6);
 
-    // Add the top, content, and bottom layouts to the main layout
+    // Add the top, content, and bottom layouts to the main.qss layout
     mainLayout->setSizeConstraint(QLayout::SetMinimumSize);
     mainLayout->addLayout(topLayout);
     mainLayout->addLayout(contentLayout);

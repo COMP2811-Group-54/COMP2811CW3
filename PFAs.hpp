@@ -12,44 +12,53 @@ class QToolTip;
 class QTextEdit;
 class QLabel;
 
-class PFApage: public QWidget
-{
-        Q_OBJECT
-    public:
-        explicit PFApage(QWidget *parent = nullptr);
+class PFApage : public QWidget {
+    Q_OBJECT
 
-        void retranslateUI();
+public:
+    explicit PFApage(QWidget *parent = nullptr);
 
-    private:
-        void createTitle();
-        void createChart();
-        void createButtons();
-        void createBoxes();
-        void createFilters();
-        void createComplianceLabels();
-        void arrangeWidgets();
+    void retranslateUI();
 
-        QLabel* title;
+    void initializeWithData();
 
-        QLabel* locationLabel;
-        QLabel* timeRangeLabel;
-        QLabel* pollutantLabel;
-        QComboBox* location;
-        QComboBox* timeRange;
-        QComboBox* pollutant;
+private:
+    void createTitle();
 
-        QLabel* red;
-        QLabel* orange;
-        QLabel* green;
+    void createChart();
 
-        QChartView* pfaChartView;
+    void createButtons();
 
-        QLabel* pfas;
-        QLabel* otherPfas;
-        QPushButton* moreInfo;
-        QPushButton* viewList;
+    void createBoxes();
 
-    private slots:
-        void moreInfoMsgBox();
-        void viewListMsgBox();
+    void createFilters();
+
+    void createComplianceLabels();
+
+    void arrangeWidgets();
+
+    QLabel *title{};
+
+    QLabel *locationLabel{};
+    QLabel *timeRangeLabel{};
+    QLabel *pollutantLabel{};
+    QComboBox *location{};
+    QComboBox *timeRange{};
+    QComboBox *pollutant{};
+
+    QLabel *red{};
+    QLabel *orange{};
+    QLabel *green{};
+
+    QChartView *pfaChartView;
+
+    QLabel *pfas{};
+    QLabel *otherPfas{};
+    QPushButton *moreInfo{};
+    QPushButton *viewList{};
+
+private slots:
+    void moreInfoMsgBox();
+
+    void viewListMsgBox();
 };

@@ -1797,7 +1797,7 @@ using shared_ummap_sink = basic_shared_mmap_sink<unsigned char>;
 #endif // MIO_SHARED_MMAP_HEADER
 
 /** @file
- *  @brief Contains the main CSV parsing algorithm and various utility functions
+ *  @brief Contains the main.qss CSV parsing algorithm and various utility functions
  */
 
 #include <algorithm>

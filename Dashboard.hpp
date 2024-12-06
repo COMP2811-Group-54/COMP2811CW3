@@ -96,6 +96,7 @@ private slots:
         if (page) {
             std::cout << "retranslating" << std::endl;
             page->retranslateUI();
+            page->initializeWithData();
         }
     }
 

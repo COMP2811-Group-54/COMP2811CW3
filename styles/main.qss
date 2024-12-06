@@ -1,0 +1,74 @@
+/* Global Background */
+QWidget {
+    background-color: #00274D;
+    color: #FFFFFF;
+}
+
+/* Title Styling */
+QLabel#title {
+    font-size: 36px;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+
+/* Buttons Styling */
+QPushButton {
+    background-color: #1E90FF;
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: bold;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+QPushButton:hover {
+    background-color: #4682B4;
+}
+
+/* ComboBox Styling */
+QComboBox {
+    background-color: #1E90FF;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+    padding: 5px;
+}
+QComboBox::drop-down {
+    border: none;
+}
+
+/* Frame for Pages */
+QFrame {
+    background-color: #003366;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+}
+
+/* Side Buttons */
+QPushButton#BtnDashboard,
+QPushButton#BtnPO,
+QPushButton#BtnCD,
+QPushButton#BtnDP {
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #1E90FF;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+}
+QPushButton#BtnDashboard:hover,
+QPushButton#BtnPO:hover,
+QPushButton#BtnCD:hover,
+QPushButton#BtnDP:hover {
+    background-color: #4682B4;
+}
+
+/* Bottom Buttons */
+QPushButton#BtnHelp,
+QPushButton#BtnDS {
+    font-size: 14px;
+    background-color: #1E90FF;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+}

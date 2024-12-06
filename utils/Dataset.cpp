@@ -9,6 +9,9 @@
 #include "Dataset.hpp"
 #include "csv.hpp"
 
+#include "Compliance.hpp"
+#include <unordered_set>
+
 // Dataset.cpp
 
 
@@ -27,28 +30,43 @@ const std::string DETERMINAND_NOTATION_COLUMN = "determinand.notation";
 // }
 int levenshteinDist(const std::string &word1, const std::string &word2);
 
+
 void Dataset::loadDataset(const std::string &path) {
     csv::CSVReader csvReader(path);
     data.clear();
 
-    int i = 0;
+    // Create a ComplianceChecker object (or make `complianceThresholds` static/public)
+    ComplianceChecker complianceChecker;
+    std::unordered_set<std::string> validCompounds;
+
+    // Fill the set with valid determinand labels from the complianceThresholds map
+    for (const auto &pair : complianceChecker.complianceThresholds) {
+        validCompounds.insert(pair.first);
+    }
+
+    // Iterate through CSV rows
     for (const auto &row: csvReader) {
-        Measurement measurement{
-            row[ID_COLUMN].get<>(),
-            row[SAMPLE_POINT_COLUMN].get<>(),
-            row[SAMPLING_POINT_LABEL_COLUMN].get<>(),
-            row[SAMPLE_DATE_TIME_COLUMN].get<>(),
-            row[DETERMINAND_LABEL_COLUMN].get<>(),
-            row[DETERMINAND_DEFINITION_COLUMN].get<>(),
-            row[DETERMINAND_UNIT_LABEL_COLUMN].get<>(),
-            row[RESULT_COLUMN].get<double>(),
-            row[DETERMINAND_NOTATION_COLUMN].get<int>()
-        };
-        data.push_back(measurement);
-        i++;
+        // Get the determinand label of the current row
+        const std::string determinandLabel = row[DETERMINAND_LABEL_COLUMN].get<>();
+
+        // Check if the determinand label is in the valid compounds set
+        if (validCompounds.find(determinandLabel) != validCompounds.end()) {
+            // If valid, create a Measurement and add it to data
+            Measurement measurement{
+                row[ID_COLUMN].get<>(),
+                row[SAMPLE_POINT_COLUMN].get<>(),
+                row[SAMPLING_POINT_LABEL_COLUMN].get<>(),
+                row[SAMPLE_DATE_TIME_COLUMN].get<>(),
+                determinandLabel,
+                row[DETERMINAND_DEFINITION_COLUMN].get<>(),
+                row[DETERMINAND_UNIT_LABEL_COLUMN].get<>(),
+                row[RESULT_COLUMN].get<double>(),
+                row[DETERMINAND_NOTATION_COLUMN].get<int>()
+            };
+            data.push_back(measurement);
+        }
     }
 }
-
 //https://en.cppreference.com/w/cpp/algorithm/find
 Measurement Dataset::getMeasurement(int determinand) {
     const auto it = std::find_if(data.begin(), data.end(), [determinand](const Measurement &m) {

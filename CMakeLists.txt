@@ -16,12 +16,16 @@ qt_add_executable(waterQuality main.cpp Dashboard.cpp OverviewCards.cpp PFAs.cpp
         utils/Dataset.hpp
         utils/Measurement.cpp
         utils/Measurement.hpp
+        utils/Compliance.cpp
+        utils/Compliance.hpp
         CD.cpp
         CD.hpp
         DataPage.cpp
         DataPage.hpp
         PO.cpp
-        PO.hpp)
+        PO.hpp
+        utils/GlobalDataModel.cpp
+        utils/GlobalDataModel.hpp)
 
 target_link_libraries(waterQuality PRIVATE Qt6::Widgets)
 target_link_libraries(waterQuality PRIVATE Qt6::Charts)
@@ -43,4 +47,13 @@ add_custom_command(
         COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:waterQuality>/languages
         COMMAND ${CMAKE_COMMAND} -E copy ${QM_FILES} $<TARGET_FILE_DIR:waterQuality>/languages
         COMMENT "Copying precompiled .qm files to runtime directory"
+)
+
+# Ensure styles/main.qss is copied to the runtime directory
+set(STYLE_FILE "${CMAKE_SOURCE_DIR}/styles/main.qss")
+add_custom_command(
+        TARGET waterQuality POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:waterQuality>/styles
+        COMMAND ${CMAKE_COMMAND} -E copy ${STYLE_FILE} $<TARGET_FILE_DIR:waterQuality>/styles
+        COMMENT "Copying main.qss stylesheet to runtime directory in the 'styles' folder"
 )

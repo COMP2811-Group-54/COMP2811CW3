@@ -1,38 +1,41 @@
-//
-// Created by Josh Mundray on 27/11/2024.
-//
 #pragma once
 #ifndef MEASUREMENT_HPP
 #define MEASUREMENT_HPP
 
 #include <string>
-
+#include <QDateTime>  // Include for QDateTime
+#include <utility>
 
 class Measurement {
 public:
-    Measurement(const std::string &id, const std::string &samplingPoint, const std::string &label,
-                const std::string &datetime,
-                const std::string &compoundName, const std::string &description, const std::string &unit, const double value, const int determinand)
-        : id(id), samplingPoint(samplingPoint), label(label), datetime(datetime),
-          compoundName(compoundName), description(description), unit(unit), value(value), compoundDeterminand(determinand) {
+    // Constructor now directly takes a datetime string and converts it
+    Measurement(std::string id, std::string samplingPoint, std::string label,
+                const std::string &datetimeStr,
+                std::string compoundName, std::string description, std::string unit, const double value,
+                const int determinand)
+        : id(std::move(id)), samplingPoint(std::move(samplingPoint)), label(std::move(label)),
+          datetime(QDateTime::fromString(QString::fromStdString(datetimeStr), "yyyy-MM-dd HH:mm:ss")),
+          compoundName(std::move(compoundName)), description(std::move(description)), unit(std::move(unit)),
+          value(value), compoundDeterminand(determinand) {
     }
 
-    std::string getId() const { return id; };
-    std::string getSamplingPoint() const { return samplingPoint; };
+    std::string getId() const { return id; }
+    std::string getSamplingPoint() const { return samplingPoint; }
     std::string getLabel() const { return label; }
-    std::string getDatetime() const { return datetime; };
-    std::string getCompoundName() const { return compoundName; };
-    std::string getDescription() const { return description; };
-    std::string getUnit() const { return unit; };
+    QDateTime getDatetime() const { return datetime; }
+    std::string getCompoundName() const { return compoundName; }
+    std::string getDescription() const { return description; }
+    std::string getUnit() const { return unit; }
 
     double getValue() const;
+
     int getCompoundDeterminand() const;
 
 private:
     std::string id;
     std::string samplingPoint;
     std::string label;
-    std::string datetime;
+    QDateTime datetime; // Now stored as QDateTime
     std::string compoundName;
     std::string description;
     std::string unit;
@@ -40,5 +43,4 @@ private:
     int compoundDeterminand;
 };
 
-
-#endif //MEASUREMENT_HPP
+#endif // MEASUREMENT_HPP

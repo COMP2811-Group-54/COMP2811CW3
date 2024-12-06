@@ -3,11 +3,11 @@ name: Build and Test Water Quality Project
 on:
   push:
     branches:
-      - main
+      - main.qss
       - develop
   pull_request:
     branches:
-      - main
+      - main.qss
       - develop
 
 jobs:

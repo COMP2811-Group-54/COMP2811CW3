@@ -1,23 +1,20 @@
-/*
-To implement:
-
-- Create line series for each PFA by feeding in each data point
-- ComboBox options adapting to data set
-- When a pollutant is selected, only their line series is shown on the chart
-- Append range for PFAs
-
-*/
-
 #include <QtWidgets>
 #include <QtCharts>
 #include <QtCore>
 #include "PFAs.hpp"
 #include "stats.hpp"
+#include "utils/Compliance.hpp"
+#include "utils/GlobalDataModel.hpp"
 
-PFApage::PFApage(QWidget *parent): QWidget(parent)
-{
+PFApage::PFApage(QWidget *parent) : QWidget(parent) {
     createTitle();
-    createChart();
+
+    // Initialize pfaChartView with a placeholder chart
+    QChart* placeholderChart = new QChart();
+    placeholderChart->setTitle("Awaiting Data...");
+    pfaChartView = new QChartView(placeholderChart);
+    pfaChartView->setMinimumSize(600, 400);
+
     createButtons();
     createBoxes();
     createFilters();
@@ -25,53 +22,14 @@ PFApage::PFApage(QWidget *parent): QWidget(parent)
     arrangeWidgets();
 }
 
-void PFApage::createTitle()
-{
+void PFApage::createTitle() {
     title = new QLabel("Poly-fluorinated Compounds");
     QFont titleFont("Arial", 20, QFont::Bold);
     title->setFont(titleFont);
     title->setAlignment(Qt::AlignCenter);
 }
 
-void PFApage::createChart()
-{
-    auto popChart = new QChart();
-
-    // Graph data initialisation
-
-    // *** Implement appending the line series with specified data points
-
-    auto series = new QLineSeries();
-    series->append(0,0);
-    series->append(10,10);
-    popChart->addSeries(series);
-
-    popChart->setTitle("PFAs Chart");
-
-    // Axis creation
-
-    // *** Implement appending ranges for pollutant selected
-
-    auto xAxis = new QValueAxis();
-    xAxis->setTitleText("Time");
-    xAxis->setRange(0,10);
-    popChart->addAxis(xAxis, Qt::AlignBottom);
-    series->attachAxis(xAxis);
-
-    auto yAxis = new QValueAxis();
-    yAxis->setTitleText("Level (ug/l)");
-    yAxis->setRange(0,10);
-    popChart->addAxis(yAxis, Qt::AlignLeft);
-    series->attachAxis(yAxis);
-
-    // Chart view creation
-
-    pfaChartView = new QChartView(popChart);
-    pfaChartView->setMinimumSize(600,400);
-}
-
-void PFApage::createButtons()
-{
+void PFApage::createButtons() {
     moreInfo = new QPushButton("More Info");
     connect(moreInfo, &QPushButton::clicked, this, &PFApage::moreInfoMsgBox);
 
@@ -79,8 +37,7 @@ void PFApage::createButtons()
     connect(viewList, &QPushButton::clicked, this, &PFApage::viewListMsgBox);
 }
 
-void PFApage::createBoxes()
-{
+void PFApage::createBoxes() {
     QFont infoBoxFont("Arial", 8);
 
     pfas = new QLabel("<h2>PFAs<h2>"
@@ -96,11 +53,7 @@ void PFApage::createBoxes()
     otherPfas->setAlignment(Qt::AlignCenter);
 }
 
-void PFApage::createFilters()
-{
-
-    // *** Edit options to apply to dataset
-
+void PFApage::createFilters() {
     QStringList locationOptions;
     locationOptions << "All locations" << "1" << "2" << "3" << "4";
     location = new QComboBox();
@@ -124,10 +77,7 @@ void PFApage::createFilters()
     pollutantLabel->setBuddy(pollutant);
 }
 
-void PFApage::createComplianceLabels()
-{
-    // *** (Save for 2nd iteration?) Implement changing threshold based on pollutant selected
-
+void PFApage::createComplianceLabels() {
     red = new QLabel("Red level: >10");
     red->setStyleSheet("background-color: red; color: white;");
     red->setToolTip("Info about red compliance level");
@@ -141,10 +91,7 @@ void PFApage::createComplianceLabels()
     green->setToolTip("Info about green compliance level");
 }
 
-void PFApage::arrangeWidgets()
-{
-    // Filters and Compliance Indicators
-
+void PFApage::arrangeWidgets() {
     QHBoxLayout* filters = new QHBoxLayout();
     filters->setSizeConstraint(QLayout::SetMinimumSize);
     filters->addWidget(locationLabel);
@@ -156,30 +103,20 @@ void PFApage::arrangeWidgets()
     filters->addWidget(pollutantLabel);
     filters->addWidget(pollutant);
 
-
     QHBoxLayout* chartContext = new QHBoxLayout();
     chartContext->setSizeConstraint(QLayout::SetMinimumSize);
     chartContext->addLayout(filters);
     chartContext->addStretch();
     chartContext->addSpacing(20);
     chartContext->addWidget(green);
-    chartContext->addSpacing(20);
-    chartContext->addStretch();
     chartContext->addWidget(orange);
-    chartContext->addSpacing(20);
-    chartContext->addStretch();
     chartContext->addWidget(red);
-    chartContext->addStretch();
-
-    // Graph layout
 
     QVBoxLayout* chart = new QVBoxLayout();
     chart->setSizeConstraint(QLayout::SetMinimumSize);
     chart->addWidget(pfaChartView, 19);
     chart->addLayout(chartContext, 1);
     chart->addStretch();
-
-    // Info box layout
 
     auto moreInfoFrame = new QFrame();
     moreInfoFrame->setFrameShape(QFrame::Box);
@@ -207,8 +144,6 @@ void PFApage::arrangeWidgets()
     info->addSpacing(50);
     info->addStretch();
 
-    // Main body layout
-
     QHBoxLayout* body = new QHBoxLayout();
     body->setSizeConstraint(QLayout::SetMinimumSize);
     body->addLayout(chart, 4);
@@ -223,15 +158,56 @@ void PFApage::arrangeWidgets()
     setLayout(layout);
 }
 
-void PFApage::moreInfoMsgBox()
-{
-  QMessageBox::information(this, "PFA Info", "more info about pfas");
+void PFApage::createChart() {
+    auto popChart = new QChart();
+    ComplianceChecker checker;
+
+    auto& dataset = GlobalDataset::instance().getDataset();
+    const auto pfas = checker.getPFAs();
+
+    for (const auto& compound : pfas) {
+        if (dataset.size() == 0) {
+            QMessageBox::warning(this, "No Data", "Dataset is empty, cannot create chart");
+            return;
+        }
+
+        auto series = new QLineSeries();
+        for (size_t i = 0; i < dataset.size(); ++i) {
+            auto measurement = dataset[i];
+            if (measurement.getCompoundName() == compound) {
+                series->append(measurement.getDatetime().toMSecsSinceEpoch(), measurement.getValue());
+            }
+        }
+        series->setName(QString::fromStdString(compound));
+        popChart->addSeries(series);
+
+        auto xAxis = new QValueAxis();
+        xAxis->setTitleText("Time");
+        popChart->addAxis(xAxis, Qt::AlignBottom);
+        series->attachAxis(xAxis);
+
+        auto yAxis = new QValueAxis();
+        yAxis->setTitleText("Level (ug/l)");
+        popChart->addAxis(yAxis, Qt::AlignLeft);
+        series->attachAxis(yAxis);
+    }
+
+    popChart->setTitle("PFAs Chart");
+    pfaChartView->setChart(popChart);
+    pfaChartView->setMinimumSize(600, 400);
 }
 
-void PFApage::viewListMsgBox()
-{
-  QMessageBox::information(this, "List of Poly-fluorinated Compounds", "List of PFAs");
+void PFApage::initializeWithData() {
+    auto& dataset = GlobalDataset::instance().getDataset();
+
+    if (dataset.size() == 0) {
+        QMessageBox::warning(this, "Data Unavailable", "Dataset is empty. Cannot create chart.");
+        return;
+    }
+
+    createChart();
 }
+
 void PFApage::retranslateUI() {
     title->setText(tr("PFA_TITLE"));
     pfas->setText(tr("PFA_PFAS_DESCRIPTION"));
@@ -246,4 +222,12 @@ void PFApage::retranslateUI() {
     red->setText(tr("PFA_COMPLIANCE_RED"));
     orange->setText(tr("PFA_COMPLIANCE_ORANGE"));
     green->setText(tr("PFA_COMPLIANCE_GREEN"));
+}
+
+void PFApage::moreInfoMsgBox() {
+    QMessageBox::information(this, "PFA Info", "more info about pfas");
+}
+
+void PFApage::viewListMsgBox() {
+    QMessageBox::information(this, "List of Poly-fluorinated Compounds", "List of PFAs");
 }

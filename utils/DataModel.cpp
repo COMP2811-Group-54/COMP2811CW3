@@ -1,7 +1,4 @@
-// COMP2811 Coursework 2: data model
-
 #include "DataModel.hpp"
-
 
 void DataModel::updateFromFile(const QString &filename) {
     beginResetModel();
@@ -9,22 +6,24 @@ void DataModel::updateFromFile(const QString &filename) {
     endResetModel();
 }
 
-
 QVariant DataModel::data(const QModelIndex &index, int role) const {
     if (!index.isValid()) {
         return QVariant();
     }
 
     if (role == Qt::TextAlignmentRole) {
-        return int (Qt::AlignRight | Qt::AlignVCenter);
+        return int(Qt::AlignRight | Qt::AlignVCenter);
     } else if (role == Qt::DisplayRole) {
         const Measurement q = dataset[index.row()];
         switch (index.column()) {
-            case 0: return QVariant(q.getCompoundName().c_str());
-            case 1: return QVariant(q.getDatetime().c_str());
-            case 2: return QVariant(q.getDescription().c_str());
+            case 0: return QVariant(QString::fromStdString(q.getCompoundName()));  // Convert std::string to QString
+            case 1: {
+                QDateTime datetime = q.getDatetime();
+                return QVariant(datetime.toString("yyyy-MM-dd HH:mm:ss"));  // Convert QDateTime to QString
+            }
+            case 2: return QVariant(QString::fromStdString(q.getDescription()));  // Convert std::string to QString
             case 3: return QVariant(q.getValue());
-            case 4: return QVariant(q.getUnit().c_str());
+            case 4: return QVariant(QString::fromStdString(q.getUnit()));  // Convert std::string to QString
             default: return QVariant("0");
         }
     }
@@ -32,13 +31,12 @@ QVariant DataModel::data(const QModelIndex &index, int role) const {
     return QVariant();
 }
 
-
 void DataModel::Query(const std::string &query) {
     Dataset queries = dataset.queryDeterminand(query);
     beginResetModel();
     dataset = queries;
     endResetModel();
-};
+}
 
 QVariant DataModel::headerData(int section, Qt::Orientation orientation, int role) const {
     if (role != Qt::DisplayRole) {
