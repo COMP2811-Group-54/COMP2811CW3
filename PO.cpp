@@ -1,22 +1,20 @@
 /*
 To implement:
 
-- Create line series for each PFA by feeding in each data point
-- ComboBox options adapting to data set
-- When a pollutant is selected, only their line series is shown on the chart
-- Append range for PFAs
+
 
 */
 
 #include <QtWidgets>
 #include <QtCharts>
 #include <QtCore>
-#include "PFAs.hpp"
+#include "PO.hpp"
 #include "stats.hpp"
 
-PFApage::PFApage(QWidget *parent): QWidget(parent)
+PollutantOverview::PollutantOverview(QWidget *parent): QWidget(parent)
 {
     createTitle();
+    createSearchBar();
     createChart();
     createButtons();
     createBoxes();
@@ -25,17 +23,25 @@ PFApage::PFApage(QWidget *parent): QWidget(parent)
     arrangeWidgets();
 }
 
-void PFApage::createTitle()
+void PollutantOverview::createTitle()
 {
-    title = new QLabel("Poly-fluorinated Compounds");
+    title = new QLabel("Pollutants Overview");
     QFont titleFont("Arial", 20, QFont::Bold);
     title->setFont(titleFont);
     title->setAlignment(Qt::AlignCenter);
 }
 
-void PFApage::createChart()
+void PollutantOverview::createSearchBar()
 {
-    auto popChart = new QChart();
+    searchBar = new QLineEdit();
+    searchBar->setPlaceholderText("Search for pollutants");
+
+    connect(searchBar, &QLineEdit::returnPressed, this, &PollutantOverview::searchQuery);
+}
+
+void PollutantOverview::createChart()
+{
+    auto overviewChart = new QChart();
 
     // Graph data initialisation
 
@@ -44,59 +50,63 @@ void PFApage::createChart()
     auto series = new QLineSeries();
     series->append(0,0);
     series->append(10,10);
-    popChart->addSeries(series);
+    overviewChart->addSeries(series);
 
-    popChart->setTitle("PFAs Chart");
+    overviewChart->setTitle("Pollutant Overview Chart");
 
     // Axis creation
 
-    // *** Implement appending ranges for pollutant selected
+    // *** Implement appending unit/ranges for pollutant selected
 
     auto xAxis = new QValueAxis();
     xAxis->setTitleText("Time");
     xAxis->setRange(0,10);
-    popChart->addAxis(xAxis, Qt::AlignBottom);
+    overviewChart->addAxis(xAxis, Qt::AlignBottom);
     series->attachAxis(xAxis);
 
     auto yAxis = new QValueAxis();
-    yAxis->setTitleText("Level (ug/l)");
+    yAxis->setTitleText("Level (mg)");
     yAxis->setRange(0,10);
-    popChart->addAxis(yAxis, Qt::AlignLeft);
+    overviewChart->addAxis(yAxis, Qt::AlignLeft);
     series->attachAxis(yAxis);
 
     // Chart view creation
 
-    pfaChartView = new QChartView(popChart);
-    pfaChartView->setMinimumSize(600,400);
+    overviewChartView = new QChartView(overviewChart);
+    overviewChartView->setMinimumSize(1000,400);
 }
 
-void PFApage::createButtons()
+void PollutantOverview::createButtons()
 {
+    // *UI Job* buttons for more info on pollutant categories
+
     moreInfo = new QPushButton("More Info");
-    connect(moreInfo, &QPushButton::clicked, this, &PFApage::moreInfoMsgBox);
+    connect(moreInfo, &QPushButton::clicked, this, &PollutantOverview::moreInfoMsgBox);
 
     viewList = new QPushButton("View List");
-    connect(viewList, &QPushButton::clicked, this, &PFApage::viewListMsgBox);
+    connect(viewList, &QPushButton::clicked, this, &PollutantOverview::viewListMsgBox);
 }
 
-void PFApage::createBoxes()
+void PollutantOverview::createBoxes()
 {
+    // *UI Job* boxes for more info on pollutant categories
+
     QFont infoBoxFont("Arial", 8);
 
-    pfas = new QLabel("<h2>PFAs<h2>"
-                      "<p>Per- and polyfluoroalkyl substances (PFAS) are a large, complex group of synthetic chemicals<p>");
-    pfas->setFont(infoBoxFont);
-    pfas->setWordWrap(true);
-    pfas->setAlignment(Qt::AlignCenter);
+    pcbs = new QLabel("<h2>PCBs (Polychlorinated Byphenyls)<h2>"
+                      "<p>PCBs are a group of man-made organic chemicals consisting of carbon, hydrogen and chlorine atoms<p>");
+    pcbs->setFont(infoBoxFont);
+    pcbs->setWordWrap(true);
+    pcbs->setAlignment(Qt::AlignCenter);
 
-    otherPfas = new QLabel("<h2>Other PFAs<h2>"
-                           "Examples include PFOAs and PFOS. These substances have various origins and effects<p>");
-    otherPfas->setFont(infoBoxFont);
-    otherPfas->setWordWrap(true);
-    otherPfas->setAlignment(Qt::AlignCenter);
+    otherPops = new QLabel("<h2>Other PollutantOverview<h2>"
+                           "Examples include DDT, chlordane and dioxins. These substances have various origins and effects<p>");
+    otherPops->setFont(infoBoxFont);
+    otherPops->setWordWrap(true);
+    otherPops->setAlignment(Qt::AlignCenter);
 }
 
-void PFApage::createFilters()
+void PollutantOverview::createFilters()
 {
 
     // *** Edit options to apply to dataset
@@ -107,7 +117,6 @@ void PFApage::createFilters()
     location->addItems(locationOptions);
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
-    locationLabel->setWordWrap(true);
 
     QStringList timeRangeOptions;
     timeRangeOptions << "All time" << "day" << "week" << "month" << "year";
@@ -122,9 +131,10 @@ void PFApage::createFilters()
     pollutant->addItems(pollutantOptions);
     pollutantLabel = new QLabel("&Pollutant:");
     pollutantLabel->setBuddy(pollutant);
+    // pollutant->setEditable(true);
 }
 
-void PFApage::createComplianceLabels()
+void PollutantOverview::createComplianceLabels()
 {
     // *** (Save for 2nd iteration?) Implement changing threshold based on pollutant selected
 
@@ -141,8 +151,14 @@ void PFApage::createComplianceLabels()
     green->setToolTip("Info about green compliance level");
 }
 
-void PFApage::arrangeWidgets()
+void PollutantOverview::arrangeWidgets()
 {
+    // Title and searchbar
+
+    QHBoxLayout* header = new QHBoxLayout();
+    header->addWidget(title);
+    header->addWidget(searchBar);
+
     // Filters and Compliance Indicators
 
     QHBoxLayout* filters = new QHBoxLayout();
@@ -175,11 +191,11 @@ void PFApage::arrangeWidgets()
 
     QVBoxLayout* chart = new QVBoxLayout();
     chart->setSizeConstraint(QLayout::SetMinimumSize);
-    chart->addWidget(pfaChartView, 19);
+    chart->addWidget(overviewChartView, 19);
     chart->addLayout(chartContext, 1);
     chart->addStretch();
 
-    // Info box layout
+    // Info box layout (*UI Job* adjust for pollutant category info boxes)
 
     auto moreInfoFrame = new QFrame();
     moreInfoFrame->setFrameShape(QFrame::Box);
@@ -187,7 +203,7 @@ void PFApage::arrangeWidgets()
     moreInfoFrame->setFixedSize(200, 200);
 
     QVBoxLayout* moreInfoLayout = new QVBoxLayout(moreInfoFrame);
-    moreInfoLayout->addWidget(pfas);
+    moreInfoLayout->addWidget(pcbs);
     moreInfoLayout->addWidget(moreInfo);
 
     auto viewListFrame = new QFrame();
@@ -196,7 +212,7 @@ void PFApage::arrangeWidgets()
     viewListFrame->setFixedSize(200, 200);
 
     QVBoxLayout* viewListLayout = new QVBoxLayout(viewListFrame);
-    viewListLayout->addWidget(otherPfas);
+    viewListLayout->addWidget(otherPops);
     viewListLayout->addWidget(viewList);
 
     QVBoxLayout* info = new QVBoxLayout();
@@ -217,33 +233,26 @@ void PFApage::arrangeWidgets()
 
     QVBoxLayout* layout = new QVBoxLayout();
     layout->setSizeConstraint(QLayout::SetMinimumSize);
-    layout->addWidget(title);
+    layout->addLayout(header);
     layout->addLayout(body);
 
     setLayout(layout);
 }
 
-void PFApage::moreInfoMsgBox()
+// *UI Job* msg boxes for pollutant categories
+
+void PollutantOverview::moreInfoMsgBox()
 {
-  QMessageBox::information(this, "PFA Info", "more info about pfas");
+  QMessageBox::information(this, "PCB Info", "more info about PCBs");
 }
 
-void PFApage::viewListMsgBox()
+void PollutantOverview::viewListMsgBox()
 {
-  QMessageBox::information(this, "List of Poly-fluorinated Compounds", "List of PFAs");
+  QMessageBox::information(this, "List of Persistent Organic Pollutants", "List of PollutantOverview");
 }
-void PFApage::retranslateUI() {
-    title->setText(tr("PFA_TITLE"));
-    pfas->setText(tr("PFA_PFAS_DESCRIPTION"));
-    otherPfas->setText(tr("PFA_OTHER_PFAS_DESCRIPTION"));
-    moreInfo->setText(tr("PFA_MORE_INFO"));
-    viewList->setText(tr("PFA_VIEW_LIST"));
 
-    locationLabel->setText(tr("PFA_LOCATION"));
-    timeRangeLabel->setText(tr("PFA_TIME_RANGE"));
-    pollutantLabel->setText(tr("PFA_POLLUTANT"));
-
-    red->setText(tr("PFA_COMPLIANCE_RED"));
-    orange->setText(tr("PFA_COMPLIANCE_ORANGE"));
-    green->setText(tr("PFA_COMPLIANCE_GREEN"));
+QString PollutantOverview::searchQuery()
+{
+    QString query = searchBar->text();
+    return query;
 }

@@ -2,9 +2,11 @@
 #include <QtCharts>
 #include <QtCore>
 #include "POPs.hpp"
-#include "stats.hpp"
 
-PersistentOrganicPollutants::PersistentOrganicPollutants(QWidget *parent): QWidget(parent)
+#include <iostream>
+
+
+PersistentOrganicPollutants::PersistentOrganicPollutants(QWidget *parent) : QWidget(parent)
 {
     createTitle();
     createChart();
@@ -14,12 +16,12 @@ PersistentOrganicPollutants::PersistentOrganicPollutants(QWidget *parent): QWidg
     createComplianceLabels();
     arrangeWidgets();
 
-    setWindowTitle("Persistent Organic Pollutants");
+    setWindowTitle(tr("POPs_WINDOW_TITLE")); // Identifier for the window title
 }
 
 void PersistentOrganicPollutants::createTitle()
 {
-    title = new QLabel("Persistent Organic Pollutants");
+    title = new QLabel(tr("POPs_TITLE")); // Identifier for the title
     QFont titleFont("Arial", 20, QFont::Bold);
     title->setFont(titleFont);
     title->setAlignment(Qt::AlignCenter);
@@ -29,45 +31,38 @@ void PersistentOrganicPollutants::createChart()
 {
     auto popChart = new QChart();
 
-    // Graph data initialisation
-
-    // *** Implement appending the line series with specified data points
-
+    // Graph data initialization
     auto series = new QLineSeries();
-    series->append(0,0);
-    series->append(10,10);
+    series->append(0, 0);
+    series->append(10, 10);
     popChart->addSeries(series);
 
-    popChart->setTitle("POPs Chart");
+    popChart->setTitle(tr("POPs_CHART_TITLE")); // Identifier for the chart title
 
     // Axis creation
-
-    // *** Implement appending ranges for pollutant selected
-
     auto xAxis = new QValueAxis();
-    xAxis->setTitleText("Time");
-    xAxis->setRange(0,10);
+    xAxis->setTitleText(tr("POPs_X_AXIS_TITLE")); // Identifier for the X-axis
+    xAxis->setRange(0, 10);
     popChart->addAxis(xAxis, Qt::AlignBottom);
     series->attachAxis(xAxis);
 
     auto yAxis = new QValueAxis();
-    yAxis->setTitleText("Level");
-    yAxis->setRange(0,10);
+    yAxis->setTitleText(tr("POPs_Y_AXIS_TITLE")); // Identifier for the Y-axis
+    yAxis->setRange(0, 10);
     popChart->addAxis(yAxis, Qt::AlignLeft);
     series->attachAxis(yAxis);
 
     // Chart view creation
-
     popChartView = new QChartView(popChart);
-    popChartView->setMinimumSize(1000,400);
+    popChartView->setMinimumSize(1000, 400);
 }
 
 void PersistentOrganicPollutants::createButtons()
 {
-    moreInfo = new QPushButton("More Info");
+    moreInfo = new QPushButton(tr("POPs_MORE_INFO")); // Identifier for "More Info"
     connect(moreInfo, &QPushButton::clicked, this, &PersistentOrganicPollutants::moreInfoMsgBox);
 
-    viewList = new QPushButton("View List");
+    viewList = new QPushButton(tr("POPs_VIEW_LIST")); // Identifier for "View List"
     connect(viewList, &QPushButton::clicked, this, &PersistentOrganicPollutants::viewListMsgBox);
 }
 
@@ -75,14 +70,12 @@ void PersistentOrganicPollutants::createBoxes()
 {
     QFont infoBoxFont("Arial", 8);
 
-    pcbs = new QLabel("<h2>PCBs (Polychlorinated Byphenyls)<h2>"
-                      "<p>PCBs are a group of man-made organic chemicals consisting of carbon, hydrogen and chlorine atoms<p>");
+    pcbs = new QLabel(tr("POPs_PCBS_INFO")); // Identifier for PCBs information
     pcbs->setFont(infoBoxFont);
     pcbs->setWordWrap(true);
     pcbs->setAlignment(Qt::AlignCenter);
 
-    otherPops = new QLabel("<h2>Other POPs<h2>"
-                           "Examples include DDT, chlordane and dioxins. These substances have various origins and effects<p>");
+    otherPops = new QLabel(tr("POPs_OTHER_INFO")); // Identifier for other POPs information
     otherPops->setFont(infoBoxFont);
     otherPops->setWordWrap(true);
     otherPops->setAlignment(Qt::AlignCenter);
@@ -90,47 +83,48 @@ void PersistentOrganicPollutants::createBoxes()
 
 void PersistentOrganicPollutants::createFilters()
 {
-
-    // *** Edit options to apply to dataset
-
+    // Location filter
     QStringList locationOptions;
-    locationOptions << "All locations" << "1" << "2" << "3" << "4";
+    locationOptions << tr("POPs_ALL_LOCATIONS") << "1" << "2" << "3" << "4"; // Identifier for "All locations"
     location = new QComboBox();
     location->addItems(locationOptions);
-    locationLabel = new QLabel("&Location:");
+    locationLabel = new QLabel(tr("POPs_LOCATION_LABEL")); // Identifier for "Location"
     locationLabel->setBuddy(location);
 
+    // Time range filter
     QStringList timeRangeOptions;
-    timeRangeOptions << "All time" << "day" << "week" << "month" << "year";
+    timeRangeOptions << tr("POPs_ALL_TIME") << tr("POPs_TIME_DAY") << tr("POPs_TIME_WEEK")
+                     << tr("POPs_TIME_MONTH") << tr("POPs_TIME_YEAR"); // Identifiers for time range options
     timeRange = new QComboBox();
     timeRange->addItems(timeRangeOptions);
-    timeRangeLabel = new QLabel("&Time Range:");
+    timeRangeLabel = new QLabel(tr("POPs_TIME_RANGE_LABEL")); // Identifier for "Time Range"
     timeRangeLabel->setBuddy(timeRange);
 
+    // Pollutant filter
     QStringList pollutantOptions;
-    pollutantOptions << "All pollutants" << "chlorine" << "ethanol";
+    pollutantOptions << tr("POPs_ALL_POLLUTANTS") << tr("POPs_POLLUTANT_CHLORINE")
+                     << tr("POPs_POLLUTANT_ETHANOL"); // Identifiers for pollutants
     pollutant = new QComboBox();
     pollutant->addItems(pollutantOptions);
-    pollutantLabel = new QLabel("&Pollutant:");
+    pollutantLabel = new QLabel(tr("POPs_POLLUTANT_LABEL")); // Identifier for "Pollutant"
     pollutantLabel->setBuddy(pollutant);
 }
 
 void PersistentOrganicPollutants::createComplianceLabels()
 {
-    // *** (Save for 2nd iteration?) Implement changing threshold based on pollutant selected
-
-    red = new QLabel("Red level: >10");
+    red = new QLabel(tr("POPs_COMPLIANCE_RED")); // Identifier for red compliance level
     red->setStyleSheet("background-color: red; color: white;");
-    red->setToolTip("Info about red compliance level");
+    red->setToolTip(tr("POPs_COMPLIANCE_RED_TOOLTIP")); // Identifier for red tooltip
 
-    orange = new QLabel("Orange level: 5-10");
+    orange = new QLabel(tr("POPs_COMPLIANCE_ORANGE")); // Identifier for orange compliance level
     orange->setStyleSheet("background-color: orange; color: white;");
-    orange->setToolTip("Info about orange compliance level");
+    orange->setToolTip(tr("POPs_COMPLIANCE_ORANGE_TOOLTIP")); // Identifier for orange tooltip
 
-    green = new QLabel("Green Level: <5");
+    green = new QLabel(tr("POPs_COMPLIANCE_GREEN")); // Identifier for green compliance level
     green->setStyleSheet("background-color: green; color: white;");
-    green->setToolTip("Info about green compliance level");
+    green->setToolTip(tr("POPs_COMPLIANCE_GREEN_TOOLTIP")); // Identifier for green tooltip
 }
+
 
 void PersistentOrganicPollutants::arrangeWidgets()
 {
@@ -222,4 +216,59 @@ void PersistentOrganicPollutants::moreInfoMsgBox()
 void PersistentOrganicPollutants::viewListMsgBox()
 {
   QMessageBox::information(this, "List of Persistent Organic Pollutants", "List of POPs");
+}
+
+void PersistentOrganicPollutants::retranslateUI()
+{
+    std::cout << "translating" << std::endl;
+    // Update the title
+    title->setText(tr("POPs_TITLE"));
+
+    // Update the chart title
+    popChartView->chart()->setTitle(tr("POPs_CHART_TITLE"));
+
+    // Update axis labels
+    auto xAxis = qobject_cast<QValueAxis *>(popChartView->chart()->axes(Qt::Horizontal).first());
+    if (xAxis) {
+        xAxis->setTitleText(tr("POPs_X_AXIS_TITLE"));
+    }
+
+    auto yAxis = qobject_cast<QValueAxis *>(popChartView->chart()->axes(Qt::Vertical).first());
+    if (yAxis) {
+        yAxis->setTitleText(tr("POPs_Y_AXIS_TITLE"));
+    }
+
+    // Update button text
+    moreInfo->setText(tr("POPs_MORE_INFO"));
+    viewList->setText(tr("POPs_VIEW_LIST"));
+
+    // Update labels in info boxes
+    pcbs->setText(tr("POPs_PCBS_INFO"));
+    otherPops->setText(tr("POPs_OTHER_INFO"));
+
+    // Update filter labels and options
+    locationLabel->setText(tr("POPs_LOCATION_LABEL"));
+    timeRangeLabel->setText(tr("POPs_TIME_RANGE_LABEL"));
+    pollutantLabel->setText(tr("POPs_POLLUTANT_LABEL"));
+
+    location->setItemText(0, tr("POPs_ALL_LOCATIONS"));
+    timeRange->setItemText(0, tr("POPs_ALL_TIME"));
+    timeRange->setItemText(1, tr("POPs_TIME_DAY"));
+    timeRange->setItemText(2, tr("POPs_TIME_WEEK"));
+    timeRange->setItemText(3, tr("POPs_TIME_MONTH"));
+    timeRange->setItemText(4, tr("POPs_TIME_YEAR"));
+
+    pollutant->setItemText(0, tr("POPs_ALL_POLLUTANTS"));
+    pollutant->setItemText(1, tr("POPs_POLLUTANT_CHLORINE"));
+    pollutant->setItemText(2, tr("POPs_POLLUTANT_ETHANOL"));
+
+    // Update compliance labels
+    red->setText(tr("POPs_COMPLIANCE_RED"));
+    red->setToolTip(tr("POPs_COMPLIANCE_RED_TOOLTIP"));
+
+    orange->setText(tr("POPs_COMPLIANCE_ORANGE"));
+    orange->setToolTip(tr("POPs_COMPLIANCE_ORANGE_TOOLTIP"));
+
+    green->setText(tr("POPs_COMPLIANCE_GREEN"));
+    green->setToolTip(tr("POPs_COMPLIANCE_GREEN_TOOLTIP"));
 }

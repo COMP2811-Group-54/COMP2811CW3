@@ -107,15 +107,15 @@
             <translation>Pollutant</translation>
         </message>
         <message>
-            <source>PFA_RED_LEVEL</source>
+            <source>PFA_COMPLIANCE_RED</source>
             <translation>Red Level: &gt;10</translation>
         </message>
         <message>
-            <source>PFA_ORANGE_LEVEL</source>
+            <source>PFA_COMPLIANCE_ORANGE</source>
             <translation>Orange Level: 5-10</translation>
         </message>
         <message>
-            <source>PFA_GREEN_LEVEL</source>
+            <source>PFA_COMPLIANCE_GREEN</source>
             <translation>Green Level: &lt;5</translation>
         </message>
         <message>
@@ -129,6 +129,81 @@
         <message>
             <source>PFA_GREEN_TOOL_TIP</source>
             <translation>Indicates the lowest or no warning level</translation>
+        </message>
+    </context>
+    <context>
+        <name>PersistentOrganicPollutants</name>
+        <message>
+            <source>POPs_WINDOW_TITLE</source>
+            <translation>Persistent Organic Pollutants</translation>
+        </message>
+        <message>
+            <source>POPs_TITLE</source>
+            <translation>Persistent Organic Pollutants</translation>
+        </message>
+        <message>
+            <source>POPs_CHART_TITLE</source>
+            <translation>POPs Chart</translation>
+        </message>
+        <message>
+            <source>POPs_X_AXIS_TITLE</source>
+            <translation>Time</translation>
+        </message>
+        <message>
+            <source>POPs_Y_AXIS_TITLE</source>
+            <translation>Level</translation>
+        </message>
+        <message>
+            <source>POPs_MORE_INFO</source>
+            <translation>More Info</translation>
+        </message>
+        <message>
+            <source>POPs_VIEW_LIST</source>
+            <translation>View List</translation>
+        </message>
+        <message>
+            <source>POPs_PCBS_INFO</source>
+            <translation>PCBs (Polychlorinated Biphenyls)</translation>
+        </message>
+        <message>
+            <source>POPs_OTHER_INFO</source>
+            <translation>Other Persistent Organic Pollutants</translation>
+        </message>
+        <message>
+            <source>POPs_ALL_LOCATIONS</source>
+            <translation>All Locations</translation>
+        </message>
+        <message>
+            <source>POPs_LOCATION_LABEL</source>
+            <translation>Location:</translation>
+        </message>
+        <message>
+            <source>POPs_ALL_TIME</source>
+            <translation>All Time</translation>
+        </message>
+        <message>
+            <source>POPs_TIME_RANGE_LABEL</source>
+            <translation>Time Range:</translation>
+        </message>
+        <message>
+            <source>POPs_ALL_POLLUTANTS</source>
+            <translation>All Pollutants</translation>
+        </message>
+        <message>
+            <source>POPs_POLLUTANT_LABEL</source>
+            <translation>Pollutant:</translation>
+        </message>
+        <message>
+            <source>POPs_COMPLIANCE_RED</source>
+            <translation>Red level: &gt;10</translation>
+        </message>
+        <message>
+            <source>POPs_COMPLIANCE_ORANGE</source>
+            <translation>Orange level: 5-10</translation>
+        </message>
+        <message>
+            <source>POPs_COMPLIANCE_GREEN</source>
+            <translation>Green Level: &lt;5</translation>
         </message>
     </context>
 </TS>

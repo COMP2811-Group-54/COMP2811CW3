@@ -5,6 +5,7 @@
 #include <QtCharts>
 
 #include "PFAs.hpp"
+#include "POPs.hpp"
 
 class QLabel;
 class QPushButton;
@@ -57,12 +58,12 @@ private:
 
     QPushButton *BtnPFA;
     QPushButton *BtnPOP;
-    QPushButton *BtnLitter;
     QPushButton *BtnHelp;
     QPushButton *BtnDS;
     QPushButton *BtnDashboard;
     QPushButton *BtnPO;
     QPushButton *BtnCD;
+    QPushButton *BtnDP;
 
     QComboBox *language;
     QTranslator *translator;
@@ -76,6 +77,14 @@ private slots:
 
     void goToPOPs() {
         pages->setCurrentIndex(1);
+
+        retranslateUI();
+
+        auto page = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
+        if (page) {
+            std::cout << "retranslating" << std::endl;
+            page->retranslateUI();
+        }
     }
 
     void goToPFAs() {
@@ -88,5 +97,17 @@ private slots:
             std::cout << "retranslating" << std::endl;
             page->retranslateUI();
         }
+    }
+
+    void goToPO() {
+        pages->setCurrentIndex(3);
+    }
+
+    void goToDP() {
+        pages->setCurrentIndex(4);
+    }
+
+    void goToCD() {
+        pages->setCurrentIndex(5);
     }
 };

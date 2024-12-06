@@ -15,15 +15,21 @@ qt_add_executable(waterQuality main.cpp Dashboard.cpp OverviewCards.cpp PFAs.cpp
         utils/dataset.cpp
         utils/Dataset.hpp
         utils/Measurement.cpp
-        utils/Measurement.hpp)
+        utils/Measurement.hpp
+        CD.cpp
+        CD.hpp
+        DataPAGE.cpp
+        DataPAGE.hpp
+        PO.cpp
+        PO.hpp)
 
 target_link_libraries(waterQuality PRIVATE Qt6::Widgets)
 target_link_libraries(waterQuality PRIVATE Qt6::Charts)
 target_link_libraries(waterQuality PRIVATE Qt6::Core)
 
-if(NOT CMAKE_BUILD_TYPE)
+if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
-endif()
+endif ()
 
 set_target_properties(waterQuality PROPERTIES
         WIN32_EXECUTABLE ON
