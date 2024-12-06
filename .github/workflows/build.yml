@@ -18,12 +18,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    # Step 2: Install Qt6 using the install-qt-action
+    # Step 2: Install Qt using install-qt-action
     - name: Install Qt
       uses: jurplel/install-qt-action@v4
       with:
-        version: '6.3.*'  # Specify the version of Qt you want to install (e.g., 6.3.x)
-        modules: 'qtcharts qtwidgets'  # Specify the required Qt modules (e.g., QtCharts, QtWidgets)
+        version: '6.3.*'  # Specify the version of Qt you want to install
+        modules: 'qtcharts'  # Only install the necessary modules (e.g., QtCharts)
 
     # Step 3: Install build tools
     - name: Install build tools
@@ -39,7 +39,13 @@ jobs:
         cmake ..
         cmake --build .
 
-    # Step 5: Upload build artifacts
+    # Optional: Step 5 - Run tests if any are available
+    - name: Run tests
+      run: |
+        cd build
+        ctest --verbose
+
+    # Step 6: Upload build artifacts
     - name: Upload build artifacts
       uses: actions/upload-artifact@v3
       with:
