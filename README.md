@@ -1,0 +1,1 @@
+[![Build and Test Water Quality Project](https://github.com/COMP2811-Group-54/COMP2811CW3/actions/workflows/build.yml/badge.svg)](https://github.com/COMP2811-Group-54/COMP2811CW3/actions/workflows/build.yml)
