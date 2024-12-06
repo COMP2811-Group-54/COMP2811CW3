@@ -18,8 +18,8 @@ qt_add_executable(waterQuality main.cpp Dashboard.cpp OverviewCards.cpp PFAs.cpp
         utils/Measurement.hpp
         CD.cpp
         CD.hpp
-        DataPAGE.cpp
-        DataPAGE.hpp
+        DataPage.cpp
+        DataPage.hpp
         PO.cpp
         PO.hpp)
 
