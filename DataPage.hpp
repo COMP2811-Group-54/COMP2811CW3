@@ -1,5 +1,3 @@
-// COMP2811 Coursework 2 sample solution: main window
-
 #pragma once
 
 #include <QMainWindow>
@@ -12,35 +10,24 @@ class QPushButton;
 class QTableView;
 class StatsDialog;
 
-class QuakeWindow : public QMainWindow {
+class DataPage : public QWidget 
+{
     Q_OBJECT
 
 public:
-    QuakeWindow();
+    explicit DataPage(QWidget *parent = nullptr);
 
 private:
-    void createMainWidget();
-
+    void createTable();
     void onTextChanged(const QString &text);
-
-    void createFileSelectors();
-
     void createButtons();
-
-    void createToolBar();
-
-    void createStatusBar();
-
-    void addFileMenu();
-
-    void addHelpMenu();
+    void setMainLayout();
 
     DataModel model; // data model used by table
     QString dataLocation; // location of CSV data files
-    QComboBox *significance; // selector for quake feed significance level
-    QComboBox *period; // selector for quake feed time period
     QPushButton *loadButton; // button to load a new CSV file
-    QPushButton *statsButton; // button to display dataset stats
+    QPushButton *setLocationButton;
+    QPushButton *statsButton;
     QTableView *table; // table of quake data
     QLabel *fileInfo; // status bar info on current file
     StatsDialog *statsDialog; // dialog to display stats
@@ -50,5 +37,5 @@ private slots:
 
     void openCSV();
 
-    void about();
+    // void displayStats();
 };

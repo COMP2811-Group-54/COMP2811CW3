@@ -1,5 +1,5 @@
-CMakeFiles/waterQuality.dir/Dashboard.cpp.o: \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.cpp \
+CMakeFiles/waterQuality.dir/PO.cpp.o: \
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PO.cpp \
  /usr/include/stdc-predef.h /usr/include/qt6/QtWidgets/QtWidgets \
  /usr/include/qt6/QtWidgets/QtWidgetsDepends \
  /usr/include/qt6/QtCore/QtCore /usr/include/qt6/QtCore/QtCoreDepends \
@@ -1043,16 +1043,6 @@ CMakeFiles/waterQuality.dir/Dashboard.cpp.o: \
  /usr/include/qt6/QtCharts/qvxymodelmapper.h \
  /usr/include/qt6/QtCharts/qxylegendmarker.h \
  /usr/include/qt6/QtCore/QtCore \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/POPs.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PFAs.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/OverviewCards.hpp \
- /usr/include/qt6/QtWidgets/QTabWidget \
  /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/PO.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/DataPage.hpp \
- /usr/include/qt6/QtWidgets/QMainWindow \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/./utils/DataModel.hpp \
- /usr/include/qt6/QtCore/QAbstractTableModel \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/./utils/Dataset.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/./utils/Measurement.hpp \
- /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/CD.hpp
+ /uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/stats.hpp \
+ /usr/include/qt6/QtWidgets/QDialog

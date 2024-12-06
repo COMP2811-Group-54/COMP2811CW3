@@ -142,6 +142,30 @@ waterQuality_autogen/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality_autogen.dir/build.make CMakeFiles/waterQuality_autogen.dir/build
 .PHONY : waterQuality_autogen/fast
 
+CD.o: CD.cpp.o
+.PHONY : CD.o
+
+# target to build an object file
+CD.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/CD.cpp.o
+.PHONY : CD.cpp.o
+
+CD.i: CD.cpp.i
+.PHONY : CD.i
+
+# target to preprocess a source file
+CD.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/CD.cpp.i
+.PHONY : CD.cpp.i
+
+CD.s: CD.cpp.s
+.PHONY : CD.s
+
+# target to generate assembly for a file
+CD.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/CD.cpp.s
+.PHONY : CD.cpp.s
+
 Dashboard.o: Dashboard.cpp.o
 .PHONY : Dashboard.o
 
@@ -165,6 +189,30 @@ Dashboard.s: Dashboard.cpp.s
 Dashboard.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/Dashboard.cpp.s
 .PHONY : Dashboard.cpp.s
+
+DataPage.o: DataPage.cpp.o
+.PHONY : DataPage.o
+
+# target to build an object file
+DataPage.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/DataPage.cpp.o
+.PHONY : DataPage.cpp.o
+
+DataPage.i: DataPage.cpp.i
+.PHONY : DataPage.i
+
+# target to preprocess a source file
+DataPage.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/DataPage.cpp.i
+.PHONY : DataPage.cpp.i
+
+DataPage.s: DataPage.cpp.s
+.PHONY : DataPage.s
+
+# target to generate assembly for a file
+DataPage.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/DataPage.cpp.s
+.PHONY : DataPage.cpp.s
 
 OverviewCards.o: OverviewCards.cpp.o
 .PHONY : OverviewCards.o
@@ -214,6 +262,30 @@ PFAs.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/PFAs.cpp.s
 .PHONY : PFAs.cpp.s
 
+PO.o: PO.cpp.o
+.PHONY : PO.o
+
+# target to build an object file
+PO.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/PO.cpp.o
+.PHONY : PO.cpp.o
+
+PO.i: PO.cpp.i
+.PHONY : PO.i
+
+# target to preprocess a source file
+PO.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/PO.cpp.i
+.PHONY : PO.cpp.i
+
+PO.s: PO.cpp.s
+.PHONY : PO.s
+
+# target to generate assembly for a file
+PO.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/PO.cpp.s
+.PHONY : PO.cpp.s
+
 POPs.o: POPs.cpp.o
 .PHONY : POPs.o
 
@@ -262,6 +334,78 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+utils/DataModel.o: utils/DataModel.cpp.o
+.PHONY : utils/DataModel.o
+
+# target to build an object file
+utils/DataModel.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/utils/DataModel.cpp.o
+.PHONY : utils/DataModel.cpp.o
+
+utils/DataModel.i: utils/DataModel.cpp.i
+.PHONY : utils/DataModel.i
+
+# target to preprocess a source file
+utils/DataModel.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/utils/DataModel.cpp.i
+.PHONY : utils/DataModel.cpp.i
+
+utils/DataModel.s: utils/DataModel.cpp.s
+.PHONY : utils/DataModel.s
+
+# target to generate assembly for a file
+utils/DataModel.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/utils/DataModel.cpp.s
+.PHONY : utils/DataModel.cpp.s
+
+utils/Measurement.o: utils/Measurement.cpp.o
+.PHONY : utils/Measurement.o
+
+# target to build an object file
+utils/Measurement.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/utils/Measurement.cpp.o
+.PHONY : utils/Measurement.cpp.o
+
+utils/Measurement.i: utils/Measurement.cpp.i
+.PHONY : utils/Measurement.i
+
+# target to preprocess a source file
+utils/Measurement.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/utils/Measurement.cpp.i
+.PHONY : utils/Measurement.cpp.i
+
+utils/Measurement.s: utils/Measurement.cpp.s
+.PHONY : utils/Measurement.s
+
+# target to generate assembly for a file
+utils/Measurement.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/utils/Measurement.cpp.s
+.PHONY : utils/Measurement.cpp.s
+
+utils/dataset.o: utils/dataset.cpp.o
+.PHONY : utils/dataset.o
+
+# target to build an object file
+utils/dataset.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/utils/dataset.cpp.o
+.PHONY : utils/dataset.cpp.o
+
+utils/dataset.i: utils/dataset.cpp.i
+.PHONY : utils/dataset.i
+
+# target to preprocess a source file
+utils/dataset.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/utils/dataset.cpp.i
+.PHONY : utils/dataset.cpp.i
+
+utils/dataset.s: utils/dataset.cpp.s
+.PHONY : utils/dataset.s
+
+# target to generate assembly for a file
+utils/dataset.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/utils/dataset.cpp.s
+.PHONY : utils/dataset.cpp.s
+
 waterQuality_autogen/mocs_compilation.o: waterQuality_autogen/mocs_compilation.cpp.o
 .PHONY : waterQuality_autogen/mocs_compilation.o
 
@@ -296,21 +440,39 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... waterQuality_autogen"
 	@echo "... waterQuality"
+	@echo "... CD.o"
+	@echo "... CD.i"
+	@echo "... CD.s"
 	@echo "... Dashboard.o"
 	@echo "... Dashboard.i"
 	@echo "... Dashboard.s"
+	@echo "... DataPage.o"
+	@echo "... DataPage.i"
+	@echo "... DataPage.s"
 	@echo "... OverviewCards.o"
 	@echo "... OverviewCards.i"
 	@echo "... OverviewCards.s"
 	@echo "... PFAs.o"
 	@echo "... PFAs.i"
 	@echo "... PFAs.s"
+	@echo "... PO.o"
+	@echo "... PO.i"
+	@echo "... PO.s"
 	@echo "... POPs.o"
 	@echo "... POPs.i"
 	@echo "... POPs.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... utils/DataModel.o"
+	@echo "... utils/DataModel.i"
+	@echo "... utils/DataModel.s"
+	@echo "... utils/Measurement.o"
+	@echo "... utils/Measurement.i"
+	@echo "... utils/Measurement.s"
+	@echo "... utils/dataset.o"
+	@echo "... utils/dataset.i"
+	@echo "... utils/dataset.s"
 	@echo "... waterQuality_autogen/mocs_compilation.o"
 	@echo "... waterQuality_autogen/mocs_compilation.i"
 	@echo "... waterQuality_autogen/mocs_compilation.s"

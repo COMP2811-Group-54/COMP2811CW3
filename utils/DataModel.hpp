@@ -3,7 +3,7 @@
 #pragma once
 
 #include <QAbstractTableModel>
-#include "dataset.hpp"
+#include "Dataset.hpp"
 
 class DataModel final : public QAbstractTableModel
 {

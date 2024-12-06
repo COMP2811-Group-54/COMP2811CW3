@@ -1,21 +1,20 @@
 /*
 To implement:
 
-- Create line series for each PFA by feeding in each data point
-- ComboBox options adapting to data set
-- When a pollutant is selected, only their line series is shown on the chart
+
 
 */
 
 #include <QtWidgets>
 #include <QtCharts>
 #include <QtCore>
-#include "POPs.hpp"
+#include "PO.hpp"
 #include "stats.hpp"
 
-PersistentOrganicPollutants::PersistentOrganicPollutants(QWidget *parent): QWidget(parent)
+PollutantOverview::PollutantOverview(QWidget *parent): QWidget(parent)
 {
     createTitle();
+    createSearchBar();
     createChart();
     createButtons();
     createBoxes();
@@ -24,17 +23,25 @@ PersistentOrganicPollutants::PersistentOrganicPollutants(QWidget *parent): QWidg
     arrangeWidgets();
 }
 
-void PersistentOrganicPollutants::createTitle()
+void PollutantOverview::createTitle()
 {
-    title = new QLabel("Persistent Organic Pollutants");
+    title = new QLabel("Pollutants Overview");
     QFont titleFont("Arial", 20, QFont::Bold);
     title->setFont(titleFont);
     title->setAlignment(Qt::AlignCenter);
 }
 
-void PersistentOrganicPollutants::createChart()
+void PollutantOverview::createSearchBar()
 {
-    auto popChart = new QChart();
+    searchBar = new QLineEdit();
+    searchBar->setPlaceholderText("Search for pollutants");
+    
+    connect(searchBar, &QLineEdit::returnPressed, this, &PollutantOverview::searchQuery);
+}
+
+void PollutantOverview::createChart()
+{
+    auto overviewChart = new QChart();
 
     // Graph data initialisation
 
@@ -43,9 +50,9 @@ void PersistentOrganicPollutants::createChart()
     auto series = new QLineSeries();
     series->append(0,0);
     series->append(10,10);
-    popChart->addSeries(series);
+    overviewChart->addSeries(series);
 
-    popChart->setTitle("POPs Chart");
+    overviewChart->setTitle("Pollutant Overview Chart");
 
     // Axis creation
 
@@ -54,32 +61,36 @@ void PersistentOrganicPollutants::createChart()
     auto xAxis = new QValueAxis();
     xAxis->setTitleText("Time");
     xAxis->setRange(0,10);
-    popChart->addAxis(xAxis, Qt::AlignBottom);
+    overviewChart->addAxis(xAxis, Qt::AlignBottom);
     series->attachAxis(xAxis);
 
     auto yAxis = new QValueAxis();
     yAxis->setTitleText("Level (mg)");
     yAxis->setRange(0,10);
-    popChart->addAxis(yAxis, Qt::AlignLeft);
+    overviewChart->addAxis(yAxis, Qt::AlignLeft);
     series->attachAxis(yAxis);
 
     // Chart view creation
 
-    popChartView = new QChartView(popChart);
-    popChartView->setMinimumSize(1000,400);
+    overviewChartView = new QChartView(overviewChart);
+    overviewChartView->setMinimumSize(1000,400);
 }
 
-void PersistentOrganicPollutants::createButtons()
+void PollutantOverview::createButtons()
 {
+    // *UI Job* buttons for more info on pollutant categories
+
     moreInfo = new QPushButton("More Info");
-    connect(moreInfo, &QPushButton::clicked, this, &PersistentOrganicPollutants::moreInfoMsgBox);
+    connect(moreInfo, &QPushButton::clicked, this, &PollutantOverview::moreInfoMsgBox);
 
     viewList = new QPushButton("View List");
-    connect(viewList, &QPushButton::clicked, this, &PersistentOrganicPollutants::viewListMsgBox);
+    connect(viewList, &QPushButton::clicked, this, &PollutantOverview::viewListMsgBox);
 }
 
-void PersistentOrganicPollutants::createBoxes()
+void PollutantOverview::createBoxes()
 {
+    // *UI Job* boxes for more info on pollutant categories
+
     QFont infoBoxFont("Arial", 8);
 
     pcbs = new QLabel("<h2>PCBs (Polychlorinated Byphenyls)<h2>"
@@ -88,14 +99,14 @@ void PersistentOrganicPollutants::createBoxes()
     pcbs->setWordWrap(true);
     pcbs->setAlignment(Qt::AlignCenter);
 
-    otherPops = new QLabel("<h2>Other POPs<h2>"
+    otherPops = new QLabel("<h2>Other PollutantOverview<h2>"
                            "Examples include DDT, chlordane and dioxins. These substances have various origins and effects<p>");
     otherPops->setFont(infoBoxFont);
     otherPops->setWordWrap(true);
     otherPops->setAlignment(Qt::AlignCenter);
 }
 
-void PersistentOrganicPollutants::createFilters()
+void PollutantOverview::createFilters()
 {
 
     // *** Edit options to apply to dataset
@@ -120,9 +131,10 @@ void PersistentOrganicPollutants::createFilters()
     pollutant->addItems(pollutantOptions);
     pollutantLabel = new QLabel("&Pollutant:");
     pollutantLabel->setBuddy(pollutant);
+    // pollutant->setEditable(true);
 }
 
-void PersistentOrganicPollutants::createComplianceLabels()
+void PollutantOverview::createComplianceLabels()
 {
     // *** (Save for 2nd iteration?) Implement changing threshold based on pollutant selected
 
@@ -139,8 +151,14 @@ void PersistentOrganicPollutants::createComplianceLabels()
     green->setToolTip("Info about green compliance level");
 }
 
-void PersistentOrganicPollutants::arrangeWidgets()
+void PollutantOverview::arrangeWidgets()
 {
+    // Title and searchbar
+
+    QHBoxLayout* header = new QHBoxLayout();
+    header->addWidget(title);
+    header->addWidget(searchBar);
+
     // Filters and Compliance Indicators
 
     QHBoxLayout* filters = new QHBoxLayout();
@@ -173,11 +191,11 @@ void PersistentOrganicPollutants::arrangeWidgets()
 
     QVBoxLayout* chart = new QVBoxLayout();
     chart->setSizeConstraint(QLayout::SetMinimumSize);
-    chart->addWidget(popChartView, 19);
+    chart->addWidget(overviewChartView, 19);
     chart->addLayout(chartContext, 1);
     chart->addStretch();
 
-    // Info box layout
+    // Info box layout (*UI Job* adjust for pollutant category info boxes)
 
     auto moreInfoFrame = new QFrame();
     moreInfoFrame->setFrameShape(QFrame::Box);
@@ -215,18 +233,26 @@ void PersistentOrganicPollutants::arrangeWidgets()
 
     QVBoxLayout* layout = new QVBoxLayout();
     layout->setSizeConstraint(QLayout::SetMinimumSize);
-    layout->addWidget(title);
+    layout->addLayout(header);
     layout->addLayout(body);
 
     setLayout(layout);
 }
 
-void PersistentOrganicPollutants::moreInfoMsgBox()
+// *UI Job* msg boxes for pollutant categories
+
+void PollutantOverview::moreInfoMsgBox()
 {
   QMessageBox::information(this, "PCB Info", "more info about PCBs");
 }
 
-void PersistentOrganicPollutants::viewListMsgBox()
+void PollutantOverview::viewListMsgBox()
 {
-  QMessageBox::information(this, "List of Persistent Organic Pollutants", "List of POPs");
+  QMessageBox::information(this, "List of Persistent Organic Pollutants", "List of PollutantOverview");
 }
+
+QString PollutantOverview::searchQuery()
+{
+    QString query = searchBar->text();
+    return query;
+} 
