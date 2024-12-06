@@ -40,7 +40,7 @@ void PersistentOrganicPollutants::createChart()
 
     // Axis creation
 
-    // *** Implement appending unit for pollutant selected
+    // *** Implement appending unit/ranges for pollutant selected
 
     auto xAxis = new QValueAxis();
     xAxis->setTitleText("Time");

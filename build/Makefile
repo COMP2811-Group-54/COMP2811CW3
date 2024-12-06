@@ -142,6 +142,30 @@ waterQuality_autogen/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality_autogen.dir/build.make CMakeFiles/waterQuality_autogen.dir/build
 .PHONY : waterQuality_autogen/fast
 
+CD.o: CD.cpp.o
+.PHONY : CD.o
+
+# target to build an object file
+CD.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/CD.cpp.o
+.PHONY : CD.cpp.o
+
+CD.i: CD.cpp.i
+.PHONY : CD.i
+
+# target to preprocess a source file
+CD.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/CD.cpp.i
+.PHONY : CD.cpp.i
+
+CD.s: CD.cpp.s
+.PHONY : CD.s
+
+# target to generate assembly for a file
+CD.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/CD.cpp.s
+.PHONY : CD.cpp.s
+
 Dashboard.o: Dashboard.cpp.o
 .PHONY : Dashboard.o
 
@@ -165,6 +189,30 @@ Dashboard.s: Dashboard.cpp.s
 Dashboard.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/Dashboard.cpp.s
 .PHONY : Dashboard.cpp.s
+
+DataPage.o: DataPage.cpp.o
+.PHONY : DataPage.o
+
+# target to build an object file
+DataPage.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/DataPage.cpp.o
+.PHONY : DataPage.cpp.o
+
+DataPage.i: DataPage.cpp.i
+.PHONY : DataPage.i
+
+# target to preprocess a source file
+DataPage.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/DataPage.cpp.i
+.PHONY : DataPage.cpp.i
+
+DataPage.s: DataPage.cpp.s
+.PHONY : DataPage.s
+
+# target to generate assembly for a file
+DataPage.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/DataPage.cpp.s
+.PHONY : DataPage.cpp.s
 
 OverviewCards.o: OverviewCards.cpp.o
 .PHONY : OverviewCards.o
@@ -382,30 +430,6 @@ waterQuality_autogen/mocs_compilation.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/waterQuality_autogen/mocs_compilation.cpp.s
 .PHONY : waterQuality_autogen/mocs_compilation.cpp.s
 
-window.o: window.cpp.o
-.PHONY : window.o
-
-# target to build an object file
-window.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/window.cpp.o
-.PHONY : window.cpp.o
-
-window.i: window.cpp.i
-.PHONY : window.i
-
-# target to preprocess a source file
-window.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/window.cpp.i
-.PHONY : window.cpp.i
-
-window.s: window.cpp.s
-.PHONY : window.s
-
-# target to generate assembly for a file
-window.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/waterQuality.dir/build.make CMakeFiles/waterQuality.dir/window.cpp.s
-.PHONY : window.cpp.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -416,9 +440,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... waterQuality_autogen"
 	@echo "... waterQuality"
+	@echo "... CD.o"
+	@echo "... CD.i"
+	@echo "... CD.s"
 	@echo "... Dashboard.o"
 	@echo "... Dashboard.i"
 	@echo "... Dashboard.s"
+	@echo "... DataPage.o"
+	@echo "... DataPage.i"
+	@echo "... DataPage.s"
 	@echo "... OverviewCards.o"
 	@echo "... OverviewCards.i"
 	@echo "... OverviewCards.s"
@@ -446,9 +476,6 @@ help:
 	@echo "... waterQuality_autogen/mocs_compilation.o"
 	@echo "... waterQuality_autogen/mocs_compilation.i"
 	@echo "... waterQuality_autogen/mocs_compilation.s"
-	@echo "... window.o"
-	@echo "... window.i"
-	@echo "... window.s"
 .PHONY : help
 
 

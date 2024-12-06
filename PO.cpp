@@ -1,3 +1,10 @@
+/*
+To implement:
+
+
+
+*/
+
 #include <QtWidgets>
 #include <QtCharts>
 #include <QtCore>
@@ -49,7 +56,7 @@ void PollutantOverview::createChart()
 
     // Axis creation
 
-    // *** Implement appending ranges for pollutant selected
+    // *** Implement appending unit/ranges for pollutant selected
 
     auto xAxis = new QValueAxis();
     xAxis->setTitleText("Time");
@@ -58,7 +65,7 @@ void PollutantOverview::createChart()
     series->attachAxis(xAxis);
 
     auto yAxis = new QValueAxis();
-    yAxis->setTitleText("Level");
+    yAxis->setTitleText("Level (mg)");
     yAxis->setRange(0,10);
     overviewChart->addAxis(yAxis, Qt::AlignLeft);
     series->attachAxis(yAxis);
@@ -124,6 +131,7 @@ void PollutantOverview::createFilters()
     pollutant->addItems(pollutantOptions);
     pollutantLabel = new QLabel("&Pollutant:");
     pollutantLabel->setBuddy(pollutant);
+    // pollutant->setEditable(true);
 }
 
 void PollutantOverview::createComplianceLabels()

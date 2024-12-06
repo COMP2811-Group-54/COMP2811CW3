@@ -1,3 +1,13 @@
+/*
+To implement:
+
+- Create line series for each PFA by feeding in each data point
+- ComboBox options adapting to data set
+- When a pollutant is selected, only their line series is shown on the chart
+- Append range for PFAs
+
+*/
+
 #include <QtWidgets>
 #include <QtCharts>
 #include <QtCore>
@@ -49,7 +59,7 @@ void PFApage::createChart()
     series->attachAxis(xAxis);
 
     auto yAxis = new QValueAxis();
-    yAxis->setTitleText("Level");
+    yAxis->setTitleText("Level (ug/l)");
     yAxis->setRange(0,10);
     popChart->addAxis(yAxis, Qt::AlignLeft);
     series->attachAxis(yAxis);
@@ -98,7 +108,6 @@ void PFApage::createFilters()
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
     locationLabel->setWordWrap(true);
-    locationLabel->setSizePolicy(QSizePolicy::Preferred, QSizePolicy::MinimumExpanding);
 
     QStringList timeRangeOptions;
     timeRangeOptions << "All time" << "day" << "week" << "month" << "year";

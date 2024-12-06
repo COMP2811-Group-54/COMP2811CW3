@@ -354,9 +354,21 @@
 	"HEADERS" : 
 	[
 		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/CD.hpp",
+			"MU",
+			"EWIEGA46WW/moc_CD.cpp",
+			null
+		],
+		[
 			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.hpp",
 			"MU",
 			"EWIEGA46WW/moc_Dashboard.cpp",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/DataPage.hpp",
+			"MU",
+			"EWIEGA46WW/moc_DataPage.cpp",
 			null
 		],
 		[
@@ -393,12 +405,6 @@
 			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/utils/Measurement.hpp",
 			"MU",
 			"7HEHEGDA3T/moc_Measurement.cpp",
-			null
-		],
-		[
-			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/window.hpp",
-			"MU",
-			"EWIEGA46WW/moc_window.cpp",
 			null
 		]
 	],
@@ -471,7 +477,17 @@
 	"SOURCES" : 
 	[
 		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/CD.cpp",
+			"MU",
+			null
+		],
+		[
 			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/Dashboard.cpp",
+			"MU",
+			null
+		],
+		[
+			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/DataPage.cpp",
 			"MU",
 			null
 		],
@@ -512,11 +528,6 @@
 		],
 		[
 			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/utils/dataset.cpp",
-			"MU",
-			null
-		],
-		[
-			"/uolstore/home/users/sc23ae/comp2811/CW3/COMP2811CW3/window.cpp",
 			"MU",
 			null
 		]

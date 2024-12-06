@@ -6,7 +6,8 @@
 #include "PFAs.hpp"
 #include "OverviewCards.hpp"
 #include "PO.hpp"
-#include "window.hpp"
+#include "DataPage.hpp"
+#include "CD.hpp"
 
 Dashboard::Dashboard(): QWidget()
 {
@@ -17,7 +18,7 @@ Dashboard::Dashboard(): QWidget()
     createStackedWidget();
     combineLayouts();
 
-    setWindowTitle("Dashboard");
+    setWindowTitle("Water Quality Monitor");
 }
 
 void Dashboard::createMainLayout()
@@ -106,6 +107,7 @@ void Dashboard::createLeftLayout()
     connect(BtnDashboard, &QPushButton::clicked, this, &Dashboard::goToOverviewCards);
     connect(BtnPO, &QPushButton::clicked, this, &Dashboard::goToPO);
     connect(BtnDP, &QPushButton::clicked, this, &Dashboard::goToDP);
+    connect(BtnCD, &QPushButton::clicked, this, &Dashboard::goToCD);
 }
 
 void Dashboard::createBottomLayout()
@@ -136,6 +138,7 @@ void Dashboard::createStackedWidget()
     QWidget *page3 = new PFApage();
     QWidget *page4 = new PollutantOverview();
     QWidget *page5 = new DataPage();
+    QWidget *page6 = new ComplianceDashboard();
 
     pages = new QStackedWidget();
     pages->addWidget(page1);
@@ -143,6 +146,7 @@ void Dashboard::createStackedWidget()
     pages->addWidget(page3);
     pages->addWidget(page4);
     pages->addWidget(page5);
+    pages->addWidget(page6);
 
     pages->setMinimumSize(1250, 600);
 

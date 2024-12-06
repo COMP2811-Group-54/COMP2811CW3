@@ -1,5 +1,3 @@
-// COMP2811 Coursework 2 sample solution: main window
-
 #pragma once
 
 #include <QMainWindow>
@@ -20,28 +18,13 @@ public:
     explicit DataPage(QWidget *parent = nullptr);
 
 private:
-    void createMainWidget();
-
+    void createTable();
     void onTextChanged(const QString &text);
-
-    // void createFileSelectors();
-
     void createButtons();
-
     void setMainLayout();
-
-    // void createToolBar();
-
-    // void createStatusBar();
-
-    // void addFileMenu();
-
-    // void addHelpMenu();
 
     DataModel model; // data model used by table
     QString dataLocation; // location of CSV data files
-    // QComboBox *significance; // selector for quake feed significance level
-    // QComboBox *period; // selector for quake feed time period
     QPushButton *loadButton; // button to load a new CSV file
     QPushButton *setLocationButton;
     QPushButton *statsButton;

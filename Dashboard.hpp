@@ -75,5 +75,9 @@ class Dashboard: public QWidget
         {
             pages->setCurrentIndex(4);
         }
+        void goToCD()
+        {
+            pages->setCurrentIndex(5);
+        }
         
 };
