@@ -74,11 +74,20 @@ ComplianceChecker::ComplianceChecker()
 }
 
 // Checks if a measurement value is compliant
-bool ComplianceChecker::complianceCheck(string name, double value) const
+int ComplianceChecker::complianceCheck(string name, double value) const
 {
     double threshold = complianceThresholds.at(name);
 
-    return threshold >= value;
+    if (value >= threshold * thresholdTolerance) {
+        return overThreshold;
+    } 
+    else if (value < threshold) {
+        return underThreshold;
+    }
+    else {
+        return atThreshold;
+    }
+    
 }
 
 
