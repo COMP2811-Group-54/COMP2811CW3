@@ -22,11 +22,4 @@ void GlobalDataModel::loadData(const std::string& filePath) {
     updateDataModel();
 }
 
-void GlobalDataModel::updateDataModel() {
-    // Logic to update the DataModel with data from Dataset
-    // This might include translating raw measurements from Dataset
-    // into a format suitable for use with a QTableView.
-
-    // Example placeholder logic:
-    // dataModel.setData(dataset.someDataConversionMethod());
-}
+void GlobalDataModel::updateDataModel() {}
