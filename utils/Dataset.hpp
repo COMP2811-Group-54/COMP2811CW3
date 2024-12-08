@@ -20,17 +20,30 @@ public:
 
     void loadDataset(const std::string &path);
 
+    std::vector<Measurement> getMeasurementsByDeterminand(const std::string &determinandLabel) const;
+
+    std::vector<Measurement> getMeasurementsBySamplingPoint(const std::string &samplingPoint) const;
+
     Measurement getMeasurement(int determinand);
 
     Dataset queryDeterminand(const std::string &query) const;;
+
     size_t size() const { return data.size(); }
     Measurement operator[](const int index) const { return data.at(index); }
+
+    std::vector<Measurement>::iterator begin() { return data.begin(); }
+    std::vector<Measurement>::iterator end() { return data.end(); }
+
+    std::vector<Measurement>::const_iterator begin() const { return data.begin(); }
+    std::vector<Measurement>::const_iterator end() const { return data.end(); }
 
 private:
     std::string filePath;
     std::vector<Measurement> data;
 
     void checkDataExists() const;
+
+    static int levenshteinDist(const std::string &word1, const std::string &word2);
 };
 
 

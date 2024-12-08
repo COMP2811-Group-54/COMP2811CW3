@@ -9,12 +9,10 @@ To implement:
 #include <QtCharts>
 #include <QtCore>
 #include "PO.hpp"
-#include "stats.hpp"
 
 PollutantOverview::PollutantOverview(QWidget *parent): QWidget(parent)
 {
     createTitle();
-    createSearchBar();
     createChart();
     createButtons();
     createBoxes();
@@ -29,14 +27,6 @@ void PollutantOverview::createTitle()
     QFont titleFont("Arial", 20, QFont::Bold);
     title->setFont(titleFont);
     title->setAlignment(Qt::AlignCenter);
-}
-
-void PollutantOverview::createSearchBar()
-{
-    searchBar = new QLineEdit();
-    searchBar->setPlaceholderText("Search for pollutants");
-
-    connect(searchBar, &QLineEdit::returnPressed, this, &PollutantOverview::searchQuery);
 }
 
 void PollutantOverview::createChart()
@@ -126,17 +116,16 @@ void PollutantOverview::createFilters()
     timeRangeLabel->setBuddy(timeRange);
 
     QStringList pollutantOptions;
-    pollutantOptions << "All pollutants" << "chlorine" << "ethanol";
-    pollutant = new QComboBox();
-    pollutant->addItems(pollutantOptions);
+    pollutantOptions << "All pollutants" << "chlorine" << "ethanol" << "fluoride" << "methanol" << "chloroform";
+    pollutant = new searchableComboBox;
+    pollutant->setOptions(pollutantOptions);
     pollutantLabel = new QLabel("&Pollutant:");
     pollutantLabel->setBuddy(pollutant);
-    // pollutant->setEditable(true);
 }
 
 void PollutantOverview::createComplianceLabels()
 {
-    // *** (Save for 2nd iteration?) Implement changing threshold based on pollutant selected
+    // *** Implement changing threshold based on pollutant selected
 
     red = new QLabel("Red level: >10");
     red->setStyleSheet("background-color: red; color: white;");
@@ -157,7 +146,6 @@ void PollutantOverview::arrangeWidgets()
 
     QHBoxLayout* header = new QHBoxLayout();
     header->addWidget(title);
-    header->addWidget(searchBar);
 
     // Filters and Compliance Indicators
 
@@ -249,10 +237,4 @@ void PollutantOverview::moreInfoMsgBox()
 void PollutantOverview::viewListMsgBox()
 {
   QMessageBox::information(this, "List of Persistent Organic Pollutants", "List of PollutantOverview");
-}
-
-QString PollutantOverview::searchQuery()
-{
-    QString query = searchBar->text();
-    return query;
 }

@@ -1,3 +1,4 @@
+// DataPage.hpp
 #pragma once
 
 #include <QMainWindow>
@@ -8,10 +9,8 @@ class QComboBox;
 class QLabel;
 class QPushButton;
 class QTableView;
-class StatsDialog;
 
-class DataPage : public QWidget
-{
+class DataPage : public QWidget {
     Q_OBJECT
 
 public:
@@ -19,23 +18,23 @@ public:
 
 private:
     void createTable();
+
     void onTextChanged(const QString &text);
+
     void createButtons();
+
     void setMainLayout();
 
-    DataModel model; // data model used by table
-    QString dataLocation; // location of CSV data files
-    QPushButton *loadButton; // button to load a new CSV file
+    DataModel &model; // Use a reference to DataModel instead of creating a new object
+    QString dataLocation;
+    QPushButton *loadButton;
     QPushButton *setLocationButton;
     QPushButton *statsButton;
-    QTableView *table; // table of quake data
-    QLabel *fileInfo; // status bar info on current file
-    StatsDialog *statsDialog; // dialog to display stats
+    QTableView *table;
+    QLabel *fileInfo;
 
-    private slots:
-        void setDataLocation();
+private slots:
+    void setDataLocation();
 
     void openCSV();
-
-    // void displayStats();
 };

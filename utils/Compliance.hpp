@@ -2,6 +2,8 @@
 
 #include <string>
 #include <unordered_map>
+#include <QStyledItemDelegate>
+#include <QPainter>
 
 using namespace std;
 
@@ -23,6 +25,12 @@ public:
         };
     }
 
+    static std::vector<std::string> getLocations() {
+        return {
+
+        };
+    }
+
     int complianceCheck(const string &name, double value) const;
 
     double getComplianceThreshold(const string &name) const { return complianceThresholds.at(name); }
@@ -33,4 +41,16 @@ private:
     int atThreshold = 2;
     int underThreshold = 1;
     double thresholdTolerance = 1.2;
+};
+
+// ComplianceDelegate class for custom rendering based on compliance
+class ComplianceDelegate : public QStyledItemDelegate {
+public:
+    explicit ComplianceDelegate(QObject *parent = nullptr);
+
+    void paint(QPainter *painter, const QStyleOptionViewItem &option,
+               const QModelIndex &index) const override;
+
+private:
+    ComplianceChecker complianceChecker; // Use ComplianceChecker for compliance logic
 };

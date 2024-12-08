@@ -13,46 +13,85 @@ class QTextEdit;
 class QLabel;
 class QLineEdit;
 
-class PollutantOverview: public QWidget
+class searchableComboBox: public QComboBox
 {
     Q_OBJECT
-public:
-    explicit PollutantOverview(QWidget *parent = nullptr);
 
-private:
-    void createTitle();
-    void createSearchBar();
-    void createChart();
-    void createButtons();
-    void createBoxes();
-    void createFilters();
-    void createComplianceLabels();
-    void arrangeWidgets();
+    public:
+        explicit searchableComboBox(QWidget *parent = nullptr) : QComboBox(parent), allOptions()
 
-    QLabel* title;
+        {
+            setEditable(true);
 
-    QLineEdit* searchBar;
+            this->lineEdit()->setPlaceholderText("Enter to reset");
 
-    QLabel* locationLabel;
-    QLabel* timeRangeLabel;
-    QLabel* pollutantLabel;
-    QComboBox* location;
-    QComboBox* timeRange;
-    QComboBox* pollutant;
+            connect(this->lineEdit(), &QLineEdit::returnPressed, this, &searchableComboBox::filterOptions);
+        }
 
-    QLabel* red;
-    QLabel* orange;
-    QLabel* green;
+        void setOptions(const QStringList &options)
+        {
+            allOptions = options;
+            clear();
+            addItems(allOptions);
+        }
 
-    QChartView* overviewChartView;
+    private slots:
+        void filterOptions()
+        {
+            QString text = this->lineEdit()->text();
 
-    QLabel* pcbs;
-    QLabel* otherPops;
-    QPushButton* moreInfo;
-    QPushButton* viewList;
+            clear();
+            for (const QString &item : allOptions) {
+                if (item.contains(text, Qt::CaseInsensitive)) {
+                    addItem(item);
+                }
+            }
+            showPopup();
+        }
+
+    private:
+        QStringList allOptions;
+};
+
+class PollutantOverview: public QWidget
+{
+        Q_OBJECT
+    public:
+        explicit PollutantOverview(QWidget *parent = nullptr);
+
+    private:
+        void createTitle();
+        void createSearchBar();
+        void createChart();
+        void createButtons();
+        void createBoxes();
+        void createFilters();
+        void createComplianceLabels();
+        void arrangeWidgets();
+
+        QLabel* title;
+
+        QLineEdit* pollutantSearchBar;
+
+        QLabel* locationLabel;
+        QLabel* timeRangeLabel;
+        QLabel* pollutantLabel;
+        QComboBox* location;
+        QComboBox* timeRange;
+        searchableComboBox* pollutant;
+
+        QLabel* red;
+        QLabel* orange;
+        QLabel* green;
+
+        QChartView* overviewChartView;
+
+        QLabel* pcbs;
+        QLabel* otherPops;
+        QPushButton* moreInfo;
+        QPushButton* viewList;
 
     private slots:
         void moreInfoMsgBox();
-    void viewListMsgBox();
-    QString searchQuery();
+        void viewListMsgBox();
 };

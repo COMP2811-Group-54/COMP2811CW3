@@ -5,6 +5,8 @@
 #include <string.h>
 #include <math.h>
 #include <algorithm>
+#include <unordered_map>
+#include <vector>
 
 #include "Dataset.hpp"
 #include "csv.hpp"
@@ -25,33 +27,30 @@ const std::string DETERMINAND_UNIT_LABEL_COLUMN = "determinand.unit.label";
 const std::string RESULT_COLUMN = "result";
 const std::string DETERMINAND_NOTATION_COLUMN = "determinand.notation";
 
-// Measurement createMeasurement(const csv::CSVRow &row) {
-//
-// }
-int levenshteinDist(const std::string &word1, const std::string &word2);
-
+// Additional index maps
+std::unordered_map<std::string, std::vector<Measurement> > measurementsByDeterminand;
+std::unordered_map<std::string, std::vector<Measurement> > measurementsBySamplingPoint;
 
 void Dataset::loadDataset(const std::string &path) {
     csv::CSVReader csvReader(path);
     data.clear();
+    measurementsByDeterminand.clear();
+    measurementsBySamplingPoint.clear();
 
-    // Create a ComplianceChecker object (or make `complianceThresholds` static/public)
     ComplianceChecker complianceChecker;
     std::unordered_set<std::string> validCompounds;
 
     // Fill the set with valid determinand labels from the complianceThresholds map
-    for (const auto &pair : complianceChecker.complianceThresholds) {
+    for (const auto &pair: complianceChecker.complianceThresholds) {
         validCompounds.insert(pair.first);
     }
 
     // Iterate through CSV rows
     for (const auto &row: csvReader) {
-        // Get the determinand label of the current row
         const std::string determinandLabel = row[DETERMINAND_LABEL_COLUMN].get<>();
+        const std::string samplingPoint = row[SAMPLING_POINT_LABEL_COLUMN].get<>();
 
-        // Check if the determinand label is in the valid compounds set
         if (validCompounds.find(determinandLabel) != validCompounds.end()) {
-            // If valid, create a Measurement and add it to data
             Measurement measurement{
                 row[ID_COLUMN].get<>(),
                 row[SAMPLE_POINT_COLUMN].get<>(),
@@ -64,16 +63,31 @@ void Dataset::loadDataset(const std::string &path) {
                 row[DETERMINAND_NOTATION_COLUMN].get<int>()
             };
             data.push_back(measurement);
+
+            // Populate index maps
+            measurementsByDeterminand[determinandLabel].push_back(measurement);
+            measurementsBySamplingPoint[samplingPoint].push_back(measurement);
         }
     }
 }
-//https://en.cppreference.com/w/cpp/algorithm/find
-Measurement Dataset::getMeasurement(int determinand) {
-    const auto it = std::find_if(data.begin(), data.end(), [determinand](const Measurement &m) {
-        return m.getCompoundDeterminand() == determinand;
-    });
-    return *it;
+
+// https://cplusplus.com/reference/algorithm/find/
+std::vector<Measurement> Dataset::getMeasurementsByDeterminand(const std::string &determinandLabel) const {
+    auto it = measurementsByDeterminand.find(determinandLabel);
+    if (it != measurementsByDeterminand.end()) {
+        return it->second;
+    }
+    return {}; // Return an empty vector if not found
 }
+
+std::vector<Measurement> Dataset::getMeasurementsBySamplingPoint(const std::string &samplingPoint) const {
+    auto it = measurementsBySamplingPoint.find(samplingPoint);
+    if (it != measurementsBySamplingPoint.end()) {
+        return it->second;
+    }
+    return {}; // Return an empty vector if not found
+}
+
 
 Dataset Dataset::queryDeterminand(const std::string &query) const {
     if (query.empty()) {
@@ -81,7 +95,7 @@ Dataset Dataset::queryDeterminand(const std::string &query) const {
     }
 
     std::unordered_map<std::string, int> distanceCache;
-    std::vector<std::pair<Measurement, int>> distances;
+    std::vector<std::pair<Measurement, int> > distances;
 
     for (const auto &m: data) {
         const std::string compoundName = m.getCompoundName();
@@ -100,7 +114,7 @@ Dataset Dataset::queryDeterminand(const std::string &query) const {
               });
 
     std::vector<Measurement> sorted_measurements;
-    for (const auto &[measurement, distance] : distances) {
+    for (const auto &[measurement, distance]: distances) {
         if (distance <= 5) {
             sorted_measurements.push_back(measurement);
         }
@@ -117,7 +131,7 @@ void Dataset::checkDataExists() const {
 
 // https://github.com/guilhermeagostinelli/levenshtein/blob/master/levenshtein.cpp
 // Returns the Levenshtein distance between word1 and word2.
-int levenshteinDist(const std::string &word1, const std::string &word2) {
+int Dataset::levenshteinDist(const std::string &word1, const std::string &word2) {
     int size1 = word1.size();
     int size2 = word2.size();
     std::vector<std::vector<int> > verif(size1 + 1, std::vector<int>(size2 + 1)); // Use dynamic allocation with vector

@@ -1,21 +1,33 @@
+// GlobalDataModel.hpp
 #pragma once
+#include "./DataModel.hpp"
 #include "Dataset.hpp"
 
-class GlobalDataset {
+class GlobalDataModel {
 public:
     // Access the singleton instance
-    static GlobalDataset& instance();
+    static GlobalDataModel& instance();
 
-    // Getter for the Dataset
+    // Getter for the DataModel - the model to be used in different UI components
+    DataModel& getDataModel();
+
+    // Getter for the Dataset - for data loading and accessing raw data
     Dataset& getDataset();
 
+    // Functions to load and update dataset
+    void loadData(const std::string& filePath);
+
 private:
-    GlobalDataset() = default;  // Private constructor
-    ~GlobalDataset() = default;  // Destructor
+    GlobalDataModel() = default;
+    ~GlobalDataModel() = default;
 
     // Delete copy constructor and assignment operator to prevent copying
-    GlobalDataset(const GlobalDataset&) = delete;
-    GlobalDataset& operator=(const GlobalDataset&) = delete;
+    GlobalDataModel(const GlobalDataModel&) = delete;
+    GlobalDataModel& operator=(const GlobalDataModel&) = delete;
 
-    Dataset dataset;  // Instance of Dataset managed globally
+    DataModel dataModel;  // Instance of DataModel managed globally
+    Dataset dataset;      // Instance of Dataset managed globally
+
+    // Method to update DataModel from Dataset
+    void updateDataModel();
 };

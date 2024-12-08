@@ -1,8 +1,7 @@
 #include "Compliance.hpp"
 
 // Constructor populates map with pollutant names and thresholds
-ComplianceChecker::ComplianceChecker() 
-{
+ComplianceChecker::ComplianceChecker() {
     complianceThresholds = {
         // PFAs
         {"FOSA", -1},
@@ -74,8 +73,7 @@ ComplianceChecker::ComplianceChecker()
 }
 
 // Checks if a measurement value is compliant
-int ComplianceChecker::complianceCheck(const string& name, double value) const
-{
+int ComplianceChecker::complianceCheck(const string &name, double value) const {
     const double threshold = complianceThresholds.at(name);
 
     if (value >= threshold * thresholdTolerance) {
@@ -87,4 +85,36 @@ int ComplianceChecker::complianceCheck(const string& name, double value) const
     return atThreshold;
 }
 
+// Constructor for ComplianceDelegate
+ComplianceDelegate::ComplianceDelegate(QObject *parent)
+    : QStyledItemDelegate(parent), complianceChecker() {
+}
 
+void ComplianceDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
+                               const QModelIndex &index) const {
+    QVariant value = index.data(Qt::DisplayRole);
+
+    if (index.column() == 3) {
+        // Assuming column 3 is for values
+        QString name = index.sibling(index.row(), 0).data().toString(); // Column 0 has names
+        double value = index.data().toDouble();
+
+        int complianceStatus = complianceChecker.complianceCheck(name.toStdString(), value);
+        QColor backgroundColor;
+
+        switch (complianceStatus) {
+            case 1: backgroundColor = Qt::green;
+                break;
+            case 2: backgroundColor = Qt::yellow;
+                break;
+            case 3: backgroundColor = Qt::red;
+                break;
+            default: backgroundColor = Qt::white;
+                break;
+        }
+
+        painter->fillRect(option.rect, backgroundColor);
+    }
+
+    QStyledItemDelegate::paint(painter, option, index);
+}

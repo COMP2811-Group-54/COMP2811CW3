@@ -2,7 +2,9 @@
 #include <QtCharts>
 #include <QtCore>
 #include "PFAs.hpp"
-#include "stats.hpp"
+
+#include <iostream>
+
 #include "utils/Compliance.hpp"
 #include "utils/GlobalDataModel.hpp"
 
@@ -55,7 +57,7 @@ void PFApage::createBoxes() {
 
 void PFApage::createFilters() {
     QStringList locationOptions;
-    locationOptions << "All locations" << "1" << "2" << "3" << "4";
+    locationOptions << "1" << "2" << "3" << "4";
     location = new QComboBox();
     location->addItems(locationOptions);
     locationLabel = new QLabel("&Location:");
@@ -159,46 +161,60 @@ void PFApage::arrangeWidgets() {
 }
 
 void PFApage::createChart() {
-    auto popChart = new QChart();
-    ComplianceChecker checker;
+    // Ensure chart is empty before adding new series
+    auto pfaChart = new QChart();
+    pfaChart->removeAllSeries();
 
-    auto& dataset = GlobalDataset::instance().getDataset();
+    ComplianceChecker checker;
+    auto& dataset = GlobalDataModel::instance().getDataset();
     const auto pfas = checker.getPFAs();
 
-    for (const auto& compound : pfas) {
-        if (dataset.size() == 0) {
-            QMessageBox::warning(this, "No Data", "Dataset is empty, cannot create chart");
-            return;
-        }
+    // Create axes once outside the loop
+    auto xAxis = new QValueAxis();
+    xAxis->setTitleText("Time");
+    pfaChart->addAxis(xAxis, Qt::AlignBottom);
 
-        auto series = new QLineSeries();
-        for (size_t i = 0; i < dataset.size(); ++i) {
-            auto measurement = dataset[i];
-            if (measurement.getCompoundName() == compound) {
-                series->append(measurement.getDatetime().toMSecsSinceEpoch(), measurement.getValue());
-            }
-        }
-        series->setName(QString::fromStdString(compound));
-        popChart->addSeries(series);
+    auto yAxis = new QValueAxis();
+    yAxis->setTitleText("Level (ug/l)");
+    yAxis->setRange(0.0, 0.0025); // Set an appropriate range for y-axis
+    yAxis->setTickCount(10);
+    yAxis->setLabelFormat("%.4f"); // Shows four decimal places
 
-        auto xAxis = new QValueAxis();
-        xAxis->setTitleText("Time");
-        popChart->addAxis(xAxis, Qt::AlignBottom);
-        series->attachAxis(xAxis);
+    pfaChart->addAxis(yAxis, Qt::AlignLeft);
 
-        auto yAxis = new QValueAxis();
-        yAxis->setTitleText("Level (ug/l)");
-        popChart->addAxis(yAxis, Qt::AlignLeft);
-        series->attachAxis(yAxis);
+    if (dataset.size() == 0) {
+        QMessageBox::warning(this, "No Data", "Dataset is empty, cannot create chart");
+        return;
     }
 
-    popChart->setTitle("PFAs Chart");
-    pfaChartView->setChart(popChart);
+    for (const auto& compound : pfas) {
+        auto* series = new QLineSeries();
+        bool seriesHasData = false;
+
+        for (const auto& measurement : dataset) {
+            if (measurement.getCompoundName() == compound) {
+                std::cout << measurement.getValue() << std::endl;
+                series->append(measurement.getDatetime().toMSecsSinceEpoch(), measurement.getValue());
+                seriesHasData = true;
+            }
+        }
+
+        if (seriesHasData) { // Add series only if it has data
+            series->setName(QString::fromStdString(compound));
+            pfaChart->addSeries(series);
+            series->attachAxis(xAxis);
+            series->attachAxis(yAxis);
+        } else {
+            delete series; // Clean up if not used
+        }
+    }
+
+    pfaChart->setTitle("PFAs Chart");
+    pfaChartView->setChart(pfaChart);
     pfaChartView->setMinimumSize(600, 400);
 }
-
 void PFApage::initializeWithData() {
-    auto& dataset = GlobalDataset::instance().getDataset();
+    auto& dataset = GlobalDataModel::instance().getDataset();
 
     if (dataset.size() == 0) {
         QMessageBox::warning(this, "Data Unavailable", "Dataset is empty. Cannot create chart.");

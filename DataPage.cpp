@@ -2,13 +2,15 @@
 #include <stdexcept>
 #include <iostream>
 #include "DataPage.hpp"
-#include "stats.hpp"
 #include "./utils/DataModel.hpp"
-#include "utils/GlobalDataModel.hpp"
+#include "./utils/GlobalDataModel.hpp"
 
 static const int MIN_WIDTH = 620;
 
-DataPage::DataPage(QWidget *parent) : QWidget(parent), statsDialog(nullptr) {
+// DataPage.cpp
+DataPage::DataPage(QWidget *parent)
+    : QWidget(parent),
+      model(GlobalDataModel::instance().getDataModel()) {  // Use reference from GlobalDataModel
     createTable();
     createButtons();
     setMainLayout();
@@ -70,16 +72,13 @@ void DataPage::openCSV() {
 
     try {
         // Load the dataset into GlobalDataset
-        GlobalDataset::instance().getDataset().loadDataset(path.toStdString());
+        GlobalDataModel::instance().getDataset().loadDataset(path.toStdString());
 
         // Update model for table view using the same data
         model.updateFromFile(path);
 
         // Refresh the table view
         table->resizeColumnsToContents();
-        if (statsDialog != nullptr && statsDialog->isVisible()) {
-            statsDialog->update();
-        }
     } catch (const std::exception& error) {
         QMessageBox::critical(this, "CSV File Error", error.what());
     }

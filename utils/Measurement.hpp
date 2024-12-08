@@ -14,7 +14,7 @@ public:
                 std::string compoundName, std::string description, std::string unit, const double value,
                 const int determinand)
         : id(std::move(id)), samplingPoint(std::move(samplingPoint)), label(std::move(label)),
-          datetime(QDateTime::fromString(QString::fromStdString(datetimeStr), "yyyy-MM-dd HH:mm:ss")),
+          datetime(QDateTime::fromString(QString::fromStdString(datetimeStr), "yyyy-MM-dd'T'HH:mm:ss")),
           compoundName(std::move(compoundName)), description(std::move(description)), unit(std::move(unit)),
           value(value), compoundDeterminand(determinand) {
     }
