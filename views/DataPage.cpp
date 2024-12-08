@@ -1,16 +1,20 @@
 #include <QtWidgets>
-#include <stdexcept>
+#include <QDir>
+#include <QInputDialog>
+#include <QMessageBox>
 #include <iostream>
 #include "DataPage.hpp"
 #include "../utils/DataModel.hpp"
 #include "../utils/GlobalDataModel.hpp"
+
 
 static const int MIN_WIDTH = 620;
 
 // DataPage.cpp
 DataPage::DataPage(QWidget *parent)
     : QWidget(parent),
-      model(GlobalDataModel::instance().getDataModel()) {  // Use reference from GlobalDataModel
+      model(GlobalDataModel::instance().getDataModel()) {
+    // Use reference from GlobalDataModel
     createTable();
     createButtons();
     setMainLayout();
@@ -34,16 +38,30 @@ void DataPage::createButtons() {
 
     connect(loadButton, &QPushButton::clicked, this, &DataPage::openCSV);
     connect(setLocationButton, &QPushButton::clicked, this, &DataPage::setDataLocation);
-    // connect(statsButton, &QPushButton::clicked, this, &DataPage::displayStats);
+    connect(statsButton, &QPushButton::clicked, this, &DataPage::displayStats);
+}
+
+void DataPage::displayStats() {
+    int rowCount = model.rowCount(QModelIndex());
+    int columnCount = model.columnCount(QModelIndex());
+    // Assuming each cell is a QVariant and calculating data size roughly
+    int dataSize = rowCount * columnCount * sizeof(QVariant);
+
+    QString stats = QString("Rows: %1\nColumns: %2\nData Size: ~%3 bytes\n")
+            .arg(rowCount)
+            .arg(columnCount)
+            .arg(dataSize);
+
+    QMessageBox::information(this, "Dataset Statistics", stats);
 }
 
 void DataPage::setMainLayout() {
-    QVBoxLayout* buttons = new QVBoxLayout();
+    QVBoxLayout *buttons = new QVBoxLayout();
     buttons->addWidget(setLocationButton);
     buttons->addWidget(loadButton);
     buttons->addWidget(statsButton);
 
-    QHBoxLayout* dataPage = new QHBoxLayout();
+    QHBoxLayout *dataPage = new QHBoxLayout();
     dataPage->addLayout(buttons, 1);
     dataPage->addWidget(table, 9);
 
@@ -63,23 +81,44 @@ void DataPage::setDataLocation() {
 void DataPage::openCSV() {
     if (dataLocation.isEmpty()) {
         QMessageBox::critical(this, "Data Location Error",
-            "Data location has not been set!\nSpecify via the Set Data Location button.");
+                              "Data location has not been set!\nSpecify via the Set Data Location button.");
         return;
     }
 
-    QString filename = "Y-2024.csv";  // Or prompt for a file name
+    QDir dir(dataLocation);
+    QStringList filePattern = {"Y-*.csv"};
+    QFileInfoList fileList = dir.entryInfoList(filePattern, QDir::Files);
+
+    if (fileList.isEmpty()) {
+        QMessageBox::warning(this, "No CSV Files Found",
+                             "No CSV files found with the pattern Y-[YEAR].csv in the selected directory.");
+        return;
+    }
+
+    QString filename;
+    if (fileList.size() == 1) {
+        filename = fileList.first().fileName();
+    } else {
+        QStringList fileNames;
+        for (const QFileInfo &fileInfo: fileList) {
+            fileNames << fileInfo.fileName();
+        }
+
+        bool ok;
+        filename = QInputDialog::getItem(this, "Select CSV File",
+                                         "Choose a file:", fileNames, 0, false, &ok);
+        if (!ok) {
+            return; // If the user cancels the operation
+        }
+    }
+
     QString path = dataLocation + "/" + filename;
 
     try {
-        // Load the dataset into GlobalDataset
         GlobalDataModel::instance().getDataset().loadDataset(path.toStdString());
-
-        // Update model for table view using the same data
         model.updateFromFile(path);
-
-        // Refresh the table view
         table->resizeColumnsToContents();
-    } catch (const std::exception& error) {
+    } catch (const std::exception &error) {
         QMessageBox::critical(this, "CSV File Error", error.what());
     }
 }

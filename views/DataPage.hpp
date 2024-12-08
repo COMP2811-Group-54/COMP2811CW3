@@ -26,7 +26,7 @@ private:
     void setMainLayout();
 
     DataModel &model; // Use a reference to DataModel instead of creating a new object
-    QString dataLocation;
+    QString dataLocation = "./data/";
     QPushButton *loadButton;
     QPushButton *setLocationButton;
     QPushButton *statsButton;
@@ -37,4 +37,6 @@ private slots:
     void setDataLocation();
 
     void openCSV();
+
+    void displayStats();
 };

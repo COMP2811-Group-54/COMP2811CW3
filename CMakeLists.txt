@@ -57,3 +57,12 @@ add_custom_command(
         COMMAND ${CMAKE_COMMAND} -E copy ${STYLE_FILE} $<TARGET_FILE_DIR:waterQuality>/styles
         COMMENT "Copying main.qss stylesheet to runtime directory in the 'styles' folder"
 )
+
+# Ensure all data files are copied to the runtime directory
+file(GLOB DATA_FILE "${CMAKE_SOURCE_DIR}/data/*.csv")
+add_custom_command(
+        TARGET waterQuality POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:waterQuality>/data
+        COMMAND ${CMAKE_COMMAND} -E copy ${DATA_FILE} $<TARGET_FILE_DIR:waterQuality>/data
+        COMMENT "Copying all data files to runtime directory in the 'data' folder"
+)
