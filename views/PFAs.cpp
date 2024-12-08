@@ -5,8 +5,8 @@
 
 #include <iostream>
 
-#include "utils/Compliance.hpp"
-#include "utils/GlobalDataModel.hpp"
+#include "../utils/Compliance.hpp"
+#include "../utils/GlobalDataModel.hpp"
 
 PFApage::PFApage(QWidget *parent) : QWidget(parent) {
     createTitle();

@@ -3,8 +3,8 @@
 #pragma once
 
 #include <QMainWindow>
-#include "./utils/DataModel.hpp"
-#include "./utils/Compliance.hpp" // Include necessary header
+#include "../utils/DataModel.hpp"
+#include "../utils/Compliance.hpp" // Include necessary header
 
 class QString;
 class QComboBox;

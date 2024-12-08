@@ -6,8 +6,8 @@
 #include <iostream>
 #include "CD.hpp"
 #include "DataPage.hpp"
-#include "./utils/GlobalDataModel.hpp"
-#include "./utils/Compliance.hpp"
+#include "../utils/GlobalDataModel.hpp"
+#include "../utils/Compliance.hpp"
 
 static const int MIN_WIDTH = 620;
 

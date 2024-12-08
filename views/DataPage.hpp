@@ -2,7 +2,7 @@
 #pragma once
 
 #include <QMainWindow>
-#include "./utils/DataModel.hpp"
+#include "../utils/DataModel.hpp"
 
 class QString;
 class QComboBox;

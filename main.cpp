@@ -1,7 +1,7 @@
 #include <iostream>
 #include <QtWidgets>
 #include <QFile>
-#include "Dashboard.hpp"
+#include "views/Dashboard.hpp"
 
 int main(int argc, char *argv[]) {
     QApplication app(argc, argv);
