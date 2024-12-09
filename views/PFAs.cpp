@@ -58,8 +58,8 @@ void PFApage::createBoxes() {
 void PFApage::createFilters() {
     QStringList locationOptions;
     locationOptions << "1" << "2" << "3" << "4";
-    location = new QComboBox();
-    location->addItems(locationOptions);
+    location = new searchableComboBox();
+    location->setOptions(locationOptions);
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
     locationLabel->setWordWrap(true);
@@ -73,8 +73,8 @@ void PFApage::createFilters() {
 
     QStringList pollutantOptions;
     pollutantOptions << "All pollutants" << "chlorine" << "ethanol";
-    pollutant = new QComboBox();
-    pollutant->addItems(pollutantOptions);
+    pollutant = new searchableComboBox();
+    pollutant->setOptions(pollutantOptions);
     pollutantLabel = new QLabel("&Pollutant:");
     pollutantLabel->setBuddy(pollutant);
 }

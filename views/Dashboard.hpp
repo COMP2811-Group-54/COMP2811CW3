@@ -3,6 +3,7 @@
 #include <iostream>
 #include <QtWidgets>
 #include <QtCharts>
+#include <QShortcut>
 
 #include "PFAs.hpp"
 #include "POPs.hpp"
@@ -17,6 +18,7 @@ class QGridLayout;
 class QStackedWidget;
 class QFrame;
 class QTranslator;
+class QShortcut;
 
 class Dashboard : public QWidget {
     Q_OBJECT
@@ -116,4 +118,8 @@ private slots:
     void goToGH() {
         pages->setCurrentIndex(6);
     }
+
+    void helpMsgBox();
+
+    void dataSourcesMsgBox();
 };

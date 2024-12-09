@@ -2,6 +2,7 @@
 
 #include <QtWidgets>
 #include <QtCharts>
+#include "PO.hpp"
 
 
 class QComboBox;
@@ -42,9 +43,9 @@ private:
     QLabel *locationLabel{};
     QLabel *timeRangeLabel{};
     QLabel *pollutantLabel{};
-    QComboBox *location{};
+    searchableComboBox *location{};
     QComboBox *timeRange{};
-    QComboBox *pollutant{};
+    searchableComboBox *pollutant{};
 
     QLabel *red{};
     QLabel *orange{};
@@ -57,8 +58,8 @@ private:
     QPushButton *moreInfo{};
     QPushButton *viewList{};
 
-private slots:
-    void moreInfoMsgBox();
+    private slots:
+        void moreInfoMsgBox();
 
     void viewListMsgBox();
 };

@@ -30,6 +30,49 @@ void Dashboard::createMainLayout() {
     mainLayout = new QVBoxLayout(centralWidget);
 }
 
+void Dashboard::createStackedWidget() {
+    stackedLayout = new QVBoxLayout();
+    stackedLayout->setSizeConstraint(QLayout::SetMinimumSize);
+    OverviewCards *page1 = new OverviewCards();
+    PersistentOrganicPollutants *page2 = new PersistentOrganicPollutants();
+    PFApage *page3 = new PFApage();
+    PollutantOverview *page4 = new PollutantOverview();
+    DataPage *page5 = new DataPage();
+    ComplianceDashboard *page6 = new ComplianceDashboard();
+    GeographicalHotspotsPage *page7 = new GeographicalHotspotsPage();
+
+
+    pages = new QStackedWidget();
+    pages->addWidget(page1);
+    pages->addWidget(page2);
+    pages->addWidget(page3);
+    pages->addWidget(page4);
+    pages->addWidget(page5);
+    pages->addWidget(page6);
+    pages->addWidget(page7);
+
+    connect(page1, &OverviewCards::goToPOPs, this, [this]() {
+        pages->setCurrentIndex(1);
+    });
+
+    connect(page1, &OverviewCards::goToPFAs, this, [this]() {
+        pages->setCurrentIndex(2);
+    });
+
+    connect(page1, &OverviewCards::goToPO, this, [this]() {
+        pages->setCurrentIndex(3);
+    });
+
+    connect(page1, &OverviewCards::goToCD, this, [this]() {
+        pages->setCurrentIndex(4);
+    });
+
+
+    pages->setMinimumSize(1250, 600);
+
+    stackedLayout->addWidget(pages);
+}
+
 void Dashboard::createTopLayout() {
     topLayout = new QHBoxLayout();
 
@@ -43,15 +86,23 @@ void Dashboard::createTopLayout() {
     title->setMinimumSize(300, 100);
 
     // Add buttons
+    BtnPO = new QPushButton(tr("DASHBOARD_PO"));
+    BtnPO->setObjectName("BtnPO");
     BtnPFA = new QPushButton(tr("DASHBOARD_PFAS"));
     BtnPOP = new QPushButton(tr("DASHBOARD_POPS"));
     BtnPFA->setObjectName("BtnPFA");
     BtnPOP->setObjectName("BtnPOP");
+    QShortcut *POsc = new QShortcut(QKeySequence("2"), this);
+    QShortcut *PFAsc = new QShortcut(QKeySequence("3"), this);
+    QShortcut *POPsc = new QShortcut(QKeySequence("4"), this);
+
 
     QFont topBtnFont("Arial", 22, QFont::Normal);
     BtnPFA->setFont(topBtnFont);
     BtnPOP->setFont(topBtnFont);
+    BtnPO->setFont(topBtnFont);
 
+    BtnPO->setMinimumSize(150, 50);
     BtnPFA->setMinimumSize(150, 50);
     BtnPOP->setMinimumSize(150, 50);
 
@@ -59,17 +110,22 @@ void Dashboard::createTopLayout() {
     language = new QComboBox();
     language->addItem("English", "en_GB");
     language->addItem("French", "fr_FR");
-    language->addItem("Manx", "gv_IM");
-
     language->setFont(topBtnFont);
+    language->setFixedSize(150, 50);
 
     // Connect signals for buttons and language dropdown
+    connect(BtnPO, &QPushButton::clicked, this, &Dashboard::goToPO);
+    connect(POsc, &QShortcut::activated, BtnPO, &QPushButton::click);
     connect(BtnPFA, &QPushButton::clicked, this, &Dashboard::goToPFAs);
+    connect(PFAsc, &QShortcut::activated, BtnPFA, &QPushButton::click);
     connect(BtnPOP, &QPushButton::clicked, this, &Dashboard::goToPOPs);
+    connect(POPsc, &QShortcut::activated, BtnPOP, &QPushButton::click);
     connect(language, &QComboBox::currentIndexChanged, this, &Dashboard::onLanguageChanged);
 
     // Add widgets to the layout
     topLayout->addWidget(title); // Add title
+    topLayout->addSpacing(20);
+    topLayout->addWidget(BtnPO);
     topLayout->addSpacing(20);
     topLayout->addWidget(BtnPFA);
     topLayout->addSpacing(20);
@@ -84,8 +140,6 @@ void Dashboard::createLeftLayout() {
     // Add buttons
     BtnDashboard = new QPushButton(tr("DASHBOARD_BUTTON"));
     BtnDashboard->setObjectName("BtnDashboard"); // Set object name for styling
-    BtnPO = new QPushButton(tr("DASHBOARD_PO"));
-    BtnPO->setObjectName("BtnPO");
     BtnCD = new QPushButton(tr("DASHBOARD_CD"));
     BtnCD->setObjectName("BtnCD");
     BtnDP = new QPushButton("Data Page");
@@ -93,36 +147,46 @@ void Dashboard::createLeftLayout() {
     BtnGH = new QPushButton("Geographical Hotspots");
     BtnGH->setObjectName("BtnGH");
 
-    BtnDashboard->setMinimumSize(200, 100);
-    BtnPO->setMinimumSize(200, 100);
+    QShortcut *DASHsc = new QShortcut(QKeySequence("1"), this);
+    QShortcut *DPsc = new QShortcut(QKeySequence("5"), this);
+    QShortcut *CDsc = new QShortcut(QKeySequence("6"), this);
+    QShortcut *GHsc = new QShortcut(QKeySequence("7"), this);
+
+    connect(DASHsc, &QShortcut::activated, BtnDashboard, &QPushButton::click);
+    connect(DPsc, &QShortcut::activated, BtnDP, &QPushButton::click);
+    connect(CDsc, &QShortcut::activated, BtnCD, &QPushButton::click);
+    connect(GHsc, &QShortcut::activated, BtnGH, &QPushButton::click);
+
+    BtnDashboard->setMinimumSize(200, 200);
     BtnCD->setMinimumSize(200, 100);
     BtnDP->setMinimumSize(200, 100);
     BtnGH->setMinimumSize(200, 100);
 
     QFont sideBtnFont("Arial", 13, QFont::Bold);
     BtnDashboard->setFont(sideBtnFont);
-    BtnPO->setFont(sideBtnFont);
     BtnCD->setFont(sideBtnFont);
     BtnDP->setFont(sideBtnFont);
     BtnGH->setFont(sideBtnFont);
 
-
     // Connect signals for side buttons to the specific functions
     connect(BtnDashboard, &QPushButton::clicked, this, &Dashboard::goToOverviewCards);
-    connect(BtnPO, &QPushButton::clicked, this, &Dashboard::goToPO);
     connect(BtnCD, &QPushButton::clicked, this, &Dashboard::goToCD);
     connect(BtnDP, &QPushButton::clicked, this, &Dashboard::goToDP);
     connect(BtnGH, &QPushButton::clicked, this, &Dashboard::goToGH);
 
     // Add widgets to the layout
-    sideLayout->addStretch();
+    // sideLayout->addStretch();
+    sideLayout->addSpacing(15);
     sideLayout->addWidget(BtnDashboard);
-    sideLayout->addWidget(BtnDP);
-    sideLayout->addWidget(BtnPO);
-    sideLayout->addWidget(BtnCD);
-    sideLayout->addWidget(BtnGH);
     sideLayout->addStretch();
-    sideLayout->setSpacing(30);
+    sideLayout->addWidget(BtnDP);
+    sideLayout->addSpacing(20);
+    sideLayout->addWidget(BtnCD);
+    sideLayout->addSpacing(20);
+    sideLayout->addStretch();
+    sideLayout->addWidget(BtnGH);
+    sideLayout->addSpacing(20);
+    sideLayout->addStretch();
 }
 
 
@@ -131,7 +195,9 @@ void Dashboard::createBottomLayout() {
 
     // Add buttons and adjust font
     BtnHelp = new QPushButton(tr("DASHBOARD_HELP"));
+    connect(BtnHelp, &QPushButton::clicked, this, &Dashboard::helpMsgBox);
     BtnDS = new QPushButton(tr("DASHBOARD_DS"));
+    connect(BtnDS, &QPushButton::clicked, this, &Dashboard::dataSourcesMsgBox);
 
     QFont bottomBtnFont("Arial", 10, QFont::Normal);
     BtnHelp->setFont(bottomBtnFont);
@@ -142,38 +208,6 @@ void Dashboard::createBottomLayout() {
     bottomLayout->addWidget(BtnHelp);
     bottomLayout->addWidget(BtnDS);
     bottomLayout->addStretch();
-}
-
-void Dashboard::createStackedWidget() {
-    stackedLayout = new QVBoxLayout();
-    stackedLayout->setSizeConstraint(QLayout::SetMinimumSize);
-    QWidget *page1 = new OverviewCards();
-    QWidget *page2 = new PersistentOrganicPollutants();
-    QWidget *page3 = new PFApage();
-    QWidget *page4 = new PollutantOverview();
-    QWidget *page5 = new DataPage();
-    QWidget *page6 = new ComplianceDashboard();
-    QWidget *page7 = new GeographicalHotspotsPage();
-
-    pages = new QStackedWidget();
-    pages->addWidget(page1);
-    pages->addWidget(page2);
-    pages->addWidget(page3);
-    pages->addWidget(page4);
-    pages->addWidget(page5);
-    pages->addWidget(page6);
-    pages->addWidget(page7);
-
-    pages->setMinimumSize(1250, 600);
-
-    pagesFrame = new QFrame();
-    pagesFrame->setFrameShape(QFrame::Box);
-    pagesFrame->setLineWidth(2);
-
-    stackedLayoutFrame = new QVBoxLayout(pagesFrame);
-    stackedLayoutFrame->addWidget(pages);
-
-    stackedLayout->addWidget(pagesFrame);
 }
 
 void Dashboard::combineLayouts() {
@@ -226,7 +260,6 @@ void Dashboard::retranslateUI() {
     BtnDS->setText(tr("DASHBOARD_DS"));
     language->setItemText(0, tr("English"));
     language->setItemText(1, tr("French"));
-    language->setItemText(2, tr("Manx"));
 
     // Retranslate the current page as well (will be updated to be more efficient)
     auto page = qobject_cast<PFApage *>(pages->currentWidget());
@@ -239,4 +272,12 @@ void Dashboard::retranslateUI() {
         std::cout << "retranslating" << std::endl;
         page_1->retranslateUI();
     }
+}
+
+void Dashboard::helpMsgBox() {
+    QMessageBox::information(this, "Help", "usability information");
+}
+
+void Dashboard::dataSourcesMsgBox() {
+    QMessageBox::information(this, "Data Sources", "List of data sources");
 }

@@ -34,7 +34,7 @@ void ComplianceDashboard::createTable() {
 
 
 void ComplianceDashboard::createTitle() {
-    title = new QLabel("Compliance Dashboard");
+    title = new QLabel(tr("DASHBOARD_CD"));
     QFont titleFont("Arial", 20, QFont::Bold);
     title->setFont(titleFont);
     title->setAlignment(Qt::AlignCenter);
@@ -43,16 +43,16 @@ void ComplianceDashboard::createTitle() {
 void ComplianceDashboard::createFilters() {
     QStringList locationOptions;
     locationOptions << "All locations" << "1" << "2" << "3" << "4";
-    location = new QComboBox();
-    location->addItems(locationOptions);
+    location = new searchableComboBox();
+    location->setOptions(locationOptions);
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
     locationLabel->setWordWrap(true);
 
     QStringList pollutantOptions;
     pollutantOptions << "All pollutants" << "chlorine" << "ethanol";
-    pollutant = new QComboBox();
-    pollutant->addItems(pollutantOptions);
+    pollutant = new searchableComboBox();
+    pollutant->setOptions(pollutantOptions);
     pollutantLabel = new QLabel("&Pollutant:");
     pollutantLabel->setBuddy(pollutant);
 
@@ -80,11 +80,13 @@ void ComplianceDashboard::setMainLayout() {
     pollutantInfo->addWidget(currentPollutantCompliance);
 
     QVBoxLayout *filters = new QVBoxLayout();
+    filters->addStretch();
     filters->addWidget(location);
     filters->addStretch();
     filters->addLayout(pollutantInfo);
     filters->addStretch();
     filters->addWidget(compliance);
+    filters->addStretch();
 
     QHBoxLayout *body = new QHBoxLayout();
     body->addLayout(filters, 1);

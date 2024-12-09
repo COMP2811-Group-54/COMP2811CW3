@@ -85,9 +85,9 @@ void PersistentOrganicPollutants::createFilters()
 {
     // Location filter
     QStringList locationOptions;
-    locationOptions << tr("POPs_ALL_LOCATIONS") << "1" << "2" << "3" << "4"; // Identifier for "All locations"
-    location = new QComboBox();
-    location->addItems(locationOptions);
+    locationOptions << tr("POPs_ALL_LOCATIONS") << "all locations" << "2" << "3" << "4"; // Identifier for "All locations"
+    location = new searchableComboBox();
+    location->setOptions(locationOptions);
     locationLabel = new QLabel(tr("POPs_LOCATION_LABEL")); // Identifier for "Location"
     locationLabel->setBuddy(location);
 
@@ -104,8 +104,8 @@ void PersistentOrganicPollutants::createFilters()
     QStringList pollutantOptions;
     pollutantOptions << tr("POPs_ALL_POLLUTANTS") << tr("POPs_POLLUTANT_CHLORINE")
                      << tr("POPs_POLLUTANT_ETHANOL"); // Identifiers for pollutants
-    pollutant = new QComboBox();
-    pollutant->addItems(pollutantOptions);
+    pollutant = new searchableComboBox();
+    pollutant->setOptions(pollutantOptions);
     pollutantLabel = new QLabel(tr("POPs_POLLUTANT_LABEL")); // Identifier for "Pollutant"
     pollutantLabel->setBuddy(pollutant);
 }

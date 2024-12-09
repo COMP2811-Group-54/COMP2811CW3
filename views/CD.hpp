@@ -5,12 +5,14 @@
 #include <QMainWindow>
 #include "../utils/DataModel.hpp"
 #include "../utils/Compliance.hpp" // Include necessary header
+#include "PO.hpp"
 
 class QString;
 class QComboBox;
 class QLabel;
 class QPushButton;
 class QTableView;
+class searchableComboBox;
 
 class ComplianceDashboard : public QWidget {
     Q_OBJECT
@@ -18,8 +20,8 @@ class ComplianceDashboard : public QWidget {
 public:
     explicit ComplianceDashboard(QWidget *parent = nullptr);
 
-private slots:
-    void filterDataByCompliance(); // Slot to filter data
+    private slots:
+        void filterDataByCompliance(); // Slot to filter data
 
 private:
     void createTitle();
@@ -39,9 +41,9 @@ private:
     QLabel *locationLabel;
     QLabel *complianceLabel;
     QLabel *pollutantLabel;
-    QComboBox *location;
+    searchableComboBox *location;
     QComboBox *compliance;
-    QComboBox *pollutant;
+    searchableComboBox *pollutant;
     QLabel *currentPollutant;
     QLabel *currentPollutantCompliance;
     QTableView *table;

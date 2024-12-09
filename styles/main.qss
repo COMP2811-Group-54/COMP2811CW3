@@ -21,8 +21,9 @@ QPushButton {
     border-radius: 10px;
     padding: 10px 20px;
 }
-QPushButton:hover {
+QPushButton:hover, QPushButton:focus {
     background-color: #4682B4;
+    border: 3px solid;
 }
 
 /* ComboBox Styling */
@@ -32,6 +33,9 @@ QComboBox {
     border: 2px solid #FFFFFF;
     border-radius: 10px;
     padding: 5px;
+}
+QComboBox:focus {
+    border: 3px solid;
 }
 QComboBox::drop-down {
     border: none;
@@ -45,7 +49,14 @@ QFrame {
 }
 
 /* Side Buttons */
-QPushButton#BtnDashboard,
+QPushButton#BtnDashboard {
+    font-size: 30px;
+    font-weight: bold;
+    background-color: #1E90FF;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    border-radius: 10px;
+}
 QPushButton#BtnPO,
 QPushButton#BtnCD,
 QPushButton#BtnDP {
@@ -56,11 +67,12 @@ QPushButton#BtnDP {
     border: 2px solid #FFFFFF;
     border-radius: 10px;
 }
-QPushButton#BtnDashboard:hover,
-QPushButton#BtnPO:hover,
-QPushButton#BtnCD:hover,
-QPushButton#BtnDP:hover {
+QPushButton#BtnDashboard:focus,
+QPushButton#BtnPO:focus,
+QPushButton#BtnCD:focus,
+QPushButton#BtnDP:focus {
     background-color: #4682B4;
+    border: 3px solid;
 }
 
 /* Bottom Buttons */

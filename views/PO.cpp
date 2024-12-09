@@ -103,8 +103,8 @@ void PollutantOverview::createFilters()
 
     QStringList locationOptions;
     locationOptions << "All locations" << "1" << "2" << "3" << "4";
-    location = new QComboBox();
-    location->addItems(locationOptions);
+    location = new searchableComboBox();
+    location->setOptions(locationOptions);
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
 

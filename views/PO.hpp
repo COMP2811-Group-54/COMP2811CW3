@@ -76,7 +76,7 @@ class PollutantOverview: public QWidget
         QLabel* locationLabel;
         QLabel* timeRangeLabel;
         QLabel* pollutantLabel;
-        QComboBox* location;
+        searchableComboBox* location;
         QComboBox* timeRange;
         searchableComboBox* pollutant;
 

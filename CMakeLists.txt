@@ -29,7 +29,7 @@ qt_add_executable(waterQuality
         utils/csv.hpp
         utils/DataModel.cpp
         utils/DataModel.hpp
-        utils/dataset.cpp
+        utils/Dataset.cpp
         utils/Dataset.hpp
         utils/Measurement.cpp
         utils/Measurement.hpp
