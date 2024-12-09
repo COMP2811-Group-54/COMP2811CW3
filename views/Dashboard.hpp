@@ -64,6 +64,7 @@ private:
     QPushButton *BtnPO;
     QPushButton *BtnCD;
     QPushButton *BtnDP;
+    QPushButton *BtnGH;
 
     QComboBox *language;
     QTranslator *translator;
@@ -110,5 +111,9 @@ private slots:
 
     void goToCD() {
         pages->setCurrentIndex(5);
+    }
+
+    void goToGH() {
+        pages->setCurrentIndex(6);
     }
 };

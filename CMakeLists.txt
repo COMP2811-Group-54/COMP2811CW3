@@ -5,10 +5,27 @@ project(waterQuality VERSION 1.0.0 LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Widgets Charts Core)
+# Find required Qt components
+find_package(Qt6 REQUIRED COMPONENTS Widgets Charts Core Network Quick Qml Location Positioning QuickWidgets)
+
+# Standard Qt project setup
 qt_standard_project_setup()
 
-qt_add_executable(waterQuality main.cpp views/Dashboard.cpp views/OverviewCards.cpp views/PFAs.cpp views/POPs.cpp
+# Add executable and sources
+qt_add_executable(waterQuality
+        main.cpp
+        views/Dashboard.cpp
+        views/OverviewCards.cpp
+        views/PFAs.cpp
+        views/POPs.cpp
+        views/CD.cpp
+        views/CD.hpp
+        views/DataPage.cpp
+        views/DataPage.hpp
+        views/PO.cpp
+        views/PO.hpp
+        views/GH.cpp
+        views/GH.hpp
         utils/csv.hpp
         utils/DataModel.cpp
         utils/DataModel.hpp
@@ -18,23 +35,21 @@ qt_add_executable(waterQuality main.cpp views/Dashboard.cpp views/OverviewCards.
         utils/Measurement.hpp
         utils/Compliance.cpp
         utils/Compliance.hpp
-        views/CD.cpp
-        views/CD.hpp
-        views/DataPage.cpp
-        views/DataPage.hpp
-        views/PO.cpp
-        views/PO.hpp
         utils/GlobalDataModel.cpp
-        utils/GlobalDataModel.hpp)
+        utils/GlobalDataModel.hpp
+        utils/SamplingPoint.cpp
+        utils/SamplingPoint.hpp
+)
 
-target_link_libraries(waterQuality PRIVATE Qt6::Widgets)
-target_link_libraries(waterQuality PRIVATE Qt6::Charts)
-target_link_libraries(waterQuality PRIVATE Qt6::Core)
+# Link against Qt libraries
+target_link_libraries(waterQuality PRIVATE Qt6::Widgets Qt6::Charts Qt6::Core Qt6::Network Qt6::Quick Qt6::Qml Qt6::Location Qt6::Positioning Qt6::QuickWidgets)
 
+# Set build type if not defined
 if (NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release)
 endif ()
 
+# Set target properties
 set_target_properties(waterQuality PROPERTIES
         WIN32_EXECUTABLE ON
         MACOSX_BUNDLE OFF
@@ -65,4 +80,13 @@ add_custom_command(
         COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:waterQuality>/data
         COMMAND ${CMAKE_COMMAND} -E copy ${DATA_FILE} $<TARGET_FILE_DIR:waterQuality>/data
         COMMENT "Copying all data files to runtime directory in the 'data' folder"
+)
+
+# Ensure all data files are copied to the runtime directory
+file(GLOB QML_FILES "${CMAKE_SOURCE_DIR}/qml/*.qml")
+add_custom_command(
+        TARGET waterQuality POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:waterQuality>/qml
+        COMMAND ${CMAKE_COMMAND} -E copy ${QML_FILES} $<TARGET_FILE_DIR:waterQuality>/qml
+        COMMENT "Copying all qml files to runtime directory in the 'qml' folder"
 )

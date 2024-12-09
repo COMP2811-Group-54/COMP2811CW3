@@ -1,6 +1,6 @@
-#include <iostream>
 #include <QtWidgets>
 #include <QFile>
+#include <stdio.h>
 #include "views/Dashboard.hpp"
 
 int main(int argc, char *argv[]) {

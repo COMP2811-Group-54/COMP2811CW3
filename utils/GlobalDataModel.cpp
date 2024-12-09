@@ -1,4 +1,3 @@
-// GlobalDataModel.cpp
 #include "GlobalDataModel.hpp"
 
 GlobalDataModel& GlobalDataModel::instance() {
@@ -14,12 +13,21 @@ Dataset& GlobalDataModel::getDataset() {
     return dataset;
 }
 
-void GlobalDataModel::loadData(const std::string& filePath) {
-    // Load data into the Dataset
+void GlobalDataModel::loadData(const std::string &filePath) {
     dataset.loadDataset(filePath);
-
-    // Update the DataModel accordingly
+    dataModel.setDataset(&dataset); // Set loaded dataset to dataModel
     updateDataModel();
+    emit dataReady();
 }
 
-void GlobalDataModel::updateDataModel() {}
+void GlobalDataModel::emitFetchesComplete() {
+    emit allRequestsComplete();
+}
+
+void GlobalDataModel::updateDataModel() {
+    // Implement if additional data model update logic is needed
+}
+
+GlobalDataModel::GlobalDataModel(): dataset() {
+    // This is where any initialization would occur
+}

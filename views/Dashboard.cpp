@@ -12,6 +12,7 @@
 #include "PO.hpp"
 #include "DataPage.hpp"
 #include "CD.hpp"
+#include "GH.hpp"
 
 Dashboard::Dashboard() : QWidget(), translator(new QTranslator(this)) {
     createMainLayout();
@@ -58,6 +59,8 @@ void Dashboard::createTopLayout() {
     language = new QComboBox();
     language->addItem("English", "en_GB");
     language->addItem("French", "fr_FR");
+    language->addItem("Manx", "gv_IM");
+
     language->setFont(topBtnFont);
 
     // Connect signals for buttons and language dropdown
@@ -87,23 +90,29 @@ void Dashboard::createLeftLayout() {
     BtnCD->setObjectName("BtnCD");
     BtnDP = new QPushButton("Data Page");
     BtnDP->setObjectName("BtnDP");
+    BtnGH = new QPushButton("Geographical Hotspots");
+    BtnGH->setObjectName("BtnGH");
 
     BtnDashboard->setMinimumSize(200, 100);
     BtnPO->setMinimumSize(200, 100);
     BtnCD->setMinimumSize(200, 100);
     BtnDP->setMinimumSize(200, 100);
+    BtnGH->setMinimumSize(200, 100);
 
     QFont sideBtnFont("Arial", 13, QFont::Bold);
     BtnDashboard->setFont(sideBtnFont);
     BtnPO->setFont(sideBtnFont);
     BtnCD->setFont(sideBtnFont);
     BtnDP->setFont(sideBtnFont);
+    BtnGH->setFont(sideBtnFont);
+
 
     // Connect signals for side buttons to the specific functions
     connect(BtnDashboard, &QPushButton::clicked, this, &Dashboard::goToOverviewCards);
     connect(BtnPO, &QPushButton::clicked, this, &Dashboard::goToPO);
     connect(BtnCD, &QPushButton::clicked, this, &Dashboard::goToCD);
     connect(BtnDP, &QPushButton::clicked, this, &Dashboard::goToDP);
+    connect(BtnGH, &QPushButton::clicked, this, &Dashboard::goToGH);
 
     // Add widgets to the layout
     sideLayout->addStretch();
@@ -111,6 +120,7 @@ void Dashboard::createLeftLayout() {
     sideLayout->addWidget(BtnDP);
     sideLayout->addWidget(BtnPO);
     sideLayout->addWidget(BtnCD);
+    sideLayout->addWidget(BtnGH);
     sideLayout->addStretch();
     sideLayout->setSpacing(30);
 }
@@ -143,6 +153,7 @@ void Dashboard::createStackedWidget() {
     QWidget *page4 = new PollutantOverview();
     QWidget *page5 = new DataPage();
     QWidget *page6 = new ComplianceDashboard();
+    QWidget *page7 = new GeographicalHotspotsPage();
 
     pages = new QStackedWidget();
     pages->addWidget(page1);
@@ -151,6 +162,7 @@ void Dashboard::createStackedWidget() {
     pages->addWidget(page4);
     pages->addWidget(page5);
     pages->addWidget(page6);
+    pages->addWidget(page7);
 
     pages->setMinimumSize(1250, 600);
 
@@ -214,6 +226,7 @@ void Dashboard::retranslateUI() {
     BtnDS->setText(tr("DASHBOARD_DS"));
     language->setItemText(0, tr("English"));
     language->setItemText(1, tr("French"));
+    language->setItemText(2, tr("Manx"));
 
     // Retranslate the current page as well (will be updated to be more efficient)
     auto page = qobject_cast<PFApage *>(pages->currentWidget());

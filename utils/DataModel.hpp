@@ -1,26 +1,30 @@
-// COMP2811 Coursework 2: data model
-
 #pragma once
 
 #include <QAbstractTableModel>
 #include "Dataset.hpp"
 
-class DataModel final : public QAbstractTableModel
-{
-  public:
-    explicit DataModel(QObject* parent = nullptr): QAbstractTableModel(parent) {}
-    void updateFromFile(const QString&);
-    bool hasData() const { return dataset.size() > 0; }
+class DataModel : public QAbstractTableModel {
+public:
+    explicit DataModel(QObject *parent = nullptr)
+        : QAbstractTableModel(parent), dataset(nullptr) {
+    }
 
-    int rowCount(const QModelIndex& index) const override { return dataset.size(); }
-    int columnCount(const QModelIndex& index) const override { return 5; }
-    QVariant data(const QModelIndex&, int) const override;
+    void setDataset(Dataset *ds) { dataset = ds; }
 
-    void Query(const std::string &query);
+    int rowCount(const QModelIndex &index) const override {
+        return dataset ? static_cast<int>(dataset->size()) : 0;
+    }
 
-    QVariant headerData(int, Qt::Orientation, int) const override;
+    int columnCount(const QModelIndex &index) const override {
+        return 5;
+    }
 
+    QVariant headerData(int section, Qt::Orientation orientation, int role) const override;
 
-  private:
-    Dataset dataset;
+    QVariant data(const QModelIndex &, int) const override;
+
+    bool hasData() const { return dataset && !dataset->isEmpty(); }
+
+private:
+    Dataset *dataset; // Pointer to dataset
 };

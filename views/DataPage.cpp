@@ -115,8 +115,11 @@ void DataPage::openCSV() {
     QString path = dataLocation + "/" + filename;
 
     try {
-        GlobalDataModel::instance().getDataset().loadDataset(path.toStdString());
-        model.updateFromFile(path);
+        GlobalDataModel::instance().loadData(path.toStdString());
+        model.setDataset(&GlobalDataModel::instance().getDataset());
+
+        // Inform the view about data changes
+        emit model.layoutChanged();
         table->resizeColumnsToContents();
     } catch (const std::exception &error) {
         QMessageBox::critical(this, "CSV File Error", error.what());

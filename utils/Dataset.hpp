@@ -1,22 +1,22 @@
-//
-// Created by Josh Mundray on 27/11/2024.
-//
 #pragma once
 #ifndef DATASET_HPP
 #define DATASET_HPP
 
 #include <string>
 #include <vector>
+#include <unordered_map>
+#include <QObject>
+#include <QNetworkAccessManager>
 #include "Measurement.hpp"
 
-class Dataset {
+class Dataset : public QObject {
+    Q_OBJECT
+
 public:
     Dataset() = default;
 
-    explicit Dataset(const std::string &filePath) { loadDataset(filePath); };
-    explicit Dataset(const std::vector<Measurement> &data) { this->data = data; };
-
-    // int loadFile(string filePath);
+    explicit Dataset(const std::string &filePath) { loadDataset(filePath); }
+    explicit Dataset(const std::vector<Measurement> &data) { this->data = data; }
 
     void loadDataset(const std::string &path);
 
@@ -26,9 +26,12 @@ public:
 
     Measurement getMeasurement(int determinand);
 
-    Dataset queryDeterminand(const std::string &query) const;;
-
     size_t size() const { return data.size(); }
+
+    bool isEmpty() const {
+        return data.empty();
+    }
+
     Measurement operator[](const int index) const { return data.at(index); }
 
     std::vector<Measurement>::iterator begin() { return data.begin(); }
@@ -37,14 +40,25 @@ public:
     std::vector<Measurement>::const_iterator begin() const { return data.begin(); }
     std::vector<Measurement>::const_iterator end() const { return data.end(); }
 
+    std::unordered_map<std::string, int> getSamplingPointCounts() const;
+
+
+    std::unordered_map<std::string, std::pair<double, double> > samplingPointCoordinates;
+
+public slots:
+    void fetchLatLonForSamplingPoints();
+
+private slots:
+    void handleNetworkData(QNetworkReply *reply);
+
 private:
     std::string filePath;
     std::vector<Measurement> data;
+    QNetworkAccessManager networkManager;
+
+    int pendingRequests;
 
     void checkDataExists() const;
-
-    static int levenshteinDist(const std::string &word1, const std::string &word2);
 };
 
-
-#endif //DATASET_HPP
+#endif // DATASET_HPP

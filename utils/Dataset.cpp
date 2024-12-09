@@ -1,22 +1,20 @@
-//
-// Created by Josh Mundray on 27/11/2024.
-//
-#include <iostream>
-#include <string.h>
-#include <math.h>
-#include <algorithm>
-#include <unordered_map>
-#include <vector>
-
 #include "Dataset.hpp"
+#include "Measurement.hpp"
 #include "csv.hpp"
-
 #include "Compliance.hpp"
+
+#include <iostream>
 #include <unordered_set>
+#include <QNetworkRequest>
+#include <QNetworkReply>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonArray>
+#include <QDebug>
 
-// Dataset.cpp
+#include "GlobalDataModel.hpp"
 
-
+// Column constants
 const std::string ID_COLUMN = "@id";
 const std::string SAMPLE_POINT_COLUMN = "sample.samplingPoint";
 const std::string SAMPLING_POINT_LABEL_COLUMN = "sample.samplingPoint.label";
@@ -27,7 +25,7 @@ const std::string DETERMINAND_UNIT_LABEL_COLUMN = "determinand.unit.label";
 const std::string RESULT_COLUMN = "result";
 const std::string DETERMINAND_NOTATION_COLUMN = "determinand.notation";
 
-// Additional index maps
+// Index maps
 std::unordered_map<std::string, std::vector<Measurement> > measurementsByDeterminand;
 std::unordered_map<std::string, std::vector<Measurement> > measurementsBySamplingPoint;
 
@@ -40,12 +38,10 @@ void Dataset::loadDataset(const std::string &path) {
     ComplianceChecker complianceChecker;
     std::unordered_set<std::string> validCompounds;
 
-    // Fill the set with valid determinand labels from the complianceThresholds map
     for (const auto &pair: complianceChecker.complianceThresholds) {
         validCompounds.insert(pair.first);
     }
 
-    // Iterate through CSV rows
     for (const auto &row: csvReader) {
         const std::string determinandLabel = row[DETERMINAND_LABEL_COLUMN].get<>();
         const std::string samplingPoint = row[SAMPLING_POINT_LABEL_COLUMN].get<>();
@@ -64,108 +60,71 @@ void Dataset::loadDataset(const std::string &path) {
             };
             data.push_back(measurement);
 
-            // Populate index maps
             measurementsByDeterminand[determinandLabel].push_back(measurement);
             measurementsBySamplingPoint[samplingPoint].push_back(measurement);
         }
     }
+
+    // Fetch latitude and longitude for all sampling points
+    fetchLatLonForSamplingPoints();
 }
 
-// https://cplusplus.com/reference/algorithm/find/
-std::vector<Measurement> Dataset::getMeasurementsByDeterminand(const std::string &determinandLabel) const {
-    auto it = measurementsByDeterminand.find(determinandLabel);
-    if (it != measurementsByDeterminand.end()) {
-        return it->second;
+std::unordered_map<std::string, int> Dataset::getSamplingPointCounts() const {
+    std::unordered_map<std::string, int> pointCounts;
+    for (const Measurement &m: data) {
+        QString samplingPoint = QString::fromStdString(m.getSamplingPoint());
+        samplingPoint.replace("http://", "https://");
+        pointCounts[samplingPoint.toStdString()]++;
     }
-    return {}; // Return an empty vector if not found
+    return pointCounts;
 }
 
-std::vector<Measurement> Dataset::getMeasurementsBySamplingPoint(const std::string &samplingPoint) const {
-    auto it = measurementsBySamplingPoint.find(samplingPoint);
-    if (it != measurementsBySamplingPoint.end()) {
-        return it->second;
+void Dataset::fetchLatLonForSamplingPoints() {
+    auto samplingCounts = getSamplingPointCounts();
+    pendingRequests = data.size(); // Initialize the counter with the number of requests we expect
+
+    for (const auto &sample: data) {
+        QString urlString = QString::fromStdString(sample.getSamplingPoint());
+        urlString.replace("http://", "https://");
+        QUrl url(urlString);
+        std::cout << urlString.toStdString() << std::endl;
+        QNetworkRequest request(url);
+
+        QNetworkReply *reply = networkManager.get(request);
+        connect(reply, &QNetworkReply::finished, this, [=]() { handleNetworkData(reply); });
     }
-    return {}; // Return an empty vector if not found
 }
 
+void Dataset::handleNetworkData(QNetworkReply *reply) {
+    if (reply->error() == QNetworkReply::NoError) {
+        QByteArray responseData = reply->readAll();
+        QJsonDocument jsonDoc = QJsonDocument::fromJson(responseData);
+        QJsonObject jsonObj = jsonDoc.object();
 
-Dataset Dataset::queryDeterminand(const std::string &query) const {
-    if (query.empty()) {
-        return *this;
+        double lat = jsonObj["items"].toArray().first().toObject()["lat"].toDouble();
+        double lon = jsonObj["items"].toArray().first().toObject()["long"].toDouble();
+
+        QString samplingPointId = reply->url().toString();
+        samplingPointCoordinates[samplingPointId.toStdString()] = std::make_pair(lat, lon);
+
+        qDebug() << "Pending Reqs: " << pendingRequests << " Lat:" << lat << " Lon:" << lon;
+
+        // Find the corresponding point in your model and update it
+        // Ensure model gets updated here
+    } else {
+        qDebug() << "Error:" << reply->errorString();
     }
 
-    std::unordered_map<std::string, int> distanceCache;
-    std::vector<std::pair<Measurement, int> > distances;
+    reply->deleteLater();
 
-    for (const auto &m: data) {
-        const std::string compoundName = m.getCompoundName();
-
-        if (distanceCache.find(compoundName) == distanceCache.end()) {
-            int distance = levenshteinDist(query, compoundName);
-            distanceCache[compoundName] = distance;
-        }
-
-        distances.emplace_back(m, distanceCache[compoundName]);
+    if (--pendingRequests == 0) {
+        std::cout << "feteches complete" << std::endl;
+        emit GlobalDataModel::instance().emitFetchesComplete();
     }
-
-    std::sort(distances.begin(), distances.end(),
-              [](const std::pair<Measurement, int> &a, const std::pair<Measurement, int> &b) {
-                  return a.second < b.second;
-              });
-
-    std::vector<Measurement> sorted_measurements;
-    for (const auto &[measurement, distance]: distances) {
-        if (distance <= 5) {
-            sorted_measurements.push_back(measurement);
-        }
-    }
-    return Dataset(sorted_measurements);
 }
 
 void Dataset::checkDataExists() const {
     if (size() == 0) {
         throw std::runtime_error("Dataset is empty!");
     }
-}
-
-
-// https://github.com/guilhermeagostinelli/levenshtein/blob/master/levenshtein.cpp
-// Returns the Levenshtein distance between word1 and word2.
-int Dataset::levenshteinDist(const std::string &word1, const std::string &word2) {
-    int size1 = word1.size();
-    int size2 = word2.size();
-    std::vector<std::vector<int> > verif(size1 + 1, std::vector<int>(size2 + 1)); // Use dynamic allocation with vector
-
-    // If one of the words has zero length, the distance is equal to the size of the other word.
-    if (size1 == 0)
-        return size2;
-    if (size2 == 0)
-        return size1;
-
-    // Sets the first row and the first column of the verification matrix with the numerical order from 0 to the length of each word.
-    for (int i = 0; i <= size1; i++)
-        verif[i][0] = i;
-    for (int j = 0; j <= size2; j++)
-        verif[0][j] = j;
-
-    // Verification step / matrix filling.
-    for (int i = 1; i <= size1; i++) {
-        for (int j = 1; j <= size2; j++) {
-            // Sets the modification cost.
-            // 0 means no modification (i.e. equal letters) and 1 means that a modification is needed (i.e. unequal letters).
-            int cost = (word2[j - 1] == word1[i - 1]) ? 0 : 1;
-
-            // Sets the current position of the matrix as the minimum value between a (deletion), b (insertion) and c (substitution).
-            // a = the upper adjacent value plus 1: verif[i - 1][j] + 1
-            // b = the left adjacent value plus 1: verif[i][j - 1] + 1
-            // c = the upper left adjacent value plus the modification cost: verif[i - 1][j - 1] + cost
-            verif[i][j] = std::min(
-                std::min(verif[i - 1][j] + 1, verif[i][j - 1] + 1),
-                verif[i - 1][j - 1] + cost
-            );
-        }
-    }
-
-    // The last position of the matrix will contain the Levenshtein distance.
-    return verif[size1][size2];
 }
