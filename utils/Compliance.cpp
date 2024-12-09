@@ -2,26 +2,28 @@
 
 // Constructor populates map with pollutant names and thresholds
 ComplianceChecker::ComplianceChecker() {
-    complianceThresholds = {
-        // PFAs
-        {"FOSA", -1},
-        {"Perfluorooctanoic", -1},
-        {"PFoctncAcid", -1},
-        {"PFHxSA", -1},
-        {"PFdecncAcid", -1},
-        {"PFhexncAcid", -1},
-        {"PFpentncAcid", -1},
 
-        // POPs
-        {"PCB Con 052", -1},
-        {"DDT (PP)", -1},
-        {"Hexachlorbnz", -1},
-        {"Chlrdn-cs/Z/", -1},
-        {"Aldrin", -1},
-        {"Dieldrin", -1},
-        {"Endrin", -1},
-        {"Heptachlor", -1},
-        {"Carbofuran", -1},
+    // All compliance values are in mirograms per litre
+    complianceThresholds = {
+        // PFAs (based off the RSoC drinking water regulations)
+        {"FOSA", 0.01},
+        {"Perfluorooctanoic", 0.01},
+        {"PFoctncAcid", 0.01},
+        {"PFHxSA", 0.01},
+        {"PFdecncAcid", 0.01},
+        {"PFhexncAcid", 0.01},
+        {"PFpentncAcid", 0.01},
+
+        // POPs (effectively banned, but trace amounts are acceptable)
+        {"PCB Con 052", 0.1},
+        {"DDT (PP)", 0.1},
+        {"Hexachlorbnz", 0.1},
+        {"Chlrdn-cs/Z/", 0.1},
+        {"Aldrin", 0.1},
+        {"Dieldrin", 0.1},
+        {"Endrin", 0.1},
+        {"Heptachlor", 0.1},
+        {"Carbofuran", 0.1},
 
         // // Heavy Metals
         // {"As-Filtered", 50},
@@ -51,24 +53,24 @@ ComplianceChecker::ComplianceChecker() {
         // {"Triclosan", 0.1},
         // {"Chlorine", 2},
         // {"Cyanide - CN", 1},
-        // {"Fluoride - F", -1},
-        // {"SiO2 Rv", -1},
-        // {"Bicarb HCO3", -1},
+        // {"Fluoride - F", 1.5},
+        // {"SiO2 Rv", 300},
+        // {"Bicarb HCO3", 4000},
         //
         // // Nutrients
-        // {"Nitrate-N", -1},
-        // {"Ammonia(N)", -1},
-        // {"Phosphorus-P", -1},
+        // {"Nitrate-N", 25},
+        // {"Ammonia(N)", 25},
+        // {"Phosphorus-P", 75},
         //
         // // Volatile Organic Compounds
-        // {"Ethylbenzene", -1},
-        // {"o-Xylene", -1},
-        // {"Chloroform", -1},
-        // {"Trichloroeth", -1},
-        // {"TetClEthene", -1},
-        // {"Vinyl Cl", -1},
-        // {"Carbon Tet", -1},
-        // {"DiClMe", -1}
+        // {"Ethylbenzene", 300},
+        // {"o-Xylene", 0.1},
+        // {"Chloroform", 100},
+        // {"Trichloroeth", 40},
+        // {"TetClEthene", 10},
+        // {"Vinyl Cl", 0.5},
+        // {"Carbon Tet", 3},
+        // {"DiClMe", 0.1}
     };
 }
 
