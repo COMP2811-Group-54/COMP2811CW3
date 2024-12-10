@@ -115,15 +115,15 @@
         </message>
         <message>
             <source>PFA_COMPLIANCE_RED</source>
-            <translation>Niveau rouge : &gt;10</translation>
+            <translation>Niveau rouge:</translation>
         </message>
         <message>
             <source>PFA_COMPLIANCE_ORANGE</source>
-            <translation>Niveau orange : 5-10</translation>
+            <translation>Niveau orange:</translation>
         </message>
         <message>
             <source>PFA_COMPLIANCE_GREEN</source>
-            <translation>Niveau vert : &lt;5</translation>
+            <translation>Niveau vert:</translation>
         </message>
         <message>
             <source>PFA_RED_TOOL_TIP</source>
@@ -202,15 +202,15 @@
         </message>
         <message>
             <source>POPs_COMPLIANCE_RED</source>
-            <translation>Niveau Rouge : &gt;10</translation>
+            <translation>Niveau Rouge:</translation>
         </message>
         <message>
             <source>POPs_COMPLIANCE_ORANGE</source>
-            <translation>Niveau Orange : 5-10</translation>
+            <translation>Niveau Orange:</translation>
         </message>
         <message>
             <source>POPs_COMPLIANCE_GREEN</source>
-            <translation>Niveau Vert : &lt;5</translation>
+            <translation>Niveau Vert:</translation>
         </message>
     </context>
 </TS>
