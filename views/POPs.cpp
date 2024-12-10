@@ -14,7 +14,6 @@ PersistentOrganicPollutants::PersistentOrganicPollutants(QWidget *parent) : QWid
     popChartView->setMinimumSize(1000, 400);
 
     createButtons();
-    createBoxes();
     createFilters();
     createComplianceLabels();
     arrangeWidgets();
@@ -56,8 +55,8 @@ void PersistentOrganicPollutants::createFilters() {
     for (const std::string &locationStr: locations) {
         locationOptions << QString::fromStdString(locationStr);
     }
-    location = new QComboBox();
-    location->addItems(locationOptions);
+    location = new searchableComboBox();
+    location->setOptions(locationOptions);
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
     locationLabel->setWordWrap(true);
@@ -127,19 +126,29 @@ void PersistentOrganicPollutants::arrangeWidgets() {
     chart->addLayout(chartContext, 1);
     chart->addStretch();
 
-    QVBoxLayout *moreInfoLayout = new QVBoxLayout();
+    auto moreInfoFrame = new QFrame();
+    moreInfoFrame->setFrameShape(QFrame::Box);
+    moreInfoFrame->setLineWidth(1);
+    moreInfoFrame->setFixedSize(200, 200);
+
+    QVBoxLayout *moreInfoLayout = new QVBoxLayout(moreInfoFrame);
     moreInfoLayout->addWidget(pcbs);
     moreInfoLayout->addWidget(moreInfo);
 
-    QVBoxLayout *viewListLayout = new QVBoxLayout();
+    auto viewListFrame = new QFrame();
+    viewListFrame->setFrameShape(QFrame::Box);
+    viewListFrame->setLineWidth(1);
+    viewListFrame->setFixedSize(200, 200);
+
+    QVBoxLayout *viewListLayout = new QVBoxLayout(viewListFrame);
     viewListLayout->addWidget(otherPops);
     viewListLayout->addWidget(viewList);
 
     QVBoxLayout *info = new QVBoxLayout();
     info->addStretch();
-    info->addLayout(moreInfoLayout);
+    info->addWidget(moreInfoFrame);
     info->addSpacing(50);
-    info->addLayout(viewListLayout);
+    info->addWidget(viewListFrame);
     info->addSpacing(50);
     info->addStretch();
 
@@ -232,12 +241,25 @@ void PersistentOrganicPollutants::createChart(const std::vector<Measurement> &fi
 }
 
 void PersistentOrganicPollutants::moreInfoMsgBox() {
-    QMessageBox::information(this, tr("PCB Info"), tr("more info about PCBs"));
+    QMessageBox::information(this, "Persistent Organic Pollutants Info", 
+    "Persistent Organic Pollutants (POPs) are toxic chemicals that persist in the environment for long periods, accumulating in the food chain. "
+    "They can cause a range of health problems in humans and wildlife, including cancer, immune system disruption, and developmental issues. "
+    "These pollutants are difficult to remove from the environment and continue to pose risks even long after their use has been restricted.");
 }
 
 void PersistentOrganicPollutants::viewListMsgBox() {
-    QMessageBox::information(this, tr("List of Persistent Organic Pollutants"), tr("List of POPs"));
+    QMessageBox::information(this, "List of Persistent Organic Pollutants", 
+    "- PCBs (Polychlorinated Biphenyls)\n"
+    "- DDT\n"
+    "- Hexachlorobenzene\n"
+    "- Chlordane\n"
+    "- Aldrin\n"
+    "- Dieldrin\n"
+    "- Endrin\n"
+    "- Heptachlor\n"
+    "- Carbofuran");
 }
+
 
 void PersistentOrganicPollutants::retranslateUI() {
     title->setText(tr("POPs_TITLE"));

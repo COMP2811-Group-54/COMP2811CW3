@@ -15,7 +15,6 @@ PollutantOverview::PollutantOverview(QWidget *parent): QWidget(parent)
     createTitle();
     createChart();
     createButtons();
-    createBoxes();
     createFilters();
     createComplianceLabels();
     arrangeWidgets();
@@ -70,30 +69,31 @@ void PollutantOverview::createButtons()
 {
     // *UI Job* buttons for more info on pollutant categories
 
-    moreInfo = new QPushButton("More Info");
-    connect(moreInfo, &QPushButton::clicked, this, &PollutantOverview::moreInfoMsgBox);
+    // Heavy Metals Info Button
+    heavyMetalsInfo = new QPushButton("Heavy Metals Info");
+    heavyMetalsInfo->setMinimumHeight(75);
+    connect(heavyMetalsInfo, &QPushButton::clicked, this, &PollutantOverview::heavyMetalsInfoMsgBox);
 
-    viewList = new QPushButton("View List");
-    connect(viewList, &QPushButton::clicked, this, &PollutantOverview::viewListMsgBox);
-}
+    // Organic Chemicals Info Button
+    organicChemicalsInfo = new QPushButton("Organic Chemicals Info");
+    organicChemicalsInfo->setMinimumHeight(75);
+    connect(organicChemicalsInfo, &QPushButton::clicked, this, &PollutantOverview::organicChemicalsInfoMsgBox);
 
-void PollutantOverview::createBoxes()
-{
-    // *UI Job* boxes for more info on pollutant categories
+    // Inorganic Chemicals Info Button
+    inorganicChemicalsInfo = new QPushButton("Inorganic Chemicals Info");
+    inorganicChemicalsInfo->setMinimumHeight(75);
+    connect(inorganicChemicalsInfo, &QPushButton::clicked, this, &PollutantOverview::inorganicChemicalsInfoMsgBox);
 
-    QFont infoBoxFont("Arial", 8);
+    // Nutrients Info Button
+    nutrientsInfo = new QPushButton("Nutrients Info");
+    nutrientsInfo->setMinimumHeight(75);
+    connect(nutrientsInfo, &QPushButton::clicked, this, &PollutantOverview::nutrientsInfoMsgBox);
 
-    pcbs = new QLabel("<h2>PCBs (Polychlorinated Byphenyls)<h2>"
-                      "<p>PCBs are a group of man-made organic chemicals consisting of carbon, hydrogen and chlorine atoms<p>");
-    pcbs->setFont(infoBoxFont);
-    pcbs->setWordWrap(true);
-    pcbs->setAlignment(Qt::AlignCenter);
+    // Volatile Organic Compounds (VOCs) Info Button
+    volatileOrganicCompoundsInfo = new QPushButton("Volatile Organic Compounds Info");
+    volatileOrganicCompoundsInfo->setMinimumHeight(75);
+    connect(volatileOrganicCompoundsInfo, &QPushButton::clicked, this, &PollutantOverview::volatileOrganicCompoundsInfoMsgBox);
 
-    otherPops = new QLabel("<h2>Other PollutantOverview<h2>"
-                           "Examples include DDT, chlordane and dioxins. These substances have various origins and effects<p>");
-    otherPops->setFont(infoBoxFont);
-    otherPops->setWordWrap(true);
-    otherPops->setAlignment(Qt::AlignCenter);
 }
 
 void PollutantOverview::createFilters()
@@ -117,7 +117,7 @@ void PollutantOverview::createFilters()
 
     QStringList pollutantOptions;
     pollutantOptions << "All pollutants" << "chlorine" << "ethanol" << "fluoride" << "methanol" << "chloroform";
-    pollutant = new searchableComboBox;
+    pollutant = new searchableComboBox();
     pollutant->setOptions(pollutantOptions);
     pollutantLabel = new QLabel("&Pollutant:");
     pollutantLabel->setBuddy(pollutant);
@@ -127,17 +127,17 @@ void PollutantOverview::createComplianceLabels()
 {
     // *** Implement changing threshold based on pollutant selected
 
-    red = new QLabel("Red level: >10");
+    red = new QLabel("Red level:");
     red->setStyleSheet("background-color: red; color: white;");
-    red->setToolTip("Info about red compliance level");
+    red->setToolTip("Over the safety threshold");
 
-    orange = new QLabel("Orange level: 5-10");
+    orange = new QLabel("Orange level:");
     orange->setStyleSheet("background-color: orange; color: white;");
-    orange->setToolTip("Info about orange compliance level");
+    orange->setToolTip("Between 0.8 to 1 of the safety threshold");
 
-    green = new QLabel("Green Level: <5");
+    green = new QLabel("Green Level:");
     green->setStyleSheet("background-color: green; color: white;");
-    green->setToolTip("Info about green compliance level");
+    green->setToolTip("Below 0.8 of the safety threshold");
 }
 
 void PollutantOverview::arrangeWidgets()
@@ -183,32 +183,18 @@ void PollutantOverview::arrangeWidgets()
     chart->addLayout(chartContext, 1);
     chart->addStretch();
 
-    // Info box layout (*UI Job* adjust for pollutant category info boxes)
-
-    auto moreInfoFrame = new QFrame();
-    moreInfoFrame->setFrameShape(QFrame::Box);
-    moreInfoFrame->setLineWidth(1);
-    moreInfoFrame->setFixedSize(200, 200);
-
-    QVBoxLayout* moreInfoLayout = new QVBoxLayout(moreInfoFrame);
-    moreInfoLayout->addWidget(pcbs);
-    moreInfoLayout->addWidget(moreInfo);
-
-    auto viewListFrame = new QFrame();
-    viewListFrame->setFrameShape(QFrame::Box);
-    viewListFrame->setLineWidth(1);
-    viewListFrame->setFixedSize(200, 200);
-
-    QVBoxLayout* viewListLayout = new QVBoxLayout(viewListFrame);
-    viewListLayout->addWidget(otherPops);
-    viewListLayout->addWidget(viewList);
-
     QVBoxLayout* info = new QVBoxLayout();
     info->addStretch();
-    info->addWidget(moreInfoFrame);
-    info->addSpacing(50);
-    info->addWidget(viewListFrame);
-    info->addSpacing(50);
+    info->addWidget(heavyMetalsInfo);
+    info->addSpacing(10);
+    info->addWidget(organicChemicalsInfo);
+    info->addSpacing(10);
+    info->addWidget(inorganicChemicalsInfo);
+    info->addSpacing(10);
+    info->addWidget(nutrientsInfo);
+    info->addSpacing(10);
+    info->addWidget(volatileOrganicCompoundsInfo);
+    info->addSpacing(10);
     info->addStretch();
 
     // Main body layout
@@ -229,12 +215,86 @@ void PollutantOverview::arrangeWidgets()
 
 // *UI Job* msg boxes for pollutant categories
 
-void PollutantOverview::moreInfoMsgBox()
+void PollutantOverview::heavyMetalsInfoMsgBox()
 {
-  QMessageBox::information(this, "PCB Info", "more info about PCBs");
+    QMessageBox::information(this, "Heavy Metals Info", 
+    "Heavy metals, such as lead, mercury, and cadmium, are toxic even at low concentrations. "
+    "They accumulate in living organisms, causing long-term damage to ecosystems and human health. "
+    "Heavy metals can contaminate water sources and are difficult to remediate once released.\n\n"
+    "Pollutants in this category:\n"
+    "- Arsenic\n"
+    "- Chromium (III)\n"
+    "- Chromium (IV) (Hexavalent Chromium)\n"
+    "- Copper\n"
+    "- Iron\n"
+    "- Manganese\n"
+    "- Zinc");
 }
 
-void PollutantOverview::viewListMsgBox()
+void PollutantOverview::organicChemicalsInfoMsgBox()
 {
-  QMessageBox::information(this, "List of Persistent Organic Pollutants", "List of PollutantOverview");
+    QMessageBox::information(this, "Organic Chemicals Info", 
+    "Organic chemicals include pesticides, herbicides, fungicides, and industrial chemicals. "
+    "These chemicals can contaminate soil and water, disrupting ecosystems and causing long-term harm to plants, animals, and humans.\n\n"
+    "Pollutants in this category:\n"
+    "- Carbendazim (fungicide)\n"
+    "- Chlorothalonil (fungicide)\n"
+    "- Cypermethrin (insecticide)\n"
+    "- Diazinon (insecticide)\n"
+    "- Dimethoate (insecticide)\n"
+    "- Glyphosate (herbicide)\n"
+    "- Linuron (herbicide)\n"
+    "- Mecoprop (herbicide)\n"
+    "- Pendimethalin (herbicide)\n"
+    "- Permethrin (insecticide)\n"
+    "- Methiocarb (insecticide)\n"
+    "- Benzyl butyl phthalate (plasticizer)\n"
+    "- Tetrachloroethane (solvent)\n"
+    "- Toluene (solvent)\n"
+    "- 2,4-dichlorophenol\n"
+    "- Phenol\n"
+    "- Triclosan (antibacterial/antifungal agent)");
+}
+
+void PollutantOverview::inorganicChemicalsInfoMsgBox()
+{
+    QMessageBox::information(this, "Inorganic Chemicals Info", 
+    "Inorganic chemicals, including metals, salts, and acids, can affect water pH levels, disrupt aquatic habitats, "
+    "and pose risks to plants and animals. These substances are often introduced through industrial discharge and mining activities.\n\n"
+    "Pollutants in this category:\n"
+    "- Chlorine\n"
+    "- Cyanide\n"
+    "- Fluoride\n"
+    "- Silica/Silicate\n"
+    "- Bicarbonate");
+}
+
+void PollutantOverview::nutrientsInfoMsgBox()
+{
+    QMessageBox::information(this, "Nutrients Info", 
+    "Excess nutrients, particularly nitrogen and phosphorus, can lead to eutrophication in water bodies. "
+    "This process depletes oxygen levels, causing algal blooms and fish kills, and disrupting aquatic ecosystems.\n\n"
+    "Pollutants in this category:\n"
+    "- Nitrate\n"
+    "- Phosphate");
+}
+
+void PollutantOverview::volatileOrganicCompoundsInfoMsgBox()
+{
+    QMessageBox::information(this, "Volatile Organic Compounds Info", 
+    "Volatile Organic Compounds (VOCs) include hydrocarbons and halogenated hydrocarbons. "
+    "Hydrocarbons can contaminate water and soil, depleting oxygen levels and harming wildlife. "
+    "Halogenated hydrocarbons, such as chlorinated solvents, are persistent pollutants that bioaccumulate, "
+    "pose toxicity risks, and contribute to ozone depletion.\n\n"
+    "Pollutants in this category:\n"
+    "- Benzene\n"
+    "- Toluene\n"
+    "- Ethylbenzene\n"
+    "- Xylenes\n"
+    "- Chloroform\n"
+    "- Trichloroethylene (TCE)\n"
+    "- Tetrachloroethylene (PCE)\n"
+    "- Vinyl Chloride\n"
+    "- Carbon Tetrachloride\n"
+    "- Dichloromethane (Methylene Chloride)");
 }

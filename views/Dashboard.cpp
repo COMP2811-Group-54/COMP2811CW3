@@ -149,7 +149,7 @@ void Dashboard::createLeftLayout() {
     BtnCD->setObjectName("BtnCD");
     BtnDP = new QPushButton(tr("DASHBOARD_DP"));
     BtnDP->setObjectName("BtnDP");
-    BtnGH = new QPushButton("Geographical Hotspots");
+    BtnGH = new QPushButton(tr("DASHBOARD_GH"));
     BtnGH->setObjectName("BtnGH");
 
     QShortcut *DASHsc = new QShortcut(QKeySequence("1"), this);
@@ -186,14 +186,14 @@ void Dashboard::createLeftLayout() {
     connect(BtnGH, &QPushButton::clicked, this, &Dashboard::goToGH);
 
     // Add widgets to the layout
-    sideLayout->addSpacing(15);
-    sideLayout->addWidget(BtnDashboard);
+    sideLayout->addSpacing(20);
     sideLayout->addStretch();
+    sideLayout->addWidget(BtnDashboard);
+    sideLayout->addSpacing(20);
     sideLayout->addWidget(BtnDP);
     sideLayout->addSpacing(20);
     sideLayout->addWidget(BtnCD);
     sideLayout->addSpacing(20);
-    sideLayout->addStretch();
     sideLayout->addWidget(BtnGH);
     sideLayout->addSpacing(20);
     sideLayout->addStretch();
@@ -277,6 +277,7 @@ void Dashboard::retranslateUI() {
     title->setText(tr("DASHBOARD_TITLE"));
     BtnPFA->setText(tr("DASHBOARD_PFAS"));
     BtnDP->setText(tr("DASHBOARD_DP"));
+    BtnGH->setText(tr("DASHBOARD_GH"));
     BtnPOP->setText(tr("DASHBOARD_POPS"));
     BtnDashboard->setText(tr("DASHBOARD_BUTTON"));
     BtnPO->setText(tr("DASHBOARD_PO"));
@@ -300,11 +301,22 @@ void Dashboard::retranslateUI() {
 }
 
 void Dashboard::helpMsgBox() {
-    QMessageBox::information(this, "Help", "usability information");
+    QMessageBox::information(this, "Help", 
+    "- Use the tab key to navigate around the interface\n"
+    "- Use the space or enter key to press an element\n"
+    "Shortcuts:\n"
+    "- 1 for Dashboard\n"
+    "- 2 for Pollutant Overview\n"
+    "- 3 for Per- and polyfluoroalkyl substances\n"
+    "- 4 for Persistent Organic Pollutants\n"
+    "- 5 for Data Page\n"
+    "- 6 for Compliance Dashboard\n"
+    "- 7 for Geographical Hotspots\n");
 }
 
 void Dashboard::dataSourcesMsgBox() {
-    QMessageBox::information(this, "Data Sources", "List of data sources");
+    QMessageBox::information(this, "Data Sources",
+    "All polluant data has been sourced from the Department for Environment Food & Rural Affairs");
 }
 
 void Dashboard::resizeEvent(QResizeEvent *event) {
