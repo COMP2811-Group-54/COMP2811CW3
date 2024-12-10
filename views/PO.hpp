@@ -86,12 +86,26 @@ class PollutantOverview: public QWidget
 
         QChartView* overviewChartView;
 
-        QLabel* pcbs;
-        QLabel* otherPops;
-        QPushButton* moreInfo;
-        QPushButton* viewList;
+        QLabel* heavyMetals;
+        QPushButton* heavyMetalsInfo;
+
+        QLabel* organicChemicals;
+        QPushButton* organicChemicalsInfo;
+
+        QLabel* inorganicChemicals;
+        QPushButton* inorganicChemicalsInfo;
+
+        QLabel* nutrients;
+        QPushButton* nutrientsInfo;
+
+        QLabel* volatileOrganicCompounds;
+        QPushButton* volatileOrganicCompoundsInfo;
+
 
     private slots:
-        void moreInfoMsgBox();
-        void viewListMsgBox();
+        void volatileOrganicCompoundsInfoMsgBox();
+        void nutrientsInfoMsgBox();
+        void heavyMetalsInfoMsgBox();
+        void organicChemicalsInfoMsgBox();
+        void inorganicChemicalsInfoMsgBox();
 };

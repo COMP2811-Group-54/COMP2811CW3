@@ -70,6 +70,7 @@ QPushButton#BtnDP {
     color: #FFFFFF;
     border: 2px solid #FFFFFF;
     border-radius: 10px;
+    padding: 1px;
 }
 QPushButton#BtnDashboard:focus,
 QPushButton#BtnPO:focus,
@@ -86,5 +87,5 @@ QPushButton#BtnDS {
     background-color: #1E90FF;
     color: #FFFFFF;
     border: 2px solid #FFFFFF;
-    border-radius: 10px;
+    border-radius: 10px 20px;
 }

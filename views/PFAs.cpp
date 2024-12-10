@@ -47,8 +47,7 @@ void PFApage::createBoxes() {
     pfas->setWordWrap(true);
     pfas->setAlignment(Qt::AlignCenter);
 
-    otherPfas = new QLabel("<h2>Other PFAs<h2>"
-        "Examples include PFOAs and PFOS. These substances have various origins and effects<p>");
+    otherPfas = new QLabel("<h2>PFA List<h2>");
     otherPfas->setFont(infoBoxFont);
     otherPfas->setWordWrap(true);
     otherPfas->setAlignment(Qt::AlignCenter);
@@ -61,8 +60,8 @@ void PFApage::createFilters() {
     for (const std::string &locationStr : complianceLocations) {
         locationOptions << QString::fromStdString(locationStr);
     }
-    location = new QComboBox();
-    location->addItems(locationOptions);
+    location = new searchableComboBox();
+    location->setOptions(locationOptions);
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
     locationLabel->setWordWrap(true);
@@ -87,8 +86,8 @@ void PFApage::createFilters() {
     for (const std::string &chemical : pfasChemicals) {
         pollutantOptions << QString::fromStdString(chemical);
     }
-    pollutant = new QComboBox();
-    pollutant->addItems(pollutantOptions);
+    pollutant = new searchableComboBox();
+    pollutant->setOptions(pollutantOptions);
     pollutantLabel = new QLabel("&Pollutant:");
     pollutantLabel->setBuddy(pollutant);
 
@@ -98,15 +97,15 @@ void PFApage::createFilters() {
 void PFApage::createComplianceLabels() {
     red = new QLabel("Red level: >10");
     red->setStyleSheet("background-color: red; color: white;");
-    red->setToolTip("Info about red compliance level");
+    red->setToolTip("Over the threshold");
 
     orange = new QLabel("Orange level: 5-10");
     orange->setStyleSheet("background-color: orange; color: white;");
-    orange->setToolTip("Info about orange compliance level");
+    orange->setToolTip("Between 80 to 100% of the threshold");
 
     green = new QLabel("Green Level: <5");
     green->setStyleSheet("background-color: green; color: white;");
-    green->setToolTip("Info about green compliance level");
+    green->setToolTip("Below 80% of the threshold");
 }
 
 void PFApage::arrangeWidgets() {
@@ -266,9 +265,20 @@ void PFApage::retranslateUI() {
 }
 
 void PFApage::moreInfoMsgBox() {
-    QMessageBox::information(this, "PFA Info", "More info about PFAs.");
+    QMessageBox::information(this, "PFAs Info", 
+    "PFAs (Per- and Polyfluoroalkyl Substances) are persistent chemicals that do not break down in the environment, leading to long-term contamination of water sources. "
+    "They accumulate in aquatic organisms and the food chain, posing risks to wildlife and humans. Health effects include liver damage, thyroid issues, immune system suppression, "
+    "developmental problems, and increased cancer risks. PFAs can disrupt ecosystems and contaminate drinking water, making them a serious environmental and public health concern.");
 }
 
+
 void PFApage::viewListMsgBox() {
-    QMessageBox::information(this, "List of Poly-fluorinated Compounds", "List of PFAs.");
+    QMessageBox::information(this, "List of recorded Poly-fluorinated Compounds", 
+    "- Perfluorooctanesulfonamide\n"
+    "- Perfluorooctanoic acid\n"
+    "- Perfluorononanoic acid\n"
+    "- Perfluorohexanesulfonamide\n"
+    "- Perfluorodecanoic acid\n"
+    "- Perfluorohexanoic acid\n"
+    "- Perfluoropentanoic acid");
 }
