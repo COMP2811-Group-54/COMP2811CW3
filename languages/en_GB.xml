@@ -220,7 +220,6 @@
             <source>PFA_VIEW_LIST_BODY_7</source>
             <translation>- Perfluoropentanoic acid</translation>
         </message>
-
     </context>
     <context>
         <name>PersistentOrganicPollutants</name>
@@ -318,9 +317,7 @@
         </message>
         <message>
             <source>POPs_INFO_BODY</source>
-            <translation>Persistent Organic Pollutants (POPs) are toxic chemicals that persist in the environment for long periods, accumulating in the food chain. 
-            They can cause a range of health problems in humans and wildlife, including cancer, immune system disruption, and developmental issues. 
-            These pollutants are difficult to remove from the environment and continue to pose risks even long after their use has been restricted.</translation>
+            <translation>Persistent Organic Pollutants (POPs) are toxic chemicals that persist in the environment for long periods, accumulating in the food chain. They can cause a range of health problems in humans and wildlife, including cancer, immune system disruption, and developmental issues. These pollutants are difficult to remove from the environment and continue to pose risks even long after their use has been restricted.</translation>
         </message>
         <message>
         <source>POPs_LIST_TITLE</source>

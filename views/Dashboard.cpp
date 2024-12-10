@@ -270,10 +270,10 @@ void Dashboard::onLanguageChanged(int index) {
     if (page_3) {
         page_3->retranslateUI(); // Retranslate the current page
     }
-    // auto page_2 = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
-    // if (page_2) {
-    //     page_2->retranslateUI(); // Retranslate the current page
-    // }
+    auto page_2 = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
+    if (page_2) {
+        page_2->retranslateUI(); // Retranslate the current page
+    }
 }
 
 void Dashboard::retranslateUI() {
@@ -297,11 +297,11 @@ void Dashboard::retranslateUI() {
         page3->retranslateUI();
     }
 
-    // auto page2 = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
-    // if (page2) {
-    //     std::cout << "retranslating" << std::endl;
-    //     page2->retranslateUI();
-    // }
+    auto page2 = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
+    if (page2) {
+        std::cout << "retranslating" << std::endl;
+        page2->retranslateUI();
+    }
 }
 
 void Dashboard::helpMsgBox() {

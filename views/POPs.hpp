@@ -15,9 +15,9 @@ public:
 
     private slots:
         void updateChart();
-    void onLocationSelected(int index);
-    void moreInfoMsgBox();
-    void viewListMsgBox();
+        void onLocationSelected(int index);
+        void moreInfoMsgBox();
+        void viewListMsgBox();
 
 private:
     void createTitle();
@@ -28,23 +28,21 @@ private:
     void arrangeWidgets();
     void createChart(const std::vector<Measurement> &filteredData);
 
-    QLabel *title;
+    QLabel *title{};
+    QLabel *locationLabel{};
+    QLabel *timeRangeLabel{};
+    QLabel *pollutantLabel{};
+    searchableComboBox *location{};
+    QComboBox *timeRange{};
+    searchableComboBox *pollutant{};
 
-    QLabel *locationLabel;
-    QLabel *timeRangeLabel;
-    QLabel *pollutantLabel;
-    searchableComboBox *location;
-    QComboBox *timeRange;
-    searchableComboBox *pollutant;
-
-    QLabel *red;
-    QLabel *orange;
-    QLabel *green;
-
+    QLabel *red{};
+    QLabel *orange{};
+    QLabel *green{};
     QChartView *popChartView;
 
     QLabel *pcbs;
-    QLabel *otherPops;
-    QPushButton *moreInfo;
-    QPushButton *viewList;
+    QLabel *otherPops{};
+    QPushButton *moreInfo{};
+    QPushButton *viewList{};
 };
