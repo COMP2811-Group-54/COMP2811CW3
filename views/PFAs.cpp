@@ -95,17 +95,17 @@ void PFApage::createFilters() {
 }
 
 void PFApage::createComplianceLabels() {
-    red = new QLabel("Red level: >10");
+    red = new QLabel("Red level:");
     red->setStyleSheet("background-color: red; color: white;");
-    red->setToolTip("Over the threshold");
+    red->setToolTip("Over the safety threshold");
 
-    orange = new QLabel("Orange level: 5-10");
+    orange = new QLabel("Orange level:");
     orange->setStyleSheet("background-color: orange; color: white;");
-    orange->setToolTip("Between 80 to 100% of the threshold");
+    orange->setToolTip("Between 0.8 to 1 of the safety threshold");
 
-    green = new QLabel("Green Level: <5");
+    green = new QLabel("Green Level:");
     green->setStyleSheet("background-color: green; color: white;");
-    green->setToolTip("Below 80% of the threshold");
+    green->setToolTip("Below 0.8 of the safety threshold");
 }
 
 void PFApage::arrangeWidgets() {
