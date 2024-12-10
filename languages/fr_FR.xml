@@ -43,6 +43,10 @@
             <source>DASHBOARD_DP</source>
             <translation>French Data Page</translation>
         </message>
+        <message>
+            <source>DASHBOARD_GH</source>
+            <translation>French Geographical Hotspots</translation>
+        </message>
     </context>
 
     <context>
