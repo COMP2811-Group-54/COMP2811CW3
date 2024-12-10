@@ -2,9 +2,16 @@
 
 // Constructor populates map with pollutant names and thresholds
 ComplianceChecker::ComplianceChecker() {
-
-    // All compliance values are in mirograms per litre
+    // All compliance values are in micrograms per litre
     complianceThresholds = {
+        // PFAs (based off the RSoC drinking water regulations)
+        {"FOSA", 0.01},
+        {"Perfluorooctanoic", 0.01},
+        {"PFoctncAcid", 0.01},
+        {"PFHxSA", 0.01},
+        {"PFdecncAcid", 0.01},
+        {"PFhexncAcid", 0.01},
+        {"PFpentncAcid", 0.01},
         // PFAs (based off the RSoC drinking water regulations)
         {"FOSA", 0.01},
         {"Perfluorooctanoic", 0.01},
@@ -24,14 +31,24 @@ ComplianceChecker::ComplianceChecker() {
         {"Endrin", 0.1},
         {"Heptachlor", 0.1},
         {"Carbofuran", 0.1},
+        // POPs (effectively banned, but trace amounts are acceptable)
+        {"PCB Con 052", 0.1},
+        {"DDT (PP)", 0.1},
+        {"Hexachlorbnz", 0.1},
+        {"Chlrdn-cs/Z/", 0.1},
+        {"Aldrin", 0.1},
+        {"Dieldrin", 0.1},
+        {"Endrin", 0.1},
+        {"Heptachlor", 0.1},
+        {"Carbofuran", 0.1},
 
         // // Heavy Metals
-        // {"As-Filtered", 50},
-        // {"Chromium -Cr", 4.7},
-        // {"Copper - Cu", 1},
-        // {"Iron - as Fe", 1},
-        // {"Manganse-Mn", 123},
-        // {"Zinc - as Zn", 10.9},
+        {"As-Filtered", 50},
+        {"Chromium -Cr", 4.7},
+        {"Copper - Cu", 1},
+        {"Iron - as Fe", 1},
+        {"Manganse-Mn", 123},
+        {"Zinc - as Zn", 10.9},
 
         // // Organic Chemicals
         // {"Carbendazim", 0.15},
@@ -56,21 +73,27 @@ ComplianceChecker::ComplianceChecker() {
         // {"Fluoride - F", 1.5},
         // {"SiO2 Rv", 300},
         // {"Bicarb HCO3", 4000},
+        // {"Fluoride - F", 1.5},
+        // {"SiO2 Rv", 300},
+        // {"Bicarb HCO3", 4000},
         //
         // // Nutrients
         // {"Nitrate-N", 25},
         // {"Ammonia(N)", 25},
         // {"Phosphorus-P", 75},
+        // {"Nitrate-N", 25},
+        // {"Ammonia(N)", 25},
+        // {"Phosphorus-P", 75},
         //
         // // Volatile Organic Compounds
-        // {"Ethylbenzene", 300},
-        // {"o-Xylene", 0.1},
-        // {"Chloroform", 100},
-        // {"Trichloroeth", 40},
-        // {"TetClEthene", 10},
-        // {"Vinyl Cl", 0.5},
-        // {"Carbon Tet", 3},
-        // {"DiClMe", 0.1}
+        {"Ethylbenzene", 300},
+        {"o-Xylene", 0.1},
+        {"Chloroform", 100},
+        {"Trichloroeth", 40},
+        {"TetClEthene", 10},
+        {"Vinyl Cl", 0.5},
+        {"Carbon Tet", 3},
+        {"DiClMe", 0.1}
     };
 }
 

@@ -1,6 +1,5 @@
-//
-// Created by Josh Mundray on 06/12/2024.
-//
+// ComplianceDashboard.cpp
+
 #include <QtWidgets>
 #include <stdexcept>
 #include <iostream>
@@ -32,7 +31,6 @@ void ComplianceDashboard::createTable() {
     table->setFont(tableFont);
 }
 
-
 void ComplianceDashboard::createTitle() {
     title = new QLabel(tr("DASHBOARD_CD"));
     QFont titleFont("Arial", 20, QFont::Bold);
@@ -41,31 +39,62 @@ void ComplianceDashboard::createTitle() {
 }
 
 void ComplianceDashboard::createFilters() {
-    QStringList locationOptions;
-    locationOptions << "All locations" << "1" << "2" << "3" << "4";
+    // Fetch and set locations
+    QStringList locationOptions{"All locations"};
+    std::vector<std::string> complianceLocations = ComplianceChecker::getLocations();
+    for (const std::string &locationStr: complianceLocations) {
+        locationOptions << QString::fromStdString(locationStr);
+    }
+
     location = new searchableComboBox();
     location->setOptions(locationOptions);
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
     locationLabel->setWordWrap(true);
 
-    QStringList pollutantOptions;
-    pollutantOptions << "All pollutants" << "chlorine" << "ethanol";
+    // Fetch and set pollutants
+    QStringList pollutantOptions{"All pollutants"};
+    std::vector<std::string> pollutants;
+
+    // Adding pollutants from different categories
+    std::vector<std::string> pfas = ComplianceChecker::getPFAs();
+    pollutants.insert(pollutants.end(), pfas.begin(), pfas.end());
+
+    std::vector<std::string> pops = ComplianceChecker::getPOPs();
+    pollutants.insert(pollutants.end(), pops.begin(), pops.end());
+
+    std::vector<std::string> metals = ComplianceChecker::getMetals();
+    pollutants.insert(pollutants.end(), metals.begin(), metals.end());
+
+    std::vector<std::string> vocs = ComplianceChecker::getVOCs();
+    pollutants.insert(pollutants.end(), vocs.begin(), vocs.end());
+
+    for (const std::string &chemical: pollutants) {
+        pollutantOptions << QString::fromStdString(chemical);
+    }
+
     pollutant = new searchableComboBox();
     pollutant->setOptions(pollutantOptions);
     pollutantLabel = new QLabel("&Pollutant:");
     pollutantLabel->setBuddy(pollutant);
 
-    QStringList complianceOptions;
-    complianceOptions << "All compliances" << "Red" << "Orange" << "Green";
+    // Set compliance option
+    QStringList complianceOptions{"All compliances", "Red", "Orange", "Green"};
     compliance = new QComboBox();
     compliance->addItems(complianceOptions);
-    complianceLabel = new QLabel("&Time Range:");
+    complianceLabel = new QLabel("&Compliance:");
     complianceLabel->setBuddy(compliance);
 
-    connect(compliance, QOverload<int>::of(&QComboBox::currentIndexChanged),
-            this, &ComplianceDashboard::filterDataByCompliance);
+    // Connect signals for dropdown changes
+    connect(location, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ComplianceDashboard::filterData);
+    connect(pollutant, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ComplianceDashboard::filterData);
+    connect(compliance, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ComplianceDashboard::filterData);
+
+    // Connect signals for Enter key
+    connect(location->lineEdit(), &QLineEdit::returnPressed, this, &ComplianceDashboard::filterData);
+    connect(pollutant->lineEdit(), &QLineEdit::returnPressed, this, &ComplianceDashboard::filterData);
 }
+
 
 void ComplianceDashboard::createPollutantIndicator() {
     currentPollutant = new QLabel("<current pollutant> is:");
@@ -99,32 +128,46 @@ void ComplianceDashboard::setMainLayout() {
     setLayout(finalLayout);
 }
 
-
-void ComplianceDashboard::filterDataByCompliance() {
+void ComplianceDashboard::filterData() {
+    auto &dataset = GlobalDataModel::instance().getDataset();
+    QString selectedLocation = location->currentText();
+    QString selectedPollutant = pollutant->currentText();
     QString selectedCompliance = compliance->currentText();
+
+    // Cache filtered data if the filter state does not change
+    static QString prevLocation, prevPollutant, prevCompliance;
+    static std::vector<Measurement> cachedFilteredData;
+
+    if (selectedLocation == prevLocation && selectedPollutant == prevPollutant && selectedCompliance == prevCompliance) {
+        model.setDataset(new Dataset(cachedFilteredData));
+        table->setModel(&model);
+        return;
+    }
+
+    prevLocation = selectedLocation;
+    prevPollutant = selectedPollutant;
+    prevCompliance = selectedCompliance;
+
+    std::vector<Measurement> filteredData;
     int targetCompliance = 0;
+    if (selectedCompliance == "Red") targetCompliance = 3;
+    else if (selectedCompliance == "Orange") targetCompliance = 2;
+    else if (selectedCompliance == "Green") targetCompliance = 1;
 
-    if (selectedCompliance == "Red") {
-        targetCompliance = 3;
-    } else if (selectedCompliance == "Orange") {
-        targetCompliance = 2;
-    } else if (selectedCompliance == "Green") {
-        targetCompliance = 1;
-    } else {
-        // Show all compliances
-        targetCompliance = 0;
+    for (const auto &measurement : dataset) {
+        bool matchLocation = selectedLocation == "All locations" || measurement.getLabel() == selectedLocation.toStdString();
+        bool matchPollutant = selectedPollutant == "All pollutants" || measurement.getCompoundName() == selectedPollutant.toStdString();
+        if (matchLocation && matchPollutant) {
+            int complianceStatus = complianceChecker.complianceCheck(measurement.getCompoundName(), measurement.getValue());
+            if (selectedCompliance == "All compliances" || complianceStatus == targetCompliance) {
+                filteredData.push_back(measurement);
+            }
+        }
     }
 
-    // Filter logic
-    for (int row = 0; row < model.rowCount(QModelIndex()); ++row) {
-        QModelIndex index = model.index(row, 0);
-        QString name = model.data(model.index(row, 0), Qt::DisplayRole).toString();
-        double value = model.data(model.index(row, 3), Qt::DisplayRole).toDouble();
+    // Cache the filtered data
+    cachedFilteredData = filteredData;
 
-        int complianceStatus = complianceChecker.complianceCheck(name.toStdString(), value);
-
-        // Show or hide the row based on compliance
-        bool shouldHide = selectedCompliance != "All compliances" && complianceStatus != targetCompliance;
-        table->setRowHidden(row, shouldHide);
-    }
+    model.setDataset(new Dataset(filteredData));
+    table->setModel(&model);
 }

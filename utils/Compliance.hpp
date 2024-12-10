@@ -25,6 +25,44 @@ public:
         };
     }
 
+    static std::vector<std::string> getPOPs() {
+        return {
+            "PCB Con 052",
+            "DDT (PP)",
+            "Hexachlorbnz",
+            "Chlrdn-cs/Z/",
+            "Aldrin",
+            "Dieldrin",
+            "Endrin",
+            "Heptachlor",
+            "Carbofuran"
+        };
+    }
+
+    static std::vector<std::string> getMetals() {
+        return {
+            "As-Filtered",
+            "Chromium -Cr",
+            "Copper - Cu",
+            "Iron - as Fe",
+            "Manganse-Mn",
+            "Zinc - as Zn"
+        };
+    };
+
+    static std::vector<std::string> getVOCs() {
+        return {
+            "Ethylbenzene",
+            "o-Xylene",
+            "Chloroform",
+            "Trichloroeth",
+            "TetClEthene",
+            "Vinyl Cl",
+            "Carbon Tet",
+            "DiClMe"
+        };
+    };
+
     // List of locations with more than 3 PFAs
     static std::vector<std::string> getLocations() {
         return {

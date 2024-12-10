@@ -106,6 +106,11 @@ void Dashboard::createTopLayout() {
     BtnPFA->setMinimumSize(150, 50);
     BtnPOP->setMinimumSize(150, 50);
 
+    // Adjust text size to fit each top button
+    adjustButtonTextToFit(BtnPO);
+    adjustButtonTextToFit(BtnPFA);
+    adjustButtonTextToFit(BtnPOP);
+
     // Add ComboBox
     language = new QComboBox();
     language->addItem("English", "en_GB");
@@ -142,7 +147,7 @@ void Dashboard::createLeftLayout() {
     BtnDashboard->setObjectName("BtnDashboard"); // Set object name for styling
     BtnCD = new QPushButton(tr("DASHBOARD_CD"));
     BtnCD->setObjectName("BtnCD");
-    BtnDP = new QPushButton("Data Page");
+    BtnDP = new QPushButton(tr("DASHBOARD_DP"));
     BtnDP->setObjectName("BtnDP");
     BtnGH = new QPushButton("Geographical Hotspots");
     BtnGH->setObjectName("BtnGH");
@@ -168,6 +173,12 @@ void Dashboard::createLeftLayout() {
     BtnDP->setFont(sideBtnFont);
     BtnGH->setFont(sideBtnFont);
 
+    // Adjust text size to fit each button
+    adjustButtonTextToFit(BtnDashboard);
+    adjustButtonTextToFit(BtnCD);
+    adjustButtonTextToFit(BtnDP);
+    adjustButtonTextToFit(BtnGH);
+
     // Connect signals for side buttons to the specific functions
     connect(BtnDashboard, &QPushButton::clicked, this, &Dashboard::goToOverviewCards);
     connect(BtnCD, &QPushButton::clicked, this, &Dashboard::goToCD);
@@ -175,7 +186,6 @@ void Dashboard::createLeftLayout() {
     connect(BtnGH, &QPushButton::clicked, this, &Dashboard::goToGH);
 
     // Add widgets to the layout
-    // sideLayout->addStretch();
     sideLayout->addSpacing(15);
     sideLayout->addWidget(BtnDashboard);
     sideLayout->addStretch();
@@ -189,6 +199,20 @@ void Dashboard::createLeftLayout() {
     sideLayout->addStretch();
 }
 
+void Dashboard::adjustButtonTextToFit(QPushButton *button) {
+    QString text = button->text();
+    QFont font = button->font();
+    QFontMetrics metrics(font);
+
+    int width = button->width();
+
+    while (metrics.horizontalAdvance(text) > width && font.pointSize() > 1) {
+        font.setPointSize(font.pointSize() - 1);
+        metrics = QFontMetrics(font);
+    }
+
+    button->setFont(font);
+}
 
 void Dashboard::createBottomLayout() {
     bottomLayout = new QHBoxLayout();
@@ -252,6 +276,7 @@ void Dashboard::retranslateUI() {
     // Force re-translate of all UI components (this ensures that UI updates even if translator is installed after initial load)
     title->setText(tr("DASHBOARD_TITLE"));
     BtnPFA->setText(tr("DASHBOARD_PFAS"));
+    BtnDP->setText(tr("DASHBOARD_DP"));
     BtnPOP->setText(tr("DASHBOARD_POPS"));
     BtnDashboard->setText(tr("DASHBOARD_BUTTON"));
     BtnPO->setText(tr("DASHBOARD_PO"));
@@ -280,4 +305,58 @@ void Dashboard::helpMsgBox() {
 
 void Dashboard::dataSourcesMsgBox() {
     QMessageBox::information(this, "Data Sources", "List of data sources");
+}
+
+void Dashboard::resizeEvent(QResizeEvent *event) {
+    QWidget::resizeEvent(event);
+
+    adjustButtonTextToFit(BtnDashboard);
+    adjustButtonTextToFit(BtnCD);
+    adjustButtonTextToFit(BtnDP);
+    adjustButtonTextToFit(BtnGH);
+    adjustButtonTextToFit(BtnPO);
+    adjustButtonTextToFit(BtnPFA);
+    adjustButtonTextToFit(BtnPOP);
+}
+
+void Dashboard::goToOverviewCards() {
+    pages->setCurrentIndex(0);
+}
+
+void Dashboard::goToPOPs() {
+    pages->setCurrentIndex(1);
+    retranslateUI();
+
+    auto page = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
+    if (page) {
+        std::cout << "retranslating" << std::endl;
+        page->retranslateUI();
+    }
+}
+
+void Dashboard::goToPFAs() {
+    pages->setCurrentIndex(2);
+    retranslateUI();
+
+    auto page = qobject_cast<PFApage *>(pages->currentWidget());
+    if (page) {
+        std::cout << "retranslating" << std::endl;
+        page->retranslateUI();
+    }
+}
+
+void Dashboard::goToPO() {
+    pages->setCurrentIndex(3);
+}
+
+void Dashboard::goToDP() {
+    pages->setCurrentIndex(4);
+}
+
+void Dashboard::goToCD() {
+    pages->setCurrentIndex(5);
+}
+
+void Dashboard::goToGH() {
+    pages->setCurrentIndex(6);
 }
