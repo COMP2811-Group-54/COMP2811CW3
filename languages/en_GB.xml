@@ -40,6 +40,8 @@
             <translation>Data Sources</translation>
         </message>
         <message>
+            <source>DASHBOARD_DP</source>
+            <translation>Data Page</translation>
         </message>
     </context>
 

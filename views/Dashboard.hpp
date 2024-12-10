@@ -2,23 +2,7 @@
 
 #include <iostream>
 #include <QtWidgets>
-#include <QtCharts>
-#include <QShortcut>
 
-#include "PFAs.hpp"
-#include "POPs.hpp"
-
-class QLabel;
-class QPushButton;
-class QComboBox;
-class QWidget;
-class QHBoxLayout;
-class QVBoxLayout;
-class QGridLayout;
-class QStackedWidget;
-class QFrame;
-class QTranslator;
-class QShortcut;
 
 class Dashboard : public QWidget {
     Q_OBJECT
@@ -44,6 +28,8 @@ private:
     void onLanguageChanged(int index);
 
     void retranslateUI();
+
+    void adjustButtonTextToFit(QPushButton *button); // Add this line
 
     QVBoxLayout *mainLayout;
     QHBoxLayout *topLayout;
@@ -74,52 +60,23 @@ private:
     QMap<QWidget *, QString> originalTexts;
 
 private slots:
-    void goToOverviewCards() {
-        pages->setCurrentIndex(0);
-    }
+    void goToOverviewCards();
 
-    void goToPOPs() {
-        pages->setCurrentIndex(1);
+    void goToPOPs();
 
-        retranslateUI();
+    void goToPFAs();
 
-        auto page = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
-        if (page) {
-            std::cout << "retranslating" << std::endl;
-            page->retranslateUI();
-        }
-    }
+    void goToPO();
 
-    void goToPFAs() {
-        pages->setCurrentIndex(2);
+    void goToDP();
 
-        retranslateUI();
+    void goToCD();
 
-        auto page = qobject_cast<PFApage *>(pages->currentWidget());
-        if (page) {
-            std::cout << "retranslating" << std::endl;
-            page->retranslateUI();
-            page->initializeWithData();
-        }
-    }
-
-    void goToPO() {
-        pages->setCurrentIndex(3);
-    }
-
-    void goToDP() {
-        pages->setCurrentIndex(4);
-    }
-
-    void goToCD() {
-        pages->setCurrentIndex(5);
-    }
-
-    void goToGH() {
-        pages->setCurrentIndex(6);
-    }
+    void goToGH();
 
     void helpMsgBox();
 
     void dataSourcesMsgBox();
+
+    void resizeEvent(QResizeEvent *event);
 };

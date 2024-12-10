@@ -1,27 +1,29 @@
 #pragma once
 
-#include <QtWidgets>
-#include <QtCharts>
-#include <QTabWidget>
+#include <QWidget>
+#include <QPushButton>
+#include <QLabel>
+#include <QVBoxLayout>
+#include <QFrame>
+#include <QGridLayout>
 
-class QLabel;
-class QStackedWidget;
-class QGridLayout;
-
-class OverviewCards: public QWidget
+class OverviewCards : public QWidget
 {
     Q_OBJECT
-  public:
+
+public:
     explicit OverviewCards(QWidget *parent = nullptr);
 
     signals:
-      void goToPOPs();
+        void goToPOPs();
     void goToPFAs();
     void goToPO();
     void goToCD();
 
+    public slots:
+        void updateDataDisplays();  // Now declared as a public slot
+
 private:
-    // void createCards();
     void createPOP();
     void createPFA();
     void createPO();
@@ -29,12 +31,6 @@ private:
     void arrangeWidgets();
 
     QGridLayout* gridLayout;
-
-    // QLabel* CrdPOP;
-    // QLabel* CrdPFA;
-    // QLabel* CrdPO;
-    // QLabel* CrdLitter;
-    // QLabel* CrdCD;
 
     QFrame* FramePOP;
     QVBoxLayout* CrdPOP;
@@ -44,14 +40,6 @@ private:
     QLabel* ExPOP3;
     QPushButton* POPsDetails;
 
-    QFrame* FramePO;
-    QVBoxLayout* CrdPO;
-    QLabel* TitlePO;
-    QLabel* ExPO1;
-    QLabel* ExPO2;
-    QLabel* ExPO3;
-    QPushButton* PODetails;
-
     QFrame* FramePFA;
     QVBoxLayout* CrdPFA;
     QLabel* TitlePFA;
@@ -59,6 +47,14 @@ private:
     QLabel* ExPFA2;
     QLabel* ExPFA3;
     QPushButton* PFAsDetails;
+
+    QFrame* FramePO;
+    QVBoxLayout* CrdPO;
+    QLabel* TitlePO;
+    QLabel* ExPO1;
+    QLabel* ExPO2;
+    QLabel* ExPO3;
+    QPushButton* PODetails;
 
     QFrame* FrameCD;
     QVBoxLayout* CrdCD;

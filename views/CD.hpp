@@ -21,7 +21,6 @@ public:
     explicit ComplianceDashboard(QWidget *parent = nullptr);
 
     private slots:
-        void filterDataByCompliance(); // Slot to filter data
 
 private:
     void createTitle();
@@ -33,6 +32,8 @@ private:
     void createPollutantIndicator();
 
     void setMainLayout();
+
+    void filterData();
 
     QLabel *title;
     DataModel &model; // Use a reference to the global DataModel

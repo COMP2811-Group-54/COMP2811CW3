@@ -3,15 +3,7 @@
 #include <QtWidgets>
 #include <QtCharts>
 #include "PO.hpp"
-
-
-class QComboBox;
-class QLabel;
-class QPushButton;
-class QChartView;
-class QToolTip;
-class QTextEdit;
-class QLabel;
+#include "../utils/Measurement.hpp"
 
 class PersistentOrganicPollutants : public QWidget {
     Q_OBJECT
@@ -21,27 +13,27 @@ public:
 
     void retranslateUI();
 
+    private slots:
+        void updateChart();
+    void onLocationSelected(int index);
+    void moreInfoMsgBox();
+    void viewListMsgBox();
+
 private:
     void createTitle();
-
-    void createChart();
-
     void createButtons();
-
     void createBoxes();
-
     void createFilters();
-
     void createComplianceLabels();
-
     void arrangeWidgets();
+    void createChart(const std::vector<Measurement> &filteredData);
 
     QLabel *title;
 
     QLabel *locationLabel;
     QLabel *timeRangeLabel;
     QLabel *pollutantLabel;
-    searchableComboBox *location;
+    QComboBox *location;
     QComboBox *timeRange;
     searchableComboBox *pollutant;
 
@@ -55,9 +47,4 @@ private:
     QLabel *otherPops;
     QPushButton *moreInfo;
     QPushButton *viewList;
-
-private slots:
-    void moreInfoMsgBox();
-
-    void viewListMsgBox();
 };
