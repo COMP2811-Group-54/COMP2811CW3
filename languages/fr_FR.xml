@@ -41,11 +41,55 @@
         </message>
         <message>
             <source>DASHBOARD_DP</source>
-            <translation>French Data Page</translation>
+            <translation>Page de Données</translation>
         </message>
         <message>
             <source>DASHBOARD_GH</source>
-            <translation>French Geographical Hotspots</translation>
+            <translation>Points Chauds Géographiques</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_HELP_TEXT_BODY_1</source>
+            <translation>- Utilisez la touche tabulation pour naviguer dans l'interface</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_HELP_TEXT_BODY_2</source>
+            <translation>- Utilisez la barre d'espace ou la touche entrée pour sélectionner un élément</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_HELP_TEXT_BODY_3</source>
+            <translation>Raccourcis :</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_HELP_TEXT_BODY_4</source>
+            <translation>- 1 pour le Tableau de bord</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_HELP_TEXT_BODY_5</source>
+            <translation>- 2 pour la Vue d'ensemble des polluants</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_HELP_TEXT_BODY_6</source>
+            <translation>- 3 pour les Substances per- et polyfluoroalkylées</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_HELP_TEXT_BODY_7</source>
+            <translation>- 4 pour les Polluants Organiques Persistants</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_HELP_TEXT_BODY_8</source>
+            <translation>- 5 pour la Page de Données</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_HELP_TEXT_BODY_9</source>
+            <translation>- 6 pour le Tableau de bord de conformité</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_HELP_TEXT_BODY_10</source>
+            <translation>- 7 pour les Points Chauds Géographiques</translation>
+        </message>
+        <message>
+            <source>DASHBOARD_DATA_SOURCES_TEXT</source>
+            <translation>Toutes les données sur les polluants proviennent du ministère de l'environnement, de l'alimentation et des affaires rurales</translation>
         </message>
     </context>
 
@@ -127,22 +171,68 @@
         </message>
         <message>
             <source>PFA_RED_TOOL_TIP</source>
-            <translation>Indique le niveau d'avertissement le plus élevé</translation>
+            <translation>Au-dessus du seuil de sécurité</translation>
         </message>
         <message>
             <source>PFA_ORANGE_TOOL_TIP</source>
-            <translation>Indique un niveau d'avertissement modéré</translation>
+            <translation>Entre 0,8 et 1 du seuil de sécurité</translation>
         </message>
         <message>
             <source>PFA_GREEN_TOOL_TIP</source>
-            <translation>Indique le niveau d'avertissement le plus bas ou aucun niveau d'avertissement</translation>
+            <translation>En dessous de 0,8 du seuil de sécurité</translation>
         </message>
+        <message>
+            <source>PFA_MORE_INFO_TITLE</source>
+            <translation>Info PFAs</translation>
+        </message>
+        <message>
+            <source>PFA_MORE_INFO_BODY</source>
+            <translation>Les PFA (substances per- et polyfluoroalkyles) sont des produits chimiques persistants qui ne se décomposent pas dans l'environnement, ce qui entraîne une contamination à long terme des sources d'eau. Ils s'accumulent dans les organismes aquatiques et la chaîne alimentaire, ce qui présente des risques pour la faune et l'homme. Les effets sur la santé comprennent des lésions hépatiques, des problèmes thyroïdiens, la suppression du système immunitaire, des problèmes de développement et des risques accrus de cancer. Les PFA peuvent perturber les écosystèmes et contaminer l'eau potable, ce qui en fait un grave problème d'environnement et de santé publique.</translation>
+        </message>
+        <message>
+            <source>PFA_VIEW_LIST_TITLE</source>
+            <translation>Liste des composés polyfluorés enregistrés</translation>
+        </message>
+        <message>
+            <source>PFA_VIEW_LIST_BODY_1</source>
+            <translation>- Perfluorooctanesulfonamide</translation>
+        </message>
+        <message>
+            <source>PFA_VIEW_LIST_BODY_2</source>
+            <translation>- Acide perfluorooctanoïque</translation>
+        </message>
+        <message>
+            <source>PFA_VIEW_LIST_BODY_3</source>
+            <translation>- Acide perfluorononanoïque</translation>
+        </message>
+        <message>
+            <source>PFA_VIEW_LIST_BODY_4</source>
+            <translation>- Perfluorohexanesulfonamide</translation>
+        </message>
+        <message>
+            <source>PFA_VIEW_LIST_BODY_5</source>
+            <translation>- Acide perfluorodécanoïque</translation>
+        </message>
+        <message>
+            <source>PFA_VIEW_LIST_BODY_6</source>
+            <translation>- Acide perfluorohexanoïque</translation>
+        </message>
+        <message>
+            <source>PFA_VIEW_LIST_BODY_7</source>
+            <translation>- Acide perfluoropentanoïque</translation>
+        </message>
+
+
     </context>
     <context>
         <name>PersistentOrganicPollutants</name>
         <message>
             <source>POPs_WINDOW_TITLE</source>
             <translation>Polluants Organiques Persistants</translation>
+        </message>
+        <message>
+            <source>POPs_AWAITING_DATA</source>
+            <translation>En attente de données...</translation>
         </message>
         <message>
             <source>POPs_TITLE</source>
@@ -212,5 +302,56 @@
             <source>POPs_COMPLIANCE_GREEN</source>
             <translation>Niveau Vert:</translation>
         </message>
+        <message>
+            <source>POPs_INFO_TITLE</source>
+            <translation>Informations sur les Polluants Organiques Persistants</translation>
+        </message>
+        <message>
+            <source>POPs_INFO_BODY</source>
+            <translation>Les Polluants Organiques Persistants (POPs) sont des produits chimiques toxiques qui persistent dans l'environnement pendant de longues périodes, s'accumulant dans la chaîne alimentaire. 
+            Ils peuvent causer une gamme de problèmes de santé chez les humains et les animaux, notamment le cancer, la perturbation du système immunitaire et des problèmes de développement. 
+            Ces polluants sont difficiles à éliminer de l'environnement et continuent de poser des risques longtemps après que leur utilisation ait été restreinte.</translation>
+        </message>
+        <message>
+            <source>POPs_LIST_TITLE</source>
+            <translation>Liste des POPs (Polluants Organiques Persistants)</translation>
+        </message>
+        <message>
+            <source>POPs_BODY_1</source>
+            <translation>- PCB (Biphényles Polychlorés)</translation>
+        </message>
+        <message>
+            <source>POPs_BODY_2</source>
+            <translation>- DDT</translation>
+        </message>
+        <message>
+            <source>POPs_BODY_3</source>
+            <translation>- Hexachlorobenzène</translation>
+        </message>
+        <message>
+            <source>POPs_BODY_4</source>
+            <translation>- Chlordane</translation>
+        </message>
+        <message>
+            <source>POPs_BODY_5</source>
+            <translation>- Aldrine</translation>
+        </message>
+        <message>
+            <source>POPs_BODY_6</source>
+            <translation>- Dieldrine</translation>
+        </message>
+        <message>
+            <source>POPs_BODY_7</source>
+            <translation>- Endrine</translation>
+        </message>
+        <message>
+            <source>POPs_BODY_8</source>
+            <translation>- Heptachlore</translation>
+        </message>
+        <message>
+            <source>POPs_BODY_9</source>
+            <translation>- Carbofuran</translation>
+        </message>
+
     </context>
 </TS>

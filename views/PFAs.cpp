@@ -260,25 +260,33 @@ void PFApage::retranslateUI() {
     pollutantLabel->setText(tr("PFA_POLLUTANT"));
 
     red->setText(tr("PFA_COMPLIANCE_RED"));
+    red->setToolTip(tr("PFA_RED_TOOL_TIP"));
     orange->setText(tr("PFA_COMPLIANCE_ORANGE"));
+    orange->setToolTip(tr("PFA_ORANGE_TOOL_TIP"));
     green->setText(tr("PFA_COMPLIANCE_GREEN"));
+    green->setToolTip(tr("PFA_GREEN_TOOL_TIP"));
 }
 
 void PFApage::moreInfoMsgBox() {
-    QMessageBox::information(this, "PFAs Info", 
-    "PFAs (Per- and Polyfluoroalkyl Substances) are persistent chemicals that do not break down in the environment, leading to long-term contamination of water sources. "
-    "They accumulate in aquatic organisms and the food chain, posing risks to wildlife and humans. Health effects include liver damage, thyroid issues, immune system suppression, "
-    "developmental problems, and increased cancer risks. PFAs can disrupt ecosystems and contaminate drinking water, making them a serious environmental and public health concern.");
+    QMessageBox::information(this, tr("PFA_MORE_INFO_TITLE"), 
+    tr("PFA_MORE_INFO_BODY"));
 }
 
 
 void PFApage::viewListMsgBox() {
-    QMessageBox::information(this, "List of recorded Poly-fluorinated Compounds", 
-    "- Perfluorooctanesulfonamide\n"
-    "- Perfluorooctanoic acid\n"
-    "- Perfluorononanoic acid\n"
-    "- Perfluorohexanesulfonamide\n"
-    "- Perfluorodecanoic acid\n"
-    "- Perfluorohexanoic acid\n"
-    "- Perfluoropentanoic acid");
+    QMessageBox::information(this, tr("PFA_VIEW_LIST_TITLE"), 
+    tr("PFA_VIEW_LIST_BODY_1")+
+    "\n"+
+    tr("PFA_VIEW_LIST_BODY_2")+
+    "\n"+
+    tr("PFA_VIEW_LIST_BODY_3")+
+    "\n"+
+    tr("PFA_VIEW_LIST_BODY_4")+
+    "\n"+
+    tr("PFA_VIEW_LIST_BODY_5")+
+    "\n"+
+    tr("PFA_VIEW_LIST_BODY_6")+
+    "\n"+
+    tr("PFA_VIEW_LIST_BODY_7")+
+    "\n");
 }

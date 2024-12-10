@@ -266,10 +266,14 @@ void Dashboard::onLanguageChanged(int index) {
 
     // Retranslate both the dashboard and the current page
     retranslateUI();
-    auto page = qobject_cast<PFApage *>(pages->currentWidget());
-    if (page) {
-        page->retranslateUI(); // Retranslate the current page
+    auto page_3 = qobject_cast<PFApage *>(pages->currentWidget());
+    if (page_3) {
+        page_3->retranslateUI(); // Retranslate the current page
     }
+    // auto page_2 = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
+    // if (page_2) {
+    //     page_2->retranslateUI(); // Retranslate the current page
+    // }
 }
 
 void Dashboard::retranslateUI() {
@@ -288,35 +292,44 @@ void Dashboard::retranslateUI() {
     language->setItemText(1, tr("French"));
 
     // Retranslate the current page as well (will be updated to be more efficient)
-    auto page = qobject_cast<PFApage *>(pages->currentWidget());
-    if (page) {
-        page->retranslateUI();
+    auto page3 = qobject_cast<PFApage *>(pages->currentWidget());
+    if (page3) {
+        page3->retranslateUI();
     }
 
-    auto page_1 = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
-    if (page_1) {
-        std::cout << "retranslating" << std::endl;
-        page_1->retranslateUI();
-    }
+    // auto page2 = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
+    // if (page2) {
+    //     std::cout << "retranslating" << std::endl;
+    //     page2->retranslateUI();
+    // }
 }
 
 void Dashboard::helpMsgBox() {
-    QMessageBox::information(this, "Help", 
-    "- Use the tab key to navigate around the interface\n"
-    "- Use the space or enter key to press an element\n"
-    "Shortcuts:\n"
-    "- 1 for Dashboard\n"
-    "- 2 for Pollutant Overview\n"
-    "- 3 for Per- and polyfluoroalkyl substances\n"
-    "- 4 for Persistent Organic Pollutants\n"
-    "- 5 for Data Page\n"
-    "- 6 for Compliance Dashboard\n"
-    "- 7 for Geographical Hotspots\n");
+    QMessageBox::information(this, tr("DASHBOARD_HELP"), 
+    tr("DASHBOARD_HELP_TEXT_BODY_1")+
+    "\n"+
+    tr("DASHBOARD_HELP_TEXT_BODY_2")+
+    "\n"+
+    tr("DASHBOARD_HELP_TEXT_BODY_3")+
+    "\n"+
+    tr("DASHBOARD_HELP_TEXT_BODY_4")+
+    "\n"+
+    tr("DASHBOARD_HELP_TEXT_BODY_5")+
+    "\n"+
+    tr("DASHBOARD_HELP_TEXT_BODY_6")+
+    "\n"+
+    tr("DASHBOARD_HELP_TEXT_BODY_7")+
+    "\n"+
+    tr("DASHBOARD_HELP_TEXT_BODY_8")+
+    "\n"+
+    tr("DASHBOARD_HELP_TEXT_BODY_9")+
+    "\n"+
+    tr("DASHBOARD_HELP_TEXT_BODY_10"));
 }
 
 void Dashboard::dataSourcesMsgBox() {
-    QMessageBox::information(this, "Data Sources",
-    "All polluant data has been sourced from the Department for Environment Food & Rural Affairs");
+    QMessageBox::information(this, tr("DASHBOARD_DS"),
+    tr("DASHBOARD_DATA_SOURCES_TEXT"));
 }
 
 void Dashboard::resizeEvent(QResizeEvent *event) {

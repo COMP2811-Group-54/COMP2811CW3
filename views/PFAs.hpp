@@ -14,9 +14,9 @@ public:
 
     private slots:
         void updateChart();
-    void onLocationSelected(int index);
-    void moreInfoMsgBox();
-    void viewListMsgBox();
+        void onLocationSelected(int index);
+        void moreInfoMsgBox();
+        void viewListMsgBox();
 
 private:
     void createTitle();
