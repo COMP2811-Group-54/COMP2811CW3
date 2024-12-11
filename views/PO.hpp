@@ -1,6 +1,5 @@
 #pragma once
 
-#include <complex.h>
 #include <QtWidgets>
 #include <QtCharts>
 
