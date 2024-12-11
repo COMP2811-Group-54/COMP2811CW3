@@ -64,7 +64,7 @@ void Dashboard::createStackedWidget() {
     });
 
     connect(page1, &OverviewCards::goToCD, this, [this]() {
-        pages->setCurrentIndex(4);
+        pages->setCurrentIndex(5);
     });
 
 

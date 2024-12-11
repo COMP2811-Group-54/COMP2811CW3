@@ -13,6 +13,7 @@
 #include <QDebug>
 
 #include "GlobalDataModel.hpp"
+#include <unordered_set>
 
 // Column constants
 const std::string ID_COLUMN = "@id";
@@ -30,6 +31,7 @@ std::unordered_map<std::string, std::vector<Measurement> > measurementsByDetermi
 std::unordered_map<std::string, std::vector<Measurement> > measurementsBySamplingPoint;
 
 void Dataset::loadDataset(const std::string &path) {
+    highDataPointLocations.clear();
     csv::CSVReader csvReader(path);
     data.clear();
     measurementsByDeterminand.clear();
@@ -64,6 +66,20 @@ void Dataset::loadDataset(const std::string &path) {
             measurementsBySamplingPoint[samplingPoint].push_back(measurement);
         }
     }
+
+    // Identify locations with more than 20 data points
+    std::unordered_map<std::string, int> samplingPointCounts;
+    for (const Measurement &m: data) {
+        samplingPointCounts[m.getLabel()]++;
+    }
+    for (const auto &pair: samplingPointCounts) {
+        std::cout << pair.first << " " << pair.second << std::endl;
+        if (pair.second > 20) {
+            highDataPointLocations.emplace_back(pair.first); // Correct placement
+        }
+    }
+    std::sort(highDataPointLocations.begin(), highDataPointLocations.end());
+    // Removed redundant push_back
 
     // Fetch latitude and longitude for all sampling points
     fetchLatLonForSamplingPoints();
@@ -123,8 +139,23 @@ void Dataset::handleNetworkData(QNetworkReply *reply) {
     }
 }
 
+std::vector<std::string> Dataset::getHighDataPointLocations() {
+    std::cout << "getHighDataPointLocations" << std::endl;
+    for (auto high_data_point_location : highDataPointLocations) {
+        std::cout << high_data_point_location << std::endl;
+    }
+    return highDataPointLocations;
+}
+
 void Dataset::checkDataExists() const {
     if (size() == 0) {
         throw std::runtime_error("Dataset is empty!");
     }
+}
+
+std::vector<Measurement> Dataset::sortByTimestamp() {
+    std::sort(data.begin(), data.end(), [](const Measurement &a, const Measurement &b) {
+        return a.getDatetime() < b.getDatetime();
+    });
+    return data; // Return the sorted dataset
 }

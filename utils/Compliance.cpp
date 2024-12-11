@@ -55,6 +55,7 @@ ComplianceChecker::ComplianceChecker() {
         // {"Fluoride - F", 1.5},
         // {"SiO2 Rv", 300},
         // {"Bicarb HCO3", 4000},
+
         //
         // // Nutrients
         // {"Nitrate-N", 25},
@@ -75,15 +76,17 @@ ComplianceChecker::ComplianceChecker() {
 
 // Checks if a measurement value is compliant
 int ComplianceChecker::complianceCheck(const string &name, double value) const {
-    const double threshold = complianceThresholds.at(name);
-
-    if (value >= threshold * thresholdTolerance) {
-        return overThreshold;
+    // Compliance levels
+    if (value < 0.8) {
+        return underThreshold; // Green
     }
-    if (value < threshold) {
-        return underThreshold;
+    if (value >= 0.8 && value <= 1.0) {
+        return atThreshold; // Orange
     }
-    return atThreshold;
+    if (value > 1.0) {
+        return overThreshold; // Red
+    }
+    return underThreshold; // Default to Green if no specific case matches
 }
 
 // Constructor for ComplianceDelegate
@@ -92,30 +95,37 @@ ComplianceDelegate::ComplianceDelegate(QObject *parent)
 }
 
 void ComplianceDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
-                               const QModelIndex &index) const {
+                                const QModelIndex &index) const {
     QVariant value = index.data(Qt::DisplayRole);
 
-    if (index.column() == 3) {
-        // Assuming column 3 is for values
-        QString name = index.sibling(index.row(), 0).data().toString(); // Column 0 has names
+    if (index.column() == 3) { // Assuming column 3 is for measured values
+        QString name = index.sibling(index.row(), 0).data().toString(); // Column 0 has parameter names
         double value = index.data().toDouble();
 
+        // Get the compliance level
         int complianceStatus = complianceChecker.complianceCheck(name.toStdString(), value);
-        QColor backgroundColor;
 
+        // Determine background color based on compliance level
+        QColor backgroundColor;
         switch (complianceStatus) {
-            case 1: backgroundColor = Qt::green;
-                break;
-            case 2: backgroundColor = Qt::yellow;
-                break;
-            case 3: backgroundColor = Qt::red;
-                break;
-            default: backgroundColor = Qt::white;
-                break;
+            case 1: // Green
+                backgroundColor = Qt::green;
+            break;
+            case 2: // Orange/Yellow
+                backgroundColor = QColor(255, 165, 0); // RGB value for Orange
+            break;
+            case 3: // Red
+                backgroundColor = Qt::red;
+            break;
+            default: // Default background color
+                backgroundColor = Qt::white;
+            break;
         }
 
+        // Paint the background
         painter->fillRect(option.rect, backgroundColor);
     }
 
+    // Draw the text as usual
     QStyledItemDelegate::paint(painter, option, index);
 }

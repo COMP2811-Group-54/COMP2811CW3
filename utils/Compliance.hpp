@@ -67,6 +67,8 @@ public:
     static std::vector<std::string> getLocations() {
         return {
             "ACRON FARM, DRIFFIELD",
+            "AIRE AT BEAL BRIDGE",
+            "AIRE D/S LOADPIT BECK"
             "BRIMHAM HALL FARM HARROGATE 3094",
             "BURTIS BECK CARR HOUSE",
             "CLIVE SOANES BROILERS",
@@ -138,6 +140,9 @@ public:
     double getComplianceThreshold(const string &name) const { return complianceThresholds.at(name); }
     unordered_map<string, double> complianceThresholds;
 
+    // Green < 0.8
+    // Orange: 0.8-1
+    // Red > 1
 private:
     int overThreshold = 3;
     int atThreshold = 2;

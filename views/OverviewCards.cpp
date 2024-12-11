@@ -135,6 +135,8 @@ void OverviewCards::createCD() {
     ExCD3 = new QLabel();
     CDDetails = new QPushButton(tr("OC_CD_DETAILS"));
 
+    connect(CDDetails, &QPushButton::clicked, this, &OverviewCards::goToCD);
+
     CrdCD->addWidget(TitleCD);
     CrdCD->addWidget(ExCD1);
     CrdCD->addWidget(ExCD2);
@@ -186,11 +188,33 @@ void OverviewCards::updateDataDisplays() {
     auto metals = ComplianceChecker::getMetals();
     auto vocs = ComplianceChecker::getVOCs();
 
+    auto locations = ComplianceChecker::getLocations();
+
+    // This map holds each location and its assigned tier (r/o/g, 3/2/1)
+    unordered_map<string, int> locationTiers;
+
     for (const auto &measurement: dataset) {
         std::string compoundName = measurement.getCompoundName();
         double value = measurement.getValue();
 
+        std::string locationName = measurement.getLabel();
+
         int complianceStatus = complianceChecker.complianceCheck(compoundName, value);
+
+        // Check the compliance of the measurement at the location
+        if (std::find(locations.begin(), locations.end(), locationName) != locations.end()) {
+
+            // Locations sorted into tiers (correspponding to r/o/g)
+            if (complianceStatus == 3) {
+                locationTiers[locationName] = 3;
+            }
+            else if (complianceStatus == 2 && locationTiers[locationName] < 3) {
+                locationTiers[locationName] = 2;
+            }
+            else if (complianceStatus == 1 && locationTiers[locationName] < 2) {
+                locationTiers[locationName] = 1;
+            }
+        }
 
         // Check compliance for POPs
         if (std::find(pops.begin(), pops.end(), compoundName) != pops.end()) {
@@ -230,6 +254,23 @@ void OverviewCards::updateDataDisplays() {
         }
     }
 
+    // Count number of locations in each category (r/o/g)
+    int greenLocations = 0;
+    int orangeLocations = 0;
+    int redLocations = 0;
+
+    for (const auto& [key, value] : locationTiers) {
+        if (value == 1) {
+            greenLocations++;
+        }
+        else if (value == 2) {
+            orangeLocations++;
+        }
+        else if (value == 3) {
+            redLocations++;
+        }
+    }
+
     // Update text for POP
     ExPOP1->setText(QString(tr("OC_EX_POP1")+" %1").arg(popGreen));
     ExPOP2->setText(QString(tr("OC_EX_POP2")+" %1").arg(popOrange));
@@ -241,6 +282,7 @@ void OverviewCards::updateDataDisplays() {
     ExPFA3->setText(QString(tr("OC_EX_PFA3")+" %1").arg(pfaRed));
 
     // Update text for PO (metals and VOCs combined metrics)
+
     ExPO1->setText(QString(tr("OC_EX_PO1")+" %1").arg(metalGreen + vocGreen));
     ExPO2->setText(QString(tr("OC_EX_PO2")+" %1").arg(metalOrange + vocOrange));
     ExPO3->setText(QString(tr("OC_EX_PO3")+" %1").arg(metalRed + vocRed));

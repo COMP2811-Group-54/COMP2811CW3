@@ -43,9 +43,9 @@ private:
     QLabel *locationLabel;
     QLabel *complianceLabel;
     QLabel *pollutantLabel;
-    searchableComboBox *location;
+    QComboBox *location;
     QComboBox *compliance;
-    searchableComboBox *pollutant;
+    QComboBox *pollutant;
     QLabel *currentPollutant;
     QLabel *currentPollutantCompliance;
     QTableView *table;

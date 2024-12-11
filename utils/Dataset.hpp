@@ -7,6 +7,8 @@
 #include <unordered_map>
 #include <QObject>
 #include <QNetworkAccessManager>
+#include <unordered_set>
+
 #include "Measurement.hpp"
 
 class Dataset : public QObject {
@@ -45,6 +47,10 @@ public:
 
     std::unordered_map<std::string, std::pair<double, double> > samplingPointCoordinates;
 
+    std::vector<Measurement> sortByTimestamp();
+
+    std::vector<std::string> getHighDataPointLocations();
+
 public slots:
     void fetchLatLonForSamplingPoints();
 
@@ -55,6 +61,7 @@ private:
     std::string filePath;
     std::vector<Measurement> data;
     QNetworkAccessManager networkManager;
+    std::vector<std::string> highDataPointLocations;
 
     int pendingRequests;
 
