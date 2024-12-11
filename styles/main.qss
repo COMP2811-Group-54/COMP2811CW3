@@ -22,8 +22,6 @@ QPushButton {
     padding: 10px 20px;
     text-align: center;        /* Centers the text */
     white-space: nowrap;       /* Prevents wrapping */
-    overflow: hidden;          /* Hides overflow text */
-    text-overflow: ellipsis;   /* Adds ellipsis for overflow */
 }
 QPushButton:hover, QPushButton:focus {
     background-color: #4682B4;

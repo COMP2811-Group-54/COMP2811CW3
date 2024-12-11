@@ -266,13 +266,34 @@ void Dashboard::onLanguageChanged(int index) {
 
     // Retranslate both the dashboard and the current page
     retranslateUI();
-    auto page_3 = qobject_cast<PFApage *>(pages->currentWidget());
-    if (page_3) {
-        page_3->retranslateUI(); // Retranslate the current page
+    auto page1 = qobject_cast<OverviewCards *>(pages->currentWidget());
+    if (page1) {
+        page1->retranslateUI(); // Retranslate the current page
     }
-    auto page_2 = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
-    if (page_2) {
-        page_2->retranslateUI(); // Retranslate the current page
+
+    auto page2 = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
+    if (page2) {
+        page2->retranslateUI(); // Retranslate the current page
+    }
+
+    auto page3 = qobject_cast<PFApage *>(pages->currentWidget());
+    if (page3) {
+        page3->retranslateUI(); // Retranslate the current page
+    }
+
+    auto page4 = qobject_cast<PollutantOverview *>(pages->currentWidget());
+    if (page3) {
+        page3->retranslateUI(); // Retranslate the current page
+    }
+
+    auto page5 = qobject_cast<DataPage *>(pages->currentWidget());
+    if (page5) {
+        page5->retranslateUI(); // Retranslate the current page
+    }
+
+    auto page6 = qobject_cast<ComplianceDashboard *>(pages->currentWidget());
+    if (page6) {
+        page6->retranslateUI(); // Retranslate the current page
     }
 }
 
@@ -292,15 +313,34 @@ void Dashboard::retranslateUI() {
     language->setItemText(1, tr("French"));
 
     // Retranslate the current page as well (will be updated to be more efficient)
-    auto page3 = qobject_cast<PFApage *>(pages->currentWidget());
-    if (page3) {
-        page3->retranslateUI();
+    auto page1 = qobject_cast<OverviewCards *>(pages->currentWidget());
+    if (page1) {
+        page1->retranslateUI(); // Retranslate the current page
     }
 
     auto page2 = qobject_cast<PersistentOrganicPollutants *>(pages->currentWidget());
     if (page2) {
-        std::cout << "retranslating" << std::endl;
-        page2->retranslateUI();
+        page2->retranslateUI(); // Retranslate the current page
+    }
+
+    auto page3 = qobject_cast<PFApage *>(pages->currentWidget());
+    if (page3) {
+        page3->retranslateUI(); // Retranslate the current page
+    }
+
+    auto page4 = qobject_cast<PollutantOverview *>(pages->currentWidget());
+    if (page4) {
+        page4->retranslateUI(); // Retranslate the current page
+    }
+
+    auto page5 = qobject_cast<DataPage *>(pages->currentWidget());
+    if (page5) {
+        page5->retranslateUI(); // Retranslate the current page
+    }
+
+    auto page6 = qobject_cast<ComplianceDashboard *>(pages->currentWidget());
+    if (page6) {
+        page6->retranslateUI(); // Retranslate the current page
     }
 }
 
@@ -346,6 +386,13 @@ void Dashboard::resizeEvent(QResizeEvent *event) {
 
 void Dashboard::goToOverviewCards() {
     pages->setCurrentIndex(0);
+    retranslateUI();
+
+    auto page = qobject_cast<OverviewCards *>(pages->currentWidget());
+    if (page) {
+        std::cout << "retranslating" << std::endl;
+        page->retranslateUI();
+    }
 }
 
 void Dashboard::goToPOPs() {
@@ -372,14 +419,35 @@ void Dashboard::goToPFAs() {
 
 void Dashboard::goToPO() {
     pages->setCurrentIndex(3);
+    retranslateUI();
+
+    auto page = qobject_cast<PollutantOverview *>(pages->currentWidget());
+    if (page) {
+        std::cout << "retranslating" << std::endl;
+        page->retranslateUI();
+    }
 }
 
 void Dashboard::goToDP() {
     pages->setCurrentIndex(4);
+    retranslateUI();
+
+    auto page = qobject_cast<DataPage *>(pages->currentWidget());
+    if (page) {
+        std::cout << "retranslating" << std::endl;
+        page->retranslateUI();
+    }
 }
 
 void Dashboard::goToCD() {
     pages->setCurrentIndex(5);
+    retranslateUI();
+
+    auto page = qobject_cast<ComplianceDashboard *>(pages->currentWidget());
+    if (page) {
+        std::cout << "retranslating" << std::endl;
+        page->retranslateUI();
+    }
 }
 
 void Dashboard::goToGH() {

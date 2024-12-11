@@ -32,9 +32,9 @@ void DataPage::createTable() {
 }
 
 void DataPage::createButtons() {
-    setLocationButton = new QPushButton("Set Data Location");
-    loadButton = new QPushButton("Load");
-    statsButton = new QPushButton("Stats");
+    setLocationButton = new QPushButton(tr("DP_SET_LOCATION"));
+    loadButton = new QPushButton(tr("DP_LOAD"));
+    statsButton = new QPushButton(tr("DP_STATS"));
 
     connect(loadButton, &QPushButton::clicked, this, &DataPage::openCSV);
     connect(setLocationButton, &QPushButton::clicked, this, &DataPage::setDataLocation);
@@ -47,12 +47,12 @@ void DataPage::displayStats() {
     // Assuming each cell is a QVariant and calculating data size roughly
     int dataSize = rowCount * columnCount * sizeof(QVariant);
 
-    QString stats = QString("Rows: %1\nColumns: %2\nData Size: ~%3 bytes\n")
+    QString stats = QString(tr("DP_STATS_FIRST_LINE")+"%1\n"+tr("DP_STATS_SECOND_LINE")+"%2\n"+tr("DP_STATS_THIRD_LINE_P1")+"%3 "+tr("DP_STATS_THIRD_LINE_P2"))
             .arg(rowCount)
             .arg(columnCount)
             .arg(dataSize);
 
-    QMessageBox::information(this, "Dataset Statistics", stats);
+    QMessageBox::information(this, tr("DP_STATS_POPUP_TITLE"), stats);
 }
 
 void DataPage::setMainLayout() {
@@ -80,8 +80,7 @@ void DataPage::setDataLocation() {
 
 void DataPage::openCSV() {
     if (dataLocation.isEmpty()) {
-        QMessageBox::critical(this, "Data Location Error",
-                              "Data location has not been set!\nSpecify via the Set Data Location button.");
+        QMessageBox::critical(this, tr("DP_CRITICAL_MSG_TITLE"),tr("DP_CRITICAL_MSG_FIRST_LINE")+"\n"+tr("DP_CRITICAL_MSG_SECOND_LINE"));
         return;
     }
 
@@ -90,8 +89,8 @@ void DataPage::openCSV() {
     QFileInfoList fileList = dir.entryInfoList(filePattern, QDir::Files);
 
     if (fileList.isEmpty()) {
-        QMessageBox::warning(this, "No CSV Files Found",
-                             "No CSV files found with the pattern Y-[YEAR].csv in the selected directory.");
+        QMessageBox::warning(this, tr("DP_WARNING_MSG_TITLE"),
+                             tr("DP_WARNING_MSG_LINE"));
         return;
     }
 
@@ -105,8 +104,8 @@ void DataPage::openCSV() {
         }
 
         bool ok;
-        filename = QInputDialog::getItem(this, "Select CSV File",
-                                         "Choose a file:", fileNames, 0, false, &ok);
+        filename = QInputDialog::getItem(this, tr("DP_INPUT_DIALOG_TITLE"),
+                                         tr("DP_INPUT_DIALOG_LINE"), fileNames, 0, false, &ok);
         if (!ok) {
             return; // If the user cancels the operation
         }
@@ -122,6 +121,14 @@ void DataPage::openCSV() {
         emit model.layoutChanged();
         table->resizeColumnsToContents();
     } catch (const std::exception &error) {
-        QMessageBox::critical(this, "CSV File Error", error.what());
+        QMessageBox::critical(this, tr("DP_CSV_ERROR_TITLE"), error.what());
     }
+}
+
+
+void DataPage::retranslateUI() {
+    // Force re-translate of all UI components (this ensures that UI updates even if translator is installed after initial load)
+    setLocationButton->setText(tr("DP_SET_LOCATION"));
+    loadButton->setText(tr("DP_LOAD"));
+    statsButton->setText(tr("DP_STATS"));
 }

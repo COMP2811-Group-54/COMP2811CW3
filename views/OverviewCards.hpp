@@ -13,6 +13,7 @@ class OverviewCards : public QWidget
 
 public:
     explicit OverviewCards(QWidget *parent = nullptr);
+    void retranslateUI();
 
     signals:
         void goToPOPs();

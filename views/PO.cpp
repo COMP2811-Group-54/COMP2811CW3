@@ -213,88 +213,103 @@ void PollutantOverview::arrangeWidgets()
     setLayout(layout);
 }
 
+void PollutantOverview::retranslateUI() {
+    title->setText(tr("PO_TITLE"));
+
+    locationLabel->setText(tr("PO_LOCATION_LABEL"));
+    timeRangeLabel->setText(tr("PO_TIME_RANGE_LABEL"));
+    pollutantLabel->setText(tr("PO_POLLUTANT_LABEL"));
+
+    heavyMetalsInfo->setText(tr("PO_HEAVY_METALS_BUTTON"));
+    organicChemicalsInfo->setText(tr("PO_ORGANIC_CHEMICALS_BUTTON"));
+    inorganicChemicalsInfo->setText(tr("PO_INORGANIC_CHEMICALS_BUTTON"));
+    nutrientsInfo->setText(tr("PO_NUTRIENTS_BUTTON"));
+    volatileOrganicCompoundsInfo->setText(tr("PO_VOLATILE_ORGANIC_COMPOUNDS_BUTTON"));
+
+    red->setText(tr("PO_COMPLIANCE_RED"));
+    red->setToolTip(tr("PO_COMPLIANCE_RED_TOOLTIP"));
+    orange->setText(tr("PO_COMPLIANCE_ORANGE"));
+    orange->setToolTip(tr("PO_COMPLIANCE_ORANGE_TOOLTIP"));
+    green->setText(tr("PO_COMPLIANCE_GREEN"));
+    green->setToolTip(tr("PO_COMPLIANCE_GREEN_TOOLTIP"));
+}
+
 // *UI Job* msg boxes for pollutant categories
 
 void PollutantOverview::heavyMetalsInfoMsgBox()
 {
-    QMessageBox::information(this, "Heavy Metals Info", 
-    "Heavy metals, such as lead, mercury, and cadmium, are toxic even at low concentrations. "
-    "They accumulate in living organisms, causing long-term damage to ecosystems and human health. "
-    "Heavy metals can contaminate water sources and are difficult to remediate once released.\n\n"
-    "Pollutants in this category:\n"
-    "- Arsenic\n"
-    "- Chromium (III)\n"
-    "- Chromium (IV) (Hexavalent Chromium)\n"
-    "- Copper\n"
-    "- Iron\n"
-    "- Manganese\n"
-    "- Zinc");
+    QMessageBox::information(this, tr("PO_HEAVY_METALS_TITLE"),
+    tr("PO_HEAVY_METALS_DESC_1") + "\n" +
+    tr("PO_HEAVY_METALS_DESC_2") + "\n" +
+    tr("PO_HEAVY_METALS_DESC_3") + "\n\n" +
+    tr("PO_HEAVY_METALS_1") + "\n" +
+    tr("PO_HEAVY_METALS_2") + "\n" +
+    tr("PO_HEAVY_METALS_3") + "\n" +
+    tr("PO_HEAVY_METALS_4") + "\n" +
+    tr("PO_HEAVY_METALS_5") + "\n" +
+    tr("PO_HEAVY_METALS_6") + "\n" +
+    tr("PO_HEAVY_METALS_7"));
 }
 
 void PollutantOverview::organicChemicalsInfoMsgBox()
 {
-    QMessageBox::information(this, "Organic Chemicals Info", 
-    "Organic chemicals include pesticides, herbicides, fungicides, and industrial chemicals. "
-    "These chemicals can contaminate soil and water, disrupting ecosystems and causing long-term harm to plants, animals, and humans.\n\n"
-    "Pollutants in this category:\n"
-    "- Carbendazim (fungicide)\n"
-    "- Chlorothalonil (fungicide)\n"
-    "- Cypermethrin (insecticide)\n"
-    "- Diazinon (insecticide)\n"
-    "- Dimethoate (insecticide)\n"
-    "- Glyphosate (herbicide)\n"
-    "- Linuron (herbicide)\n"
-    "- Mecoprop (herbicide)\n"
-    "- Pendimethalin (herbicide)\n"
-    "- Permethrin (insecticide)\n"
-    "- Methiocarb (insecticide)\n"
-    "- Benzyl butyl phthalate (plasticizer)\n"
-    "- Tetrachloroethane (solvent)\n"
-    "- Toluene (solvent)\n"
-    "- 2,4-dichlorophenol\n"
-    "- Phenol\n"
-    "- Triclosan (antibacterial/antifungal agent)");
+    QMessageBox::information(this, tr("PO_ORGANIC_CHEMICALS_TITLE"),
+    tr("PO_ORGANIC_CHEMICALS_DESC_1") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_DESC_2") + "\n\n" +
+    tr("PO_ORGANIC_CHEMICALS_1") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_2") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_3") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_4") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_5") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_6") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_7") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_8") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_9") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_10") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_11") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_12") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_13") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_14") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_15") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_16") + "\n" +
+    tr("PO_ORGANIC_CHEMICALS_17"));
 }
 
 void PollutantOverview::inorganicChemicalsInfoMsgBox()
 {
-    QMessageBox::information(this, "Inorganic Chemicals Info", 
-    "Inorganic chemicals, including metals, salts, and acids, can affect water pH levels, disrupt aquatic habitats, "
-    "and pose risks to plants and animals. These substances are often introduced through industrial discharge and mining activities.\n\n"
-    "Pollutants in this category:\n"
-    "- Chlorine\n"
-    "- Cyanide\n"
-    "- Fluoride\n"
-    "- Silica/Silicate\n"
-    "- Bicarbonate");
+    QMessageBox::information(this, tr("PO_INORGANIC_CHEMICALS_TITLE"),
+    tr("PO_INORGANIC_CHEMICALS_DESC_1") + "\n" +
+    tr("PO_INORGANIC_CHEMICALS_DESC_2") + "\n\n" +
+    tr("PO_INORGANIC_CHEMICALS_1") + "\n" +
+    tr("PO_INORGANIC_CHEMICALS_2") + "\n" +
+    tr("PO_INORGANIC_CHEMICALS_3") + "\n" +
+    tr("PO_INORGANIC_CHEMICALS_4") + "\n" +
+    tr("PO_INORGANIC_CHEMICALS_5"));
 }
 
 void PollutantOverview::nutrientsInfoMsgBox()
 {
-    QMessageBox::information(this, "Nutrients Info", 
-    "Excess nutrients, particularly nitrogen and phosphorus, can lead to eutrophication in water bodies. "
-    "This process depletes oxygen levels, causing algal blooms and fish kills, and disrupting aquatic ecosystems.\n\n"
-    "Pollutants in this category:\n"
-    "- Nitrate\n"
-    "- Phosphate");
+    QMessageBox::information(this, tr("PO_NUTRIENTS_TITLE"),
+    tr("PO_NUTRIENTS_DESC_1") + "\n" +
+    tr("PO_NUTRIENTS_DESC_2") + "\n\n" +
+    tr("PO_NUTRIENTS_1") + "\n" +
+    tr("PO_NUTRIENTS_2"));
 }
 
 void PollutantOverview::volatileOrganicCompoundsInfoMsgBox()
 {
-    QMessageBox::information(this, "Volatile Organic Compounds Info", 
-    "Volatile Organic Compounds (VOCs) include hydrocarbons and halogenated hydrocarbons. "
-    "Hydrocarbons can contaminate water and soil, depleting oxygen levels and harming wildlife. "
-    "Halogenated hydrocarbons, such as chlorinated solvents, are persistent pollutants that bioaccumulate, "
-    "pose toxicity risks, and contribute to ozone depletion.\n\n"
-    "Pollutants in this category:\n"
-    "- Benzene\n"
-    "- Toluene\n"
-    "- Ethylbenzene\n"
-    "- Xylenes\n"
-    "- Chloroform\n"
-    "- Trichloroethylene (TCE)\n"
-    "- Tetrachloroethylene (PCE)\n"
-    "- Vinyl Chloride\n"
-    "- Carbon Tetrachloride\n"
-    "- Dichloromethane (Methylene Chloride)");
+    QMessageBox::information(this, tr("PO_VOC_TITLE"),
+    tr("PO_VOC_DESC_1") + "\n" +
+    tr("PO_VOC_DESC_2") + "\n" +
+    tr("PO_VOC_DESC_3") + "\n\n" +
+    tr("PO_VOC_1") + "\n" +
+    tr("PO_VOC_2") + "\n" +
+    tr("PO_VOC_3") + "\n" +
+    tr("PO_VOC_4") + "\n" +
+    tr("PO_VOC_5") + "\n" +
+    tr("PO_VOC_6") + "\n" +
+    tr("PO_VOC_7") + "\n" +
+    tr("PO_VOC_8") + "\n" +
+    tr("PO_VOC_9") + "\n" +
+    tr("PO_VOC_10"));
 }

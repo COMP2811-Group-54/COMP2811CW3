@@ -32,7 +32,7 @@ void ComplianceDashboard::createTable() {
 }
 
 void ComplianceDashboard::createTitle() {
-    title = new QLabel(tr("DASHBOARD_CD"));
+    title = new QLabel(tr("CD_TITLE"));
     QFont titleFont("Arial", 20, QFont::Bold);
     title->setFont(titleFont);
     title->setAlignment(Qt::AlignCenter);
@@ -40,7 +40,7 @@ void ComplianceDashboard::createTitle() {
 
 void ComplianceDashboard::createFilters() {
     // Fetch and set locations
-    QStringList locationOptions{"All locations"};
+    QStringList locationOptions{tr("CD_LOCATION_OPTIONS")};
     std::vector<std::string> complianceLocations = ComplianceChecker::getLocations();
     for (const std::string &locationStr: complianceLocations) {
         locationOptions << QString::fromStdString(locationStr);
@@ -53,7 +53,7 @@ void ComplianceDashboard::createFilters() {
     locationLabel->setWordWrap(true);
 
     // Fetch and set pollutants
-    QStringList pollutantOptions{"All pollutants"};
+    QStringList pollutantOptions{tr("CD_POLLUTANT_OPTIONS")};
     std::vector<std::string> pollutants;
 
     // Adding pollutants from different categories
@@ -79,7 +79,7 @@ void ComplianceDashboard::createFilters() {
     pollutantLabel->setBuddy(pollutant);
 
     // Set compliance option
-    QStringList complianceOptions{"All compliances", "Red", "Orange", "Green"};
+    complianceOptions << tr("CD_COMPLIANCE_OPTION1") << tr("CD_COMPLIANCE_OPTION2") << tr("CD_COMPLIANCE_OPTION3") << tr("CD_COMPLIANCE_OPTION4");
     compliance = new QComboBox();
     compliance->addItems(complianceOptions);
     complianceLabel = new QLabel("&Compliance:");
@@ -97,8 +97,8 @@ void ComplianceDashboard::createFilters() {
 
 
 void ComplianceDashboard::createPollutantIndicator() {
-    currentPollutant = new QLabel("<current pollutant> is:");
-    currentPollutantCompliance = new QLabel("<red/yellow/green>");
+    currentPollutant = new QLabel(tr("CD_CURRENT_POLLUTANT"));
+    currentPollutantCompliance = new QLabel(tr("CD_CURRENT_POLLUTANT_COMPLIANCE"));
     currentPollutantCompliance->setStyleSheet("background-color: red; color: white;");
 }
 
@@ -170,4 +170,11 @@ void ComplianceDashboard::filterData() {
 
     model.setDataset(new Dataset(filteredData));
     table->setModel(&model);
+}
+
+void ComplianceDashboard::retranslateUI() {
+    // Force re-translate of all UI components (this ensures that UI updates even if translator is installed after initial load)
+    title->setText(tr("CD_TITLE"));
+    currentPollutant->setText(tr("CD_CURRENT_POLLUTANT"));
+    currentPollutantCompliance->setText(tr("CD_CURRENT_POLLUTANT_COMPLIANCE"));
 }

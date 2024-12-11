@@ -258,11 +258,11 @@ void PersistentOrganicPollutants::retranslateUI() {
     pollutantLabel->setText(tr("POPs_POLLUTANT_LABEL"));
 
     red->setText(tr("POPs_COMPLIANCE_RED"));
-    red->setToolTip(tr("POPs_COMPLIANCE_RED_TOOL_TIP"));
+    red->setToolTip(tr("POPs_COMPLIANCE_RED_TOOLTIP"));
     orange->setText(tr("POPs_COMPLIANCE_ORANGE"));
-    orange->setToolTip(tr("POPs_COMPLIANCE_ORANGE_TOOL_TIP"));
+    orange->setToolTip(tr("POPs_COMPLIANCE_ORANGE_TOOLTIP"));
     green->setText(tr("POPs_COMPLIANCE_GREEN"));
-    green->setToolTip(tr("POPs_COMPLIANCE_GREEN_TOOL_TIP"));
+    green->setToolTip(tr("POPs_COMPLIANCE_GREEN_TOOLTIP"));
 }
 
 void PersistentOrganicPollutants::moreInfoMsgBox() {

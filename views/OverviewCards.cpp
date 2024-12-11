@@ -23,18 +23,18 @@ void OverviewCards::createPO() {
 
     CrdPO = new QVBoxLayout(FramePO);
 
-    TitlePO = new QLabel("<h2>Metals and Volatile Organic Compounds<h2>");
+    TitlePO = new QLabel(tr("OC_PO_TITLE"));
     TitlePO->setAlignment(Qt::AlignCenter);
 
     QHBoxLayout *ComponentsPO = new QHBoxLayout();
     QVBoxLayout *ExamplesPO = new QVBoxLayout();
 
-    ExPO1 = new QLabel("<h2>Number of green:<h2>");
-    ExPO2 = new QLabel("<h2>Number of orange:<h2>");
-    ExPO3 = new QLabel("<h2>Number of red:<h2>");
+    ExPO1 = new QLabel(tr("OC_EX_PO1"));
+    ExPO2 = new QLabel(tr("OC_EX_PO2"));
+    ExPO3 = new QLabel(tr("OC_EX_PO3"));
 
     QFont buttonsFont("Arial", 16, QFont::Normal);
-    PODetails = new QPushButton("Show Detailed Page");
+    PODetails = new QPushButton(tr("OC_PO_DETAILS"));
     PODetails->setMinimumSize(50, 50);
     PODetails->setFont(buttonsFont);
 
@@ -60,18 +60,18 @@ void OverviewCards::createPOP() {
 
     CrdPOP = new QVBoxLayout(FramePOP);
 
-    TitlePOP = new QLabel("<h2>Persistent Organic Pollutants<h2>");
+    TitlePOP = new QLabel(tr("OC_POP_TITLE"));
     TitlePOP->setAlignment(Qt::AlignCenter);
 
     QHBoxLayout *ComponentsPOP = new QHBoxLayout();
     QVBoxLayout *ExamplesPOP = new QVBoxLayout();
 
-    ExPOP1 = new QLabel("<h2>Number of green:<h2>");
-    ExPOP2 = new QLabel("<h2>Number of orange:<h2>");
-    ExPOP3 = new QLabel("<h2>Number of red:<h2>");
+    ExPOP1 = new QLabel(tr("OC_EX_POP1"));
+    ExPOP2 = new QLabel(tr("OC_EX_POP2"));
+    ExPOP3 = new QLabel(tr("OC_EX_POP3"));
 
     QFont buttonsFont("Arial", 16, QFont::Normal);
-    POPsDetails = new QPushButton("Show Detailed Page");
+    POPsDetails = new QPushButton(tr("OC_POP_DETAILS"));
     POPsDetails->setMinimumSize(50, 50);
     POPsDetails->setFont(buttonsFont);
 
@@ -97,18 +97,18 @@ void OverviewCards::createPFA() {
 
     CrdPFA = new QVBoxLayout(FramePFA);
 
-    TitlePFA = new QLabel("<h2>Per- and Polyfluoroalkyl Substances<h2>");
+    TitlePFA = new QLabel(tr("OC_PFA_TITLE"));
     TitlePFA->setAlignment(Qt::AlignCenter);
 
     QHBoxLayout *ComponentsPFA = new QHBoxLayout();
     QVBoxLayout *ExamplesPFA = new QVBoxLayout();
 
-    ExPFA1 = new QLabel("<h2>Number of green:<h2>");
-    ExPFA2 = new QLabel("<h2>Number of orange:<h2>");
-    ExPFA3 = new QLabel("<h2>Number of red:<h2>");
+    ExPFA1 = new QLabel(tr("OC_EX_PFA1"));
+    ExPFA2 = new QLabel(tr("OC_EX_PFA2"));
+    ExPFA3 = new QLabel(tr("OC_EX_PFA3"));
 
     QFont buttonsFont("Arial", 16, QFont::Normal);
-    PFAsDetails = new QPushButton("Show Detailed Page");
+    PFAsDetails = new QPushButton(tr("OC_PFA_DETAILS"));
     PFAsDetails->setMinimumSize(50, 50);
     PFAsDetails->setFont(buttonsFont);
 
@@ -129,11 +129,11 @@ void OverviewCards::createPFA() {
 void OverviewCards::createCD() {
     FrameCD = new QFrame();
     CrdCD = new QVBoxLayout(FrameCD);
-    TitleCD = new QLabel("Chemical Distribution");
+    TitleCD = new QLabel(tr("OC_CD_TITLE"));
     ExCD1 = new QLabel();
     ExCD2 = new QLabel();
     ExCD3 = new QLabel();
-    CDDetails = new QPushButton("Details");
+    CDDetails = new QPushButton(tr("OC_CD_DETAILS"));
 
     CrdCD->addWidget(TitleCD);
     CrdCD->addWidget(ExCD1);
@@ -149,6 +149,26 @@ void OverviewCards::arrangeWidgets() {
     gridLayout->addWidget(FramePO, 1, 0);
     gridLayout->addWidget(FrameCD, 1, 1);
     setLayout(gridLayout);
+}
+
+void OverviewCards::retranslateUI() {
+    TitlePO->setText(tr("OC_PO_TITLE"));
+    ExPO1->setText(tr("OC_EX_PO1"));
+    ExPO2->setText(tr("OC_EX_PO2"));
+    ExPO3->setText(tr("OC_EX_PO3"));
+    PODetails->setText(tr("OC_PO_DETAILS"));
+    TitlePOP->setText(tr("OC_POP_TITLE"));
+    ExPOP1->setText(tr("OC_EX_POP1"));
+    ExPOP2->setText(tr("OC_EX_POP2"));
+    ExPOP3->setText(tr("OC_EX_POP3"));
+    POPsDetails->setText(tr("OC_POP_DETAILS"));
+    TitlePFA->setText(tr("OC_PFA_TITLE"));
+    ExPFA1->setText(tr("OC_EX_PFA1"));
+    ExPFA2->setText(tr("OC_EX_PFA2"));
+    ExPFA3->setText(tr("OC_EX_PFA3"));
+    PFAsDetails->setText(tr("OC_PFA_DETAILS"));
+    TitleCD->setText(tr("OC_CD_TITLE"));
+    CDDetails->setText(tr("OC_CD_DETAILS"));
 }
 
 void OverviewCards::updateDataDisplays() {
@@ -211,17 +231,17 @@ void OverviewCards::updateDataDisplays() {
     }
 
     // Update text for POP
-    ExPOP1->setText(QString("Number of Green: %1").arg(popGreen));
-    ExPOP2->setText(QString("Number of Orange: %1").arg(popOrange));
-    ExPOP3->setText(QString("Number of Red: %1").arg(popRed));
+    ExPOP1->setText(QString(tr("OC_EX_POP1")+" %1").arg(popGreen));
+    ExPOP2->setText(QString(tr("OC_EX_POP2")+" %1").arg(popOrange));
+    ExPOP3->setText(QString(tr("OC_EX_POP3")+" %1").arg(popRed));
 
     // Update text for PFA
-    ExPFA1->setText(QString("Number of Green: %1").arg(pfaGreen));
-    ExPFA2->setText(QString("Number of Orange: %1").arg(pfaOrange));
-    ExPFA3->setText(QString("Number of Red: %1").arg(pfaRed));
+    ExPFA1->setText(QString(tr("OC_EX_PFA1")+" %1").arg(pfaGreen));
+    ExPFA2->setText(QString(tr("OC_EX_PFA2")+" %1").arg(pfaOrange));
+    ExPFA3->setText(QString(tr("OC_EX_PFA3")+" %1").arg(pfaRed));
 
     // Update text for PO (metals and VOCs combined metrics)
-    ExPO1->setText(QString("Number of Green: %1").arg(metalGreen + vocGreen));
-    ExPO2->setText(QString("Number of Orange: %1").arg(metalOrange + vocOrange));
-    ExPO3->setText(QString("Number of Red: %1").arg(metalRed + vocRed));
+    ExPO1->setText(QString(tr("OC_EX_PO1")+" %1").arg(metalGreen + vocGreen));
+    ExPO2->setText(QString(tr("OC_EX_PO2")+" %1").arg(metalOrange + vocOrange));
+    ExPO3->setText(QString(tr("OC_EX_PO3")+" %1").arg(metalRed + vocRed));
 }

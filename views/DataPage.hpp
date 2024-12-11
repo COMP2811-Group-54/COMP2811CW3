@@ -16,6 +16,8 @@ class DataPage : public QWidget {
 public:
     explicit DataPage(QWidget *parent = nullptr);
 
+    void retranslateUI();
+
 private:
     void createTable();
 

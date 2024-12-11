@@ -94,6 +94,412 @@
     </context>
 
     <context>
+        <name>OverviewCards</name>
+        <message>
+            <source>OC_PO_TITLE</source>
+            <translation>&lt;h2&gt;Métaux et Composés Organiques Volatils&lt;/h2&gt;</translation>
+        </message>
+        <message>
+            <source>OC_EX_PO1</source>
+            <translation>&lt;h2&gt;Nombre de vert:&lt;/h2&gt;</translation>
+        </message>
+        <message>
+            <source>OC_EX_PO2</source>
+            <translation>&lt;h2&gt;Nombre d'oranges:&lt;/h2&gt;</translation>
+        </message>
+        <message>
+            <source>OC_EX_PO3</source>
+            <translation>&lt;h2&gt;Nombre de rouge:&lt;/h2&gt;</translation>
+        </message>
+        <message>
+            <source>OC_PO_DETAILS</source>
+            <translation>Afficher la page détaillée</translation>
+        </message>
+        <message>
+            <source>OC_POP_TITLE</source>
+            <translation>&lt;h2&gt;Polluants Organiques Persistants&lt;/h2&gt;</translation>
+        </message>
+        <message>
+            <source>OC_EX_POP1</source>
+            <translation>&lt;h2&gt;Nombre de vert:&lt;/h2&gt;</translation>
+        </message>
+        <message>
+            <source>OC_EX_POP2</source>
+            <translation>&lt;h2&gt;Nombre d'oranges:&lt;/h2&gt;</translation>
+        </message>
+        <message>
+            <source>OC_EX_POP3</source>
+            <translation>&lt;h2&gt;Nombre de rouge:&lt;/h2&gt;</translation>
+        </message>
+        <message>
+            <source>OC_POP_DETAILS</source>
+            <translation>Afficher la page détaillée</translation>
+        </message>
+        <message>
+            <source>OC_PFA_TITLE</source>
+            <translation>&lt;h2&gt;Substances Per- et Polyfluoroalkyles&lt;/h2&gt;</translation>
+        </message>
+        <message>
+            <source>OC_EX_PFA1</source>
+            <translation>&lt;h2&gt;Nombre de vert:&lt;/h2&gt;</translation>
+        </message>
+        <message>
+            <source>OC_EX_PFA2</source>
+            <translation>&lt;h2&gt;Nombre d'oranges:&lt;/h2&gt;</translation>
+        </message>
+        <message>
+            <source>OC_EX_PFA3</source>
+            <translation>&lt;h2&gt;Nombre de rouge:&lt;/h2&gt;</translation>
+        </message>
+        <message>
+            <source>OC_PFA_DETAILS</source>
+            <translation>Afficher la page détaillée</translation>
+        </message>
+        <message>
+            <source>OC_CD_TITLE</source>
+            <translation>Distribution de Produits Chimiques</translation>
+        </message>
+        <message>
+            <source>OC_CD_DETAILS</source>
+            <translation>Détails</translation>
+        </message>
+    </context>
+    <context>
+        <name>PollutantOverview</name>
+        <message>
+            <source>PO_WINDOW_TITLE</source>
+            <translation>Vue d'ensemble des polluants</translation>
+        </message>
+        <message>
+            <source>PO_AWAITING_DATA</source>
+            <translation>En attente de données...</translation>
+        </message>
+        <message>
+            <source>PO_TITLE</source>
+            <translation>Vue d'ensemble des polluants</translation>
+        </message>
+        <message>
+            <source>PO_CHART_TITLE</source>
+            <translation>Graphique des polluants</translation>
+        </message>
+        <message>
+            <source>PO_X_AXIS_TITLE</source>
+            <translation>Temps</translation>
+        </message>
+        <message>
+            <source>PO_Y_AXIS_TITLE</source>
+            <translation>Niveau</translation>
+        </message>
+        <message>
+            <source>PO_MORE_INFO</source>
+            <translation>Plus d'informations</translation>
+        </message>
+        <message>
+            <source>PO_VIEW_LIST</source>
+            <translation>Voir la liste</translation>
+        </message>
+        <message>
+            <source>PO_ALL_LOCATIONS</source>
+            <translation>Toutes les localisations</translation>
+        </message>
+        <message>
+            <source>PO_LOCATION_LABEL</source>
+            <translation>Localisation :</translation>
+        </message>
+        <message>
+            <source>PO_ALL_TIME</source>
+            <translation>Tout le temps</translation>
+        </message>
+        <message>
+            <source>PO_TIME_RANGE_LABEL</source>
+            <translation>Période :</translation>
+        </message>
+        <message>
+            <source>PO_ALL_POLLUTANTS</source>
+            <translation>Tous les polluants</translation>
+        </message>
+        <message>
+            <source>PO_POLLUTANT_LABEL</source>
+            <translation>Polluant :</translation>
+        </message>
+        <message>
+            <source>PO_HEAVY_METALS_BUTTON</source>
+            <translation>Informations sur les métaux lourds</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_BUTTON</source>
+            <translation>Informations sur les produits chimiques organiques</translation>
+        </message>
+        <message>
+            <source>PO_INORGANIC_CHEMICALS_BUTTON</source>
+            <translation>Informations sur les produits chimiques inorganiques</translation>
+        </message>
+        <message>
+            <source>PO_NUTRIENTS_BUTTON</source>
+            <translation>Informations sur les nutriments</translation>
+        </message>
+        <message>
+            <source>PO_VOLATILE_ORGANIC_COMPOUNDS_BUTTON</source>
+            <translation>Informations sur les composés organiques volatils</translation>
+        </message>
+        <message>
+            <source>PO_HEAVY_METALS_TITLE</source>
+            <translation>Informations sur les métaux lourds</translation>
+        </message>
+        <message>
+            <source>PO_HEAVY_METALS_DESC_1</source>
+            <translation>Les métaux lourds, tels que le plomb, le mercure et le cadmium, sont toxiques même à de faibles concentrations.</translation>
+        </message>
+        <message>
+            <source>PO_HEAVY_METALS_DESC_2</source>
+            <translation>Ils s'accumulent dans les organismes vivants, causant des dommages à long terme aux écosystèmes et à la santé humaine.</translation>
+        </message>
+        <message>
+            <source>PO_HEAVY_METALS_DESC_3</source>
+            <translation>Les métaux lourds peuvent contaminer les sources d'eau et sont difficiles à remédier une fois libérés.</translation>
+        </message>
+        <message>
+            <source>PO_HEAVY_METALS_1</source>
+            <translation>- Arsenic</translation>
+        </message>
+        <message>
+            <source>PO_HEAVY_METALS_2</source>
+            <translation>- Chrome (III)</translation>
+        </message>
+        <message>
+            <source>PO_HEAVY_METALS_3</source>
+            <translation>- Chrome (IV) (Chrome hexavalent)</translation>
+        </message>
+        <message>
+            <source>PO_HEAVY_METALS_4</source>
+            <translation>- Cuivre</translation>
+        </message>
+        <message>
+            <source>PO_HEAVY_METALS_5</source>
+            <translation>- Fer</translation>
+        </message>
+        <message>
+            <source>PO_HEAVY_METALS_6</source>
+            <translation>- Manganèse</translation>
+        </message>
+        <message>
+            <source>PO_HEAVY_METALS_7</source>
+            <translation>- Zinc</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_TITLE</source>
+            <translation>Informations sur les produits chimiques organiques</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_DESC_1</source>
+            <translation>Les produits chimiques organiques incluent les pesticides, herbicides, fongicides et produits chimiques industriels.</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_DESC_2</source>
+            <translation>Ces produits peuvent contaminer le sol et l'eau, perturbant les écosystèmes et causant des dommages à long terme aux plantes, animaux et humains.</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_1</source>
+            <translation>- Carbendazim (fongicide)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_2</source>
+            <translation>- Chlorothalonil (fongicide)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_3</source>
+            <translation>- Cyperméthrine (insecticide)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_4</source>
+            <translation>- Diazinon (insecticide)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_5</source>
+            <translation>- Diméthoate (insecticide)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_6</source>
+            <translation>- Glyphosate (herbicide)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_7</source>
+            <translation>- Linuron (herbicide)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_8</source>
+            <translation>- Mecoprop (herbicide)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_9</source>
+            <translation>- Pendiméthaline (herbicide)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_10</source>
+            <translation>- Perméthrine (insecticide)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_11</source>
+            <translation>- Méthiocarbe (insecticide)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_12</source>
+            <translation>- Phtalate de butyle benzyle (plastifiant)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_13</source>
+            <translation>- Tétrachloroéthane (solvant)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_14</source>
+            <translation>- Toluène (solvant)</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_15</source>
+            <translation>- 2,4-dichlorophénol</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_16</source>
+            <translation>- Phénol</translation>
+        </message>
+        <message>
+            <source>PO_ORGANIC_CHEMICALS_17</source>
+            <translation>- Triclosan (agent antibactérien/antifongique)</translation>
+        </message>
+        <message>
+            <source>PO_INORGANIC_CHEMICALS_TITLE</source>
+            <translation>Informations sur les produits chimiques inorganiques</translation>
+        </message>
+        <message>
+            <source>PO_INORGANIC_CHEMICALS_DESC_1</source>
+            <translation>Les produits chimiques inorganiques, y compris les métaux, sels et acides, peuvent affecter le pH de l'eau, perturber les habitats aquatiques et poser des risques pour les plantes et les animaux.</translation>
+        </message>
+        <message>
+            <source>PO_INORGANIC_CHEMICALS_DESC_2</source>
+            <translation>Ces substances sont souvent introduites par les rejets industriels et les activités minières.</translation>
+        </message>
+        <message>
+            <source>PO_INORGANIC_CHEMICALS_1</source>
+            <translation>- Chlore</translation>
+        </message>
+        <message>
+            <source>PO_INORGANIC_CHEMICALS_2</source>
+            <translation>- Cyanure</translation>
+        </message>
+        <message>
+            <source>PO_INORGANIC_CHEMICALS_3</source>
+            <translation>- Fluorure</translation>
+        </message>
+        <message>
+            <source>PO_INORGANIC_CHEMICALS_4</source>
+            <translation>- Silice/Silicate</translation>
+        </message>
+        <message>
+            <source>PO_INORGANIC_CHEMICALS_5</source>
+            <translation>- Bicarbonate</translation>
+        </message>
+        <message>
+            <source>PO_NUTRIENTS_TITLE</source>
+            <translation>Informations sur les nutriments</translation>
+        </message>
+        <message>
+            <source>PO_NUTRIENTS_DESC_1</source>
+            <translation>Les excès de nutriments, en particulier l'azote et le phosphore, peuvent provoquer l'eutrophisation des plans d'eau.</translation>
+        </message>
+        <message>
+            <source>PO_NUTRIENTS_DESC_2</source>
+            <translation>Ce processus réduit les niveaux d'oxygène, provoquant des proliférations d'algues et des mortalités de poissons, et perturbant les écosystèmes aquatiques.</translation>
+        </message>
+        <message>
+            <source>PO_NUTRIENTS_1</source>
+            <translation>- Nitrate</translation>
+        </message>
+        <message>
+            <source>PO_NUTRIENTS_2</source>
+            <translation>- Phosphate</translation>
+        </message>
+        <message>
+            <source>PO_VOC_TITLE</source>
+            <translation>Informations sur les composés organiques volatils (COV)</translation>
+        </message>
+        <message>
+            <source>PO_VOC_DESC_1</source>
+            <translation>Les composés organiques volatils (COV) incluent les hydrocarbures et hydrocarbures halogénés.</translation>
+        </message>
+        <message>
+            <source>PO_VOC_DESC_2</source>
+            <translation>Ils sont volatils, persistants et peuvent affecter gravement la qualité de l'eau.</translation>
+        </message>
+        <message>
+            <source>PO_VOC_DESC_3</source>
+            <translation>Les COV sont toxiques pour les organismes aquatiques et présentent des risques pour la santé humaine.</translation>
+        </message>
+        <message>
+            <source>PO_VOC_1</source>
+            <translation>- Benzène</translation>
+        </message>
+        <message>
+            <source>PO_VOC_2</source>
+            <translation>- Chlorure de méthylène</translation>
+        </message>
+        <message>
+            <source>PO_VOC_3</source>
+            <translation>- Chloroforme</translation>
+        </message>
+        <message>
+            <source>PO_VOC_4</source>
+            <translation>- Éthylbenzène</translation>
+        </message>
+        <message>
+            <source>PO_VOC_5</source>
+            <translation>- Hydrocarbures aromatiques polycycliques</translation>
+        </message>
+        <message>
+            <source>PO_VOC_6</source>
+            <translation>- Toluène</translation>
+        </message>
+        <message>
+            <source>PO_VOC_7</source>
+            <translation>- Xylène</translation>
+        </message>
+        <message>
+            <source>PO_VOC_8</source>
+            <translation>- Chlorure de vinyle</translation>
+        </message>
+        <message>
+            <source>PO_VOC_9</source>
+            <translation>- Tétra-chlorure de carbone</translation>
+        </message>
+        <message>
+            <source>PO_VOC_10</source>
+            <translation>- Dichlorométhane (chlorure de méthylène)</translation>
+        </message>
+        <message>
+            <source>PO_COMPLIANCE_RED</source>
+            <translation>Niveau rouge :</translation>
+        </message>
+        <message>
+            <source>PO_COMPLIANCE_ORANGE</source>
+            <translation>Niveau orange :</translation>
+        </message>
+        <message>
+            <source>PO_COMPLIANCE_GREEN</source>
+            <translation>Niveau vert :</translation>
+        </message>
+        <message>
+            <source>PO_COMPLIANCE_GREEN_TOOLTIP</source>
+            <translation>Au-dessus du seuil de sécurité</translation>
+        </message>
+        <message>
+            <source>PO_COMPLIANCE_ORANGE_TOOLTIP</source>
+            <translation>Entre 0.8 et 1 du seuil de sécurité</translation>
+        </message>
+        <message>
+            <source>PO_COMPLIANCE_RED_TOOLTIP</source>
+            <translation>En dessous de 0.8 du seuil de sécurité</translation>
+        </message>
+    </context>
+    <context>
         <name>PFApage</name>
         <message>
             <source>PFA_TITLE</source>
@@ -221,8 +627,6 @@
             <source>PFA_VIEW_LIST_BODY_7</source>
             <translation>- Acide perfluoropentanoïque</translation>
         </message>
-
-
     </context>
     <context>
         <name>PersistentOrganicPollutants</name>
@@ -260,11 +664,13 @@
         </message>
         <message>
             <source>POPs_PCBS_INFO</source>
-            <translation>PCB (Biphényles Polychlorés)</translation>
+            <translation>&lt;h2&gt;PCB (Polychlorobyphényles)&lt;/h2&gt;&lt;p&gt;Les PCB sont un groupe de produits chimiques organiques artificiels constitués
+                d'atomes de carbone, d'hydrogène et de chlore.&lt;/p&gt;</translation>
         </message>
         <message>
             <source>POPs_OTHER_INFO</source>
-            <translation>Autres Polluants Organiques Persistants</translation>
+            <translation>&lt;h2&gt;Autres POP&lt;/h2&gt;&lt;p&gt;Les exemples incluent le DDT, le chlordane et les dioxines. Ces 
+                substances ont des origines et des effets variés&lt;/p&gt;</translation>
         </message>
         <message>
             <source>POPs_ALL_LOCATIONS</source>
@@ -301,6 +707,18 @@
         <message>
             <source>POPs_COMPLIANCE_GREEN</source>
             <translation>Niveau Vert:</translation>
+        </message>
+        <message>
+            <source>POPs_COMPLIANCE_GREEN_TOOLTIP</source>
+            <translation>En dessous de 0,8 du seuil de sécurité</translation>
+        </message>
+        <message>
+            <source>POPs_COMPLIANCE_ORANGE_TOOLTIP</source>
+            <translation>Entre 0,8 et 1 du seuil de sécurité</translation>
+        </message>
+        <message>
+            <source>POPs_COMPLIANCE_RED_TOOLTIP</source>
+            <translation>Au-dessus du seuil de sécurité</translation>
         </message>
         <message>
             <source>POPs_INFO_TITLE</source>
@@ -352,6 +770,111 @@
             <source>POPs_BODY_9</source>
             <translation>- Carbofuran</translation>
         </message>
-
+    </context>
+    <context>
+        <name>DataPage</name>
+        <message>
+            <source>DP_SET_LOCATION</source>
+            <translation>Définir l'emplacement des données</translation>
+        </message>
+        <message>
+            <source>DP_LOAD</source>
+            <translation>Charger</translation>
+        </message>
+        <message>
+            <source>DP_STATS</source>
+            <translation>Statistiques</translation>
+        </message>
+        <message>
+            <source>DP_STATS_POPUP_TITLE</source>
+            <translation>Statistiques des ensembles de données</translation>
+        </message>
+        <message>
+            <source>DP_STATS_FIRST_LINE</source>
+            <translation>Lignes: </translation>
+        </message>
+        <message>
+            <source>DP_STATS_SECOND_LINE</source>
+            <translation>Colonnes: </translation>
+        </message>
+        <message>
+            <source>DP_STATS_THIRD_LINE_P1</source>
+            <translation>Taille des données: ~</translation>
+        </message>
+        <message>
+            <source>DP_STATS_THIRD_LINE_P2</source>
+            <translation>octets</translation>
+        </message>
+        <message>
+            <source>DP_CRITICAL_MSG_TITLE</source>
+            <translation>Erreur de localisation des données</translation>
+        </message>
+        <message>
+            <source>DP_CRITICAL_MSG_FIRST_LINE</source>
+            <translation>L'emplacement des données n'a pas été défini!</translation>
+        </message>
+        <message>
+            <source>DP_CRITICAL_MSG_SECOND_LINE</source>
+            <translation>Spécifiez via le bouton Définir l'emplacement des données.</translation>
+        </message>
+        <message>
+            <source>DP_WARNING_MSG_TITLE</source>
+            <translation>Aucun fichier CSV trouvé</translation>
+        </message>
+        <message>
+            <source>DP_WARNING_MSG_LINE</source>
+            <translation>Aucun fichier CSV trouvé avec le modèle Y-[YEAR].csv dans le répertoire sélectionné.</translation>
+        </message>
+        <message>
+            <source>DP_INPUT_DIALOG_TITLE</source>
+            <translation>Sélectionnez le fichier CSV</translation>
+        </message>
+        <message>
+            <source>DP_INPUT_DIALOG_LINE</source>
+            <translation>Choisissez un fichier:</translation>
+        </message>
+        <message>
+            <source>DP_CSV_ERROR_TITLE</source>
+            <translation>Erreur de fichier CSV</translation>
+        </message>
+    </context>
+    <context>
+        <name>ComplianceDashboard</name>
+        <message>
+            <source>CD_TITLE</source>
+            <translation>Tableau de bord de conformité</translation>
+        </message>
+        <message>
+            <source>CD_LOCATION_OPTIONS</source>
+            <translation>Tous les emplacements</translation>
+        </message>
+        <message>
+            <source>CD_POLLUTANT_OPTIONS</source>
+            <translation>Tous les polluants</translation>
+        </message>
+        <message>
+            <source>CD_COMPLIANCE_OPTION1</source>
+            <translation>Toutes les conformités</translation>
+        </message>
+        <message>
+            <source>CD_COMPLIANCE_OPTION2</source>
+            <translation>Rouge</translation>
+        </message>
+        <message>
+            <source>CD_COMPLIANCE_OPTION3</source>
+            <translation>Orange</translation>
+        </message>
+        <message>
+            <source>CD_COMPLIANCE_OPTION4</source>
+            <translation>Vert</translation>
+        </message>
+        <message>
+            <source>CD_CURRENT_POLLUTANT</source>
+            <translation>polluant actuel est:</translation>
+        </message>
+        <message>
+            <source>CD_CURRENT_POLLUTANT_COMPLIANCE</source>
+            <translation>rouge/jaune/vert</translation>
+        </message>
     </context>
 </TS>

@@ -35,6 +35,7 @@ class searchableComboBox: public QComboBox
             addItems(allOptions);
         }
 
+
     private slots:
         void filterOptions()
         {
@@ -58,6 +59,7 @@ class PollutantOverview: public QWidget
         Q_OBJECT
     public:
         explicit PollutantOverview(QWidget *parent = nullptr);
+        void retranslateUI();
 
     private:
         void createTitle();
