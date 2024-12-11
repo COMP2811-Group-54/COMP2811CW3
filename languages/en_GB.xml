@@ -43,6 +43,10 @@
             <source>DASHBOARD_DP</source>
             <translation>Data Page</translation>
         </message>
+        <message>
+            <source>DASHBOARD_GH</source>
+            <translation>Geographical Hotspots</translation>
+        </message>
     </context>
 
 
@@ -110,27 +114,27 @@
         </message>
         <message>
             <source>PFA_COMPLIANCE_RED</source>
-            <translation>Red Level: &gt;10</translation>
+            <translation>Red Level:</translation>
         </message>
         <message>
             <source>PFA_COMPLIANCE_ORANGE</source>
-            <translation>Orange Level: 5-10</translation>
+            <translation>Orange Level:</translation>
         </message>
         <message>
             <source>PFA_COMPLIANCE_GREEN</source>
-            <translation>Green Level: &lt;5</translation>
+            <translation>Green Level:</translation>
         </message>
         <message>
             <source>PFA_RED_TOOL_TIP</source>
-            <translation>Indicates the highest warning level</translation>
+            <translation>Over the safety threshold</translation>
         </message>
         <message>
             <source>PFA_ORANGE_TOOL_TIP</source>
-            <translation>Indicates a moderate warning level</translation>
+            <translation>Between 0.8 to 1 of the safety threshold</translation>
         </message>
         <message>
             <source>PFA_GREEN_TOOL_TIP</source>
-            <translation>Indicates the lowest or no warning level</translation>
+            <translation>Below 0.8 of the safety threshold</translation>
         </message>
     </context>
     <context>
@@ -169,7 +173,7 @@
         </message>
         <message>
             <source>POPs_OTHER_INFO</source>
-            <translation>Other Persistent Organic Pollutants</translation>
+            <translation>POP List</translation>
         </message>
         <message>
             <source>POPs_ALL_LOCATIONS</source>
@@ -197,15 +201,27 @@
         </message>
         <message>
             <source>POPs_COMPLIANCE_RED</source>
-            <translation>Red level: &gt;10</translation>
+            <translation>Red level:</translation>
         </message>
         <message>
             <source>POPs_COMPLIANCE_ORANGE</source>
-            <translation>Orange level: 5-10</translation>
+            <translation>Orange level:</translation>
         </message>
         <message>
             <source>POPs_COMPLIANCE_GREEN</source>
-            <translation>Green Level: &lt;5</translation>
+            <translation>Green Level:</translation>
+        </message>
+        <message>
+            <source>POPs_COMPLIANCE_GREEN_TOOLTIP</source>
+            <translation>Over the safety threshold</translation>
+        </message>
+        <message>
+            <source>POPs_COMPLIANCE_ORANGE_TOOLTIP</source>
+            <translation>Between 0.8 to 1 of the safety threshold</translation>
+        </message>
+        <message>
+            <source>POPs_COMPLIANCE_RED_TOOLTIP</source>
+            <translation>Below 0.8 of the safety threshold</translation>
         </message>
     </context>
 </TS>
