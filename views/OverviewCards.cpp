@@ -134,7 +134,9 @@ void OverviewCards::createCD() {
     ExCD1 = new QLabel();
     ExCD2 = new QLabel();
     ExCD3 = new QLabel();
-    CDDetails = new QPushButton("Details");
+    CDDetails = new QPushButton("Show Detailed Page");
+
+    connect(CDDetails, &QPushButton::clicked, this, &OverviewCards::goToCD);
 
     CrdCD->addWidget(TitleCD);
     CrdCD->addWidget(ExCD1);
@@ -235,15 +237,12 @@ void OverviewCards::updateDataDisplays() {
     }
 
 
-    // Calculate location category numbers r/o/g
+    // Count number of locations in each category (r/o/g)
     int greenLocations = 0;
     int orangeLocations = 0;
     int redLocations = 0;
 
-    int counter = 0;
-
     for (const auto& [key, value] : locationTiers) {
-        counter++;
         if (value == 1) {
             greenLocations++;
         }
@@ -254,8 +253,6 @@ void OverviewCards::updateDataDisplays() {
             redLocations++;
         }
     }
-
-
 
     // Update text for POP
     ExPOP1->setText(QString("Number of Green: %1").arg(popGreen));
@@ -272,7 +269,7 @@ void OverviewCards::updateDataDisplays() {
     ExPO2->setText(QString("Number of Orange: %1").arg(metalOrange + vocOrange));
     ExPO3->setText(QString("Number of Red: %1").arg(metalRed + vocRed));
 
-    // Update text for Locations
+    // Update text for locations
     ExCD1->setText(QString("Green Locations: %1").arg(greenLocations));
     ExCD2->setText(QString("Orange Locations: %1").arg(orangeLocations));
     ExCD3->setText(QString("Red Locations: %1").arg(redLocations));
