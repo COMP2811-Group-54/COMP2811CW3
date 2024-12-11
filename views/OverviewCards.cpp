@@ -13,6 +13,7 @@ OverviewCards::OverviewCards(QWidget *parent) : QWidget(parent) {
     connect(&GlobalDataModel::instance(), &GlobalDataModel::dataReady, this, &OverviewCards::updateDataDisplays);
 
     updateDataDisplays(); // Initial call to populate data once construction is complete
+
 }
 
 void OverviewCards::createPO() {
@@ -165,6 +166,7 @@ void OverviewCards::updateDataDisplays() {
     auto pfas = ComplianceChecker::getPFAs();
     auto metals = ComplianceChecker::getMetals();
     auto vocs = ComplianceChecker::getVOCs();
+
     auto locations = ComplianceChecker::getLocations();
 
     // This map holds each location and its assigned tier (r/o/g)
@@ -173,6 +175,7 @@ void OverviewCards::updateDataDisplays() {
     for (const auto &measurement: dataset) {
         std::string compoundName = measurement.getCompoundName();
         double value = measurement.getValue();
+
         std::string locationName = measurement.getLabel();
 
         int complianceStatus = complianceChecker.complianceCheck(compoundName, value);
@@ -231,6 +234,7 @@ void OverviewCards::updateDataDisplays() {
         }
     }
 
+
     // Calculate location category numbers r/o/g
     int greenLocations = 0;
     int orangeLocations = 0;
@@ -251,6 +255,8 @@ void OverviewCards::updateDataDisplays() {
         }
     }
 
+
+
     // Update text for POP
     ExPOP1->setText(QString("Number of Green: %1").arg(popGreen));
     ExPOP2->setText(QString("Number of Orange: %1").arg(popOrange));
@@ -270,5 +276,4 @@ void OverviewCards::updateDataDisplays() {
     ExCD1->setText(QString("Green Locations: %1").arg(greenLocations));
     ExCD2->setText(QString("Orange Locations: %1").arg(orangeLocations));
     ExCD3->setText(QString("Red Locations: %1").arg(redLocations));
-
 }

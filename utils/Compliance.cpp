@@ -12,25 +12,7 @@ ComplianceChecker::ComplianceChecker() {
         {"PFdecncAcid", 0.01},
         {"PFhexncAcid", 0.01},
         {"PFpentncAcid", 0.01},
-        // PFAs (based off the RSoC drinking water regulations)
-        {"FOSA", 0.01},
-        {"Perfluorooctanoic", 0.01},
-        {"PFoctncAcid", 0.01},
-        {"PFHxSA", 0.01},
-        {"PFdecncAcid", 0.01},
-        {"PFhexncAcid", 0.01},
-        {"PFpentncAcid", 0.01},
 
-        // POPs (effectively banned, but trace amounts are acceptable)
-        {"PCB Con 052", 0.1},
-        {"DDT (PP)", 0.1},
-        {"Hexachlorbnz", 0.1},
-        {"Chlrdn-cs/Z/", 0.1},
-        {"Aldrin", 0.1},
-        {"Dieldrin", 0.1},
-        {"Endrin", 0.1},
-        {"Heptachlor", 0.1},
-        {"Carbofuran", 0.1},
         // POPs (effectively banned, but trace amounts are acceptable)
         {"PCB Con 052", 0.1},
         {"DDT (PP)", 0.1},
@@ -73,14 +55,9 @@ ComplianceChecker::ComplianceChecker() {
         // {"Fluoride - F", 1.5},
         // {"SiO2 Rv", 300},
         // {"Bicarb HCO3", 4000},
-        // {"Fluoride - F", 1.5},
-        // {"SiO2 Rv", 300},
-        // {"Bicarb HCO3", 4000},
+
         //
         // // Nutrients
-        // {"Nitrate-N", 25},
-        // {"Ammonia(N)", 25},
-        // {"Phosphorus-P", 75},
         // {"Nitrate-N", 25},
         // {"Ammonia(N)", 25},
         // {"Phosphorus-P", 75},
