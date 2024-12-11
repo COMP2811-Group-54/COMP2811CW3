@@ -42,7 +42,7 @@ private:
     QLabel *locationLabel;
     QLabel *timeRangeLabel;
     QLabel *pollutantLabel;
-    searchableComboBox *location;
+    QComboBox *location;
     QComboBox *timeRange;
     QComboBox *pollutant;
 

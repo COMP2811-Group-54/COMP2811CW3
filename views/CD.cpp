@@ -39,6 +39,7 @@ void ComplianceDashboard::createTitle() {
 }
 
 void ComplianceDashboard::createFilters() {
+    location = new QComboBox();
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
     locationLabel->setWordWrap(true);
@@ -97,8 +98,8 @@ void ComplianceDashboard::createFilters() {
 
 
 void ComplianceDashboard::createPollutantIndicator() {
-    currentPollutant = new QLabel("<current pollutant> is:");
-    currentPollutantCompliance = new QLabel("<red/yellow/green>");
+    currentPollutant = new QLabel(tr("CD_CURRENT_POLLUTANT"));
+    currentPollutantCompliance = new QLabel(tr("CD_CURRENT_POLLUTANT_COMPLIANCE"));
     currentPollutantCompliance->setStyleSheet("background-color: red; color: white;");
 }
 
@@ -174,4 +175,12 @@ void ComplianceDashboard::filterData() {
 
     model.setDataset(new Dataset(filteredData));
     table->setModel(&model);
+}
+
+
+void ComplianceDashboard::retranslateUI() {
+    // Force re-translate of all UI components (this ensures that UI updates even if translator is installed after initial load)
+    title->setText(tr("CD_TITLE"));
+    currentPollutant->setText(tr("CD_CURRENT_POLLUTANT"));
+    currentPollutantCompliance->setText(tr("CD_CURRENT_POLLUTANT_COMPLIANCE"));
 }

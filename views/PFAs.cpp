@@ -350,9 +350,6 @@ void PFApage::addComplianceLevelLine(QChart *chart, QDateTimeAxis *xAxis, QValue
     chart->addSeries(lineSeries);
     lineSeries->attachAxis(xAxis);
     lineSeries->attachAxis(yAxis);
-
-void PFApage::moreInfoMsgBox() {
-    QMessageBox::information(this, "PFA Info", "More info about PFAs.");
 }
 
 void PFApage::viewListMsgBox() {

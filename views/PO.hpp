@@ -16,44 +16,12 @@ class QTextEdit;
 class QLabel;
 class QLineEdit;
 
-class searchableComboBox : public QComboBox {
+class PollutantOverview : public QWidget {
     Q_OBJECT
 
 public:
-    explicit searchableComboBox(QWidget *parent = nullptr) : QComboBox(parent), allOptions() {
-        setEditable(true);
-
-        this->lineEdit()->setPlaceholderText("Enter to reset");
-
-        connect(this->lineEdit(), &QLineEdit::returnPressed, this, &searchableComboBox::filterOptions);
-    }
-
-    void setOptions(const QStringList &options) {
-        allOptions = options;
-        clear();
-        addItems(allOptions);
-    }
-
-private slots:
-    void filterOptions() {
-        QString text = this->lineEdit()->text();
-
-        clear();
-        for (const QString &item: allOptions) {
-            if (item.contains(text, Qt::CaseInsensitive)) {
-                addItem(item);
-            }
-        }
-        showPopup();
-    }
-
-private:
-    QStringList allOptions;
-};
-
-
-public:
     explicit PollutantOverview(QWidget *parent = nullptr);
+
     void retranslateUI();
 
 private:
@@ -64,12 +32,11 @@ private:
     void createChart(const std::vector<Measurement> &filteredData);
 
 
-    void addComplianceLevelLine(QChart *chart, QAbstractAxis *xAxis, QAbstractAxis *yAxis, double levelValue, const QString &color,
+    void addComplianceLevelLine(QChart *chart, QAbstractAxis *xAxis, QAbstractAxis *yAxis, double levelValue,
+                                const QString &color,
                                 const QString &label);
 
     void createButtons();
-
-    void createBoxes();
 
     void createFilters();
 
@@ -95,16 +62,22 @@ private:
 
     QChartView *overviewChartView;
 
-    QLabel *pcbs;
-    QLabel *otherPops;
-    QPushButton *moreInfo;
-    QPushButton *viewList;
+    QLabel *heavyMetals;
+    QPushButton *heavyMetalsInfo;
+
+    QLabel *organicChemicals;
+    QPushButton *organicChemicalsInfo;
+
+    QLabel *inorganicChemicals;
+    QPushButton *inorganicChemicalsInfo;
+
+    QLabel *nutrients;
+    QPushButton *nutrientsInfo;
+
+    QLabel *volatileOrganicCompounds;
+    QPushButton *volatileOrganicCompoundsInfo;
 
 private slots:
-    void moreInfoMsgBox();
-
-    void viewListMsgBox();
-
     void heavyMetalsInfoMsgBox();
 
     void organicChemicalsInfoMsgBox();

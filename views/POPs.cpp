@@ -18,7 +18,6 @@ PersistentOrganicPollutants::PersistentOrganicPollutants(QWidget *parent) : QWid
 
     createBoxes();
     createButtons();
-    createBoxes();
     createFilters();
     createComplianceLabels();
     arrangeWidgets();
@@ -42,11 +41,10 @@ void PersistentOrganicPollutants::createButtons() {
 void PersistentOrganicPollutants::createBoxes() {
     QFont infoBoxFont("Arial", 8);
 
-    pcbs = new QLabel("PCBs (Polychlorinated Biphenyls)");
-    pcbs->setFont(infoBoxFont);
-    pcbs->setWordWrap(true);
-    pcbs->setAlignment(Qt::AlignCenter);
-
+    pops = new QLabel("PCBs (Polychlorinated Biphenyls)");
+    pops->setFont(infoBoxFont);
+    pops->setWordWrap(true);
+    pops->setAlignment(Qt::AlignCenter);
 
     otherPops = new QLabel("POP List");
     otherPops->setFont(infoBoxFont);
@@ -315,19 +313,10 @@ void PersistentOrganicPollutants::addComplianceLevelLine(QChart *chart, QDateTim
     lineSeries->attachAxis(yAxis);
 }
 
-
-void PersistentOrganicPollutants::moreInfoMsgBox() {
-    QMessageBox::information(this, tr("PCB Info"), tr("more info about PCBs"));
-}
-
-void PersistentOrganicPollutants::viewListMsgBox() {
-    QMessageBox::information(this, tr("List of Persistent Organic Pollutants"), tr("List of POPs"));
-}
-
 void PersistentOrganicPollutants::retranslateUI() {
     title->setText(tr("POPs_TITLE"));
     popChartView->chart()->setTitle(tr("POPs_AWAITING_DATA"));
-    pcbs->setText(tr("POPs_PCBS_INFO"));
+    pops->setText(tr("POPs_PCBS_INFO"));
     otherPops->setText(tr("POPs_OTHER_INFO"));
     moreInfo->setText(tr("POPs_MORE_INFO"));
     viewList->setText(tr("POPs_VIEW_LIST"));

@@ -43,9 +43,9 @@ private:
     QLabel *locationLabel{};
     QLabel *timeRangeLabel{};
     QLabel *pollutantLabel{};
-    searchableComboBox *location{};
+    QComboBox *location{};
     QComboBox *timeRange{};
-    searchableComboBox *pollutant{};
+    QComboBox *pollutant{};
 
     QLabel *red{};
     QLabel *orange{};
