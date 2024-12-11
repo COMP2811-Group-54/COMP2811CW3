@@ -40,15 +40,7 @@ void ComplianceDashboard::createTitle() {
 
 void ComplianceDashboard::createFilters() {
     // Fetch and set locations
-    QStringList locationOptions{tr("CD_LOCATION_OPTIONS")};
-    std::vector<std::string> complianceLocations = ComplianceChecker::getLocations();
-    for (const std::string &locationStr: complianceLocations) {
-        locationOptions << QString::fromStdString(locationStr);
-    }
-
-    location = new searchableComboBox();
-    location->setOptions(locationOptions);
-
+    location = new QComboBox();
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
     locationLabel->setWordWrap(true);
