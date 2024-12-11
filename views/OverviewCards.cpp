@@ -13,7 +13,6 @@ OverviewCards::OverviewCards(QWidget *parent) : QWidget(parent) {
     connect(&GlobalDataModel::instance(), &GlobalDataModel::dataReady, this, &OverviewCards::updateDataDisplays);
 
     updateDataDisplays(); // Initial call to populate data once construction is complete
-
 }
 
 void OverviewCards::createPO() {
@@ -130,7 +129,7 @@ void OverviewCards::createPFA() {
 void OverviewCards::createCD() {
     FrameCD = new QFrame();
     CrdCD = new QVBoxLayout(FrameCD);
-    TitleCD = new QLabel("Chemical Distribution");
+    TitleCD = new QLabel("Location Compliance");
     ExCD1 = new QLabel();
     ExCD2 = new QLabel();
     ExCD3 = new QLabel();
@@ -171,7 +170,7 @@ void OverviewCards::updateDataDisplays() {
 
     auto locations = ComplianceChecker::getLocations();
 
-    // This map holds each location and its assigned tier (r/o/g)
+    // This map holds each location and its assigned tier (r/o/g, 3/2/1)
     unordered_map<string, int> locationTiers;
 
     for (const auto &measurement: dataset) {
@@ -195,7 +194,6 @@ void OverviewCards::updateDataDisplays() {
             else if (complianceStatus == 1 && locationTiers[locationName] < 2) {
                 locationTiers[locationName] = 1;
             }
-
         }
 
         // Check compliance for POPs
@@ -235,7 +233,6 @@ void OverviewCards::updateDataDisplays() {
                 vocRed++;
         }
     }
-
 
     // Count number of locations in each category (r/o/g)
     int greenLocations = 0;
