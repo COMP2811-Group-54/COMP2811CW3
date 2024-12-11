@@ -39,7 +39,6 @@ void ComplianceDashboard::createTitle() {
 }
 
 void ComplianceDashboard::createFilters() {
-    // Location combo box setup
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
     locationLabel->setWordWrap(true);
