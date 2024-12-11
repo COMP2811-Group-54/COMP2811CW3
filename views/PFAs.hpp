@@ -10,21 +10,32 @@ class PFApage : public QWidget {
 
 public:
     explicit PFApage(QWidget *parent = nullptr);
+
     void retranslateUI();
 
-    private slots:
-        void updateChart();
-    void onLocationSelected(int index);
+    void addComplianceLevelLine(QChart *chart, QDateTimeAxis *xAxis, QValueAxis *yAxis, double level, QColor color,
+                                const QString &label);
+
+private slots:
+    void updateChart();
+
     void moreInfoMsgBox();
+
     void viewListMsgBox();
 
 private:
     void createTitle();
+
     void createButtons();
+
     void createBoxes();
+
     void createFilters();
+
     void createComplianceLabels();
+
     void arrangeWidgets();
+
     void createChart(const std::vector<Measurement> &filteredData);
 
     QLabel *title{};

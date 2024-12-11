@@ -39,18 +39,24 @@ void ComplianceDashboard::createTitle() {
 }
 
 void ComplianceDashboard::createFilters() {
-    // Fetch and set locations
-    QStringList locationOptions{"All locations"};
-    std::vector<std::string> complianceLocations = ComplianceChecker::getLocations();
-    for (const std::string &locationStr: complianceLocations) {
-        locationOptions << QString::fromStdString(locationStr);
-    }
-
-    location = new searchableComboBox();
-    location->setOptions(locationOptions);
+    // Location combo box setup
+    location = new QComboBox();
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
     locationLabel->setWordWrap(true);
+
+    // Connect to dataReady to update dynamically after data loads
+    connect(&GlobalDataModel::instance(), &GlobalDataModel::dataReady, this, [this]() {
+        QStringList updatedLocationOptions{"All locations"};
+        auto complianceLocations = GlobalDataModel::instance().getDataset().getHighDataPointLocations();
+
+        for (const std::string &locationStr: complianceLocations) {
+            updatedLocationOptions << QString::fromStdString(locationStr);
+        }
+        if (location) {
+            location->addItems(updatedLocationOptions);
+        }
+    });
 
     // Fetch and set pollutants
     QStringList pollutantOptions{"All pollutants"};
@@ -73,8 +79,8 @@ void ComplianceDashboard::createFilters() {
         pollutantOptions << QString::fromStdString(chemical);
     }
 
-    pollutant = new searchableComboBox();
-    pollutant->setOptions(pollutantOptions);
+    pollutant = new QComboBox();
+    pollutant->addItems(pollutantOptions);
     pollutantLabel = new QLabel("&Pollutant:");
     pollutantLabel->setBuddy(pollutant);
 
@@ -89,10 +95,6 @@ void ComplianceDashboard::createFilters() {
     connect(location, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ComplianceDashboard::filterData);
     connect(pollutant, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ComplianceDashboard::filterData);
     connect(compliance, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ComplianceDashboard::filterData);
-
-    // Connect signals for Enter key
-    connect(location->lineEdit(), &QLineEdit::returnPressed, this, &ComplianceDashboard::filterData);
-    connect(pollutant->lineEdit(), &QLineEdit::returnPressed, this, &ComplianceDashboard::filterData);
 }
 
 
@@ -138,7 +140,8 @@ void ComplianceDashboard::filterData() {
     static QString prevLocation, prevPollutant, prevCompliance;
     static std::vector<Measurement> cachedFilteredData;
 
-    if (selectedLocation == prevLocation && selectedPollutant == prevPollutant && selectedCompliance == prevCompliance) {
+    if (selectedLocation == prevLocation && selectedPollutant == prevPollutant && selectedCompliance ==
+        prevCompliance) {
         model.setDataset(new Dataset(cachedFilteredData));
         table->setModel(&model);
         return;
@@ -154,11 +157,14 @@ void ComplianceDashboard::filterData() {
     else if (selectedCompliance == "Orange") targetCompliance = 2;
     else if (selectedCompliance == "Green") targetCompliance = 1;
 
-    for (const auto &measurement : dataset) {
-        bool matchLocation = selectedLocation == "All locations" || measurement.getLabel() == selectedLocation.toStdString();
-        bool matchPollutant = selectedPollutant == "All pollutants" || measurement.getCompoundName() == selectedPollutant.toStdString();
+    for (const auto &measurement: dataset) {
+        bool matchLocation = selectedLocation == "All locations" || measurement.getLabel() == selectedLocation.
+                             toStdString();
+        bool matchPollutant = selectedPollutant == "All pollutants" || measurement.getCompoundName() ==
+                              selectedPollutant.toStdString();
         if (matchLocation && matchPollutant) {
-            int complianceStatus = complianceChecker.complianceCheck(measurement.getCompoundName(), measurement.getValue());
+            int complianceStatus = complianceChecker.complianceCheck(measurement.getCompoundName(),
+                                                                     measurement.getValue());
             if (selectedCompliance == "All compliances" || complianceStatus == targetCompliance) {
                 filteredData.push_back(measurement);
             }

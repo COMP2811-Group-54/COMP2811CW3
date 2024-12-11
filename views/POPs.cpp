@@ -38,10 +38,10 @@ void PersistentOrganicPollutants::createButtons() {
 void PersistentOrganicPollutants::createBoxes() {
     QFont infoBoxFont("Arial", 8);
 
-    pcbs = new QLabel(tr("POPs_PCBS_INFO"));
-    pcbs->setFont(infoBoxFont);
-    pcbs->setWordWrap(true);
-    pcbs->setAlignment(Qt::AlignCenter);
+    pops = new QLabel(tr("POPs_PCBS_INFO"));
+    pops->setFont(infoBoxFont);
+    pops->setWordWrap(true);
+    pops->setAlignment(Qt::AlignCenter);
 
     otherPops = new QLabel(tr("POPs_OTHER_INFO"));
     otherPops->setFont(infoBoxFont);
@@ -49,41 +49,58 @@ void PersistentOrganicPollutants::createBoxes() {
     otherPops->setAlignment(Qt::AlignCenter);
 }
 
-
 void PersistentOrganicPollutants::createFilters() {
-    QStringList locationOptions;
-    std::vector<std::string> locations = ComplianceChecker::getLocations();
-    for (const std::string &locationStr: locations) {
-        locationOptions << QString::fromStdString(locationStr);
-    }
+    // Location combo box setup
     location = new QComboBox();
-    location->addItems(locationOptions);
     locationLabel = new QLabel("&Location:");
     locationLabel->setBuddy(location);
     locationLabel->setWordWrap(true);
-    connect(location, QOverload<int>::of(&searchableComboBox::currentIndexChanged), this,
-            &PersistentOrganicPollutants::onLocationSelected);
 
+    // Connect to dataReady to update dynamically after data loads
+    connect(&GlobalDataModel::instance(), &GlobalDataModel::dataReady, this, [this]() {
+        QStringList updatedLocationOptions{"All locations"};
+        auto complianceLocations = GlobalDataModel::instance().getDataset().getHighDataPointLocations();
+
+        for (const std::string &locationStr: complianceLocations) {
+            updatedLocationOptions << QString::fromStdString(locationStr);
+        }
+        if (location) {
+            location->addItems(updatedLocationOptions);
+        }
+    });
+
+    // Connect to chart update for the first selection made
+    connect(location, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
+            &PersistentOrganicPollutants::updateChart);
+
+    // Time range combo box setup
     QStringList timeRangeOptions;
-    timeRangeOptions << tr("POPs_ALL_TIME") << tr("POPs_TIME_DAY") << tr("POPs_TIME_WEEK")
-            << tr("POPs_TIME_MONTH") << tr("POPs_TIME_YEAR");
+    timeRangeOptions << "3 days" << "1 week" << "2 weeks"
+            << "3 months" << "6 months" << "9 months"
+            << "1 year";
     timeRange = new QComboBox();
     timeRange->addItems(timeRangeOptions);
-    timeRangeLabel = new QLabel(tr("POPs_TIME_RANGE_[LABEL"));
+    timeRange->setCurrentText("1 year");
+    timeRangeLabel = new QLabel("&Time Range:");
     timeRangeLabel->setBuddy(timeRange);
+
 
     connect(timeRange, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
             &PersistentOrganicPollutants::updateChart);
 
+    // Pollutant combo box setup
     QStringList pollutantOptions;
-    pollutantOptions << tr("POPs_ALL_POLLUTANTS") << tr("POPs_POLLUTANT_CHLORINE")
-            << tr("POPs_POLLUTANT_ETHANOL");
-    pollutant = new searchableComboBox();
-    pollutant->setOptions(pollutantOptions);
-    pollutantLabel = new QLabel(tr("POPs_POLLUTANT_LABEL"));
+    pollutantOptions << "All pollutants";
+    std::vector<std::string> pfasChemicals = ComplianceChecker::getPOPs();
+    for (const std::string &chemical: pfasChemicals) {
+        pollutantOptions << QString::fromStdString(chemical);
+    }
+    pollutant = new QComboBox();
+    pollutant->addItems(pollutantOptions);
+    pollutantLabel = new QLabel("&Pollutant:");
     pollutantLabel->setBuddy(pollutant);
 
-    connect(pollutant, QOverload<int>::of(&searchableComboBox::currentIndexChanged), this,
+    connect(pollutant, QOverload<int>::of(&QComboBox::currentIndexChanged), this,
             &PersistentOrganicPollutants::updateChart);
 }
 
@@ -128,7 +145,7 @@ void PersistentOrganicPollutants::arrangeWidgets() {
     chart->addStretch();
 
     QVBoxLayout *moreInfoLayout = new QVBoxLayout();
-    moreInfoLayout->addWidget(pcbs);
+    moreInfoLayout->addWidget(pops);
     moreInfoLayout->addWidget(moreInfo);
 
     QVBoxLayout *viewListLayout = new QVBoxLayout();
@@ -157,24 +174,47 @@ void PersistentOrganicPollutants::arrangeWidgets() {
     setLayout(layout);
 }
 
-void PersistentOrganicPollutants::onLocationSelected(int index) {
-    if (index != 0) {
-        // Assuming index 0 is a default or non-selectable placeholder
-        updateChart();
-    }
-}
-
 void PersistentOrganicPollutants::updateChart() {
-    auto &dataset = GlobalDataModel::instance().getDataset();
+    const std::vector<Measurement> dataset = GlobalDataModel::instance().getDataset().sortByTimestamp();
     const QString selectedLocation = location->currentText();
     const QString selectedPollutant = pollutant->currentText();
     const QString selectedTimeRange = timeRange->currentText();
+    qint64 lastTimestamp = 0;
+
+    if (!dataset.empty()) {
+        lastTimestamp = dataset.back().getDatetime().toMSecsSinceEpoch(); // Get the last data timestamp
+    }
+
 
     std::vector<Measurement> filteredData;
+    qint64 filterStartTime = lastTimestamp; // Initialize start time for filtering
+
+    if (selectedTimeRange == "3 days") {
+        filterStartTime -= 3ll * 24 * 60 * 60 * 1000; // 3 days in milliseconds
+    } else if (selectedTimeRange == "1 week") {
+        filterStartTime -= 7ll * 24 * 60 * 60 * 1000; // 1 week
+    } else if (selectedTimeRange == "2 weeks") {
+        filterStartTime -= 14ll * 24 * 60 * 60 * 1000; // 2 weeks
+    } else if (selectedTimeRange == "3 months") {
+        filterStartTime -= 90ll * 24 * 60 * 60 * 1000; // Approx. 3 months
+    } else if (selectedTimeRange == "6 months") {
+        filterStartTime -= 180ll * 24 * 60 * 60 * 1000; // Approx. 6 months
+    } else if (selectedTimeRange == "9 months") {
+        filterStartTime -= 270ll * 24 * 60 * 60 * 1000; // Approx. 9 months
+    } else if (selectedTimeRange == "1 year") {
+        filterStartTime -= 365ll * 24 * 60 * 60 * 1000; // Approx. 1 year
+    }
 
     for (const auto &measurement: dataset) {
-        bool matchLocation = measurement.getLabel() == selectedLocation.toStdString();
-        bool matchPollutant = selectedPollutant == tr("POPs_ALL_POLLUTANTS") || measurement.getCompoundName() ==
+        const qint64 timestamp = measurement.getDatetime().toMSecsSinceEpoch();
+        if (timestamp < filterStartTime || timestamp > lastTimestamp) {
+            continue; // Skip if not within the selected time range
+        }
+
+
+        bool matchLocation = selectedLocation == "All locations" || measurement.getLabel() == selectedLocation.
+                             toStdString();
+        bool matchPollutant = selectedPollutant == "All pollutants" || measurement.getCompoundName() ==
                               selectedPollutant.toStdString();
 
         if (matchLocation && matchPollutant) {
@@ -194,16 +234,21 @@ void PersistentOrganicPollutants::updateChart() {
 void PersistentOrganicPollutants::createChart(const std::vector<Measurement> &filteredData) {
     auto popChart = new QChart();
     popChart->removeAllSeries();
+    popChart->setAnimationOptions(QChart::SeriesAnimations);
 
-    auto xAxis = new QValueAxis();
-    xAxis->setTitleText(tr("Time"));
+
+    // X-Axis: Use QDateTimeAxis for human-readable timestamps
+    auto *xAxis = new QDateTimeAxis();
+    xAxis->setFormat("dd-MM-yyyy HH:mm"); // Human-readable timestamps
+    xAxis->setTitleText("Time");
+    xAxis->setTickCount(10); // Adjust the number of ticks for clarity
     popChart->addAxis(xAxis, Qt::AlignBottom);
 
-    auto yAxis = new QValueAxis();
-    yAxis->setTitleText(tr("Level (ug/l)"));
-    yAxis->setRange(0.0, 0.0025);
-    yAxis->setTickCount(10);
-    yAxis->setLabelFormat("%.4f");
+    // Y-Axis: Dynamically update only in the expected positive range
+    auto *yAxis = new QValueAxis();
+    yAxis->setTitleText("Level (ug/l)");
+    yAxis->setLabelFormat("%.5f");
+    yAxis->setTickCount(10); // Adjust tick counts as necessary
     popChart->addAxis(yAxis, Qt::AlignLeft);
 
     for (const auto &compound: ComplianceChecker::getPOPs()) {
@@ -227,9 +272,41 @@ void PersistentOrganicPollutants::createChart(const std::vector<Measurement> &fi
         }
     }
 
+    // Add compliance level lines
+    addComplianceLevelLine(popChart, xAxis, yAxis, 0.1 * 0.8, Qt::green, "Green (0.8x)");
+    addComplianceLevelLine(popChart, xAxis, yAxis, 0.1 * 1.0, QColor(255, 165, 0), "Orange (1.0x)");
+    addComplianceLevelLine(popChart, xAxis, yAxis, 0.1 * 1.2, Qt::red, "Red (1.2x)");
+
     popChart->setTitle(tr("Filtered POPs Chart"));
     popChartView->setChart(popChart);
 }
+
+void PersistentOrganicPollutants::addComplianceLevelLine(QChart *chart, QDateTimeAxis *xAxis, QValueAxis *yAxis,
+                                                         double level, QColor color, const QString &label) {
+    auto *lineSeries = new QLineSeries();
+
+    // Use the min and max of the X-axis to draw the horizontal line
+    double minX = xAxis->min().toMSecsSinceEpoch();
+    double maxX = xAxis->max().toMSecsSinceEpoch();
+
+    lineSeries->append(minX, level);
+    lineSeries->append(maxX, level);
+
+    // Customize the pen for the line
+    QPen pen(color); // Set the line color
+    pen.setStyle(Qt::DotLine); // Make the line dotted
+    pen.setWidth(3); // Set the line thickness (e.g., 3 pixels)
+    lineSeries->setPen(pen);
+
+    lineSeries->setColor(color);
+    lineSeries->setName(label);
+
+    // Add the line to the chart and bind it to the axes
+    chart->addSeries(lineSeries);
+    lineSeries->attachAxis(xAxis);
+    lineSeries->attachAxis(yAxis);
+}
+
 
 void PersistentOrganicPollutants::moreInfoMsgBox() {
     QMessageBox::information(this, tr("PCB Info"), tr("more info about PCBs"));

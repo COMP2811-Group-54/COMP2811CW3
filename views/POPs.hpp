@@ -13,37 +13,45 @@ public:
 
     void retranslateUI();
 
-    private slots:
-        void updateChart();
-    void onLocationSelected(int index);
+private slots:
+    void updateChart();
+
     void moreInfoMsgBox();
+
     void viewListMsgBox();
 
 private:
     void createTitle();
+
     void createButtons();
+
     void createBoxes();
+
     void createFilters();
+
     void createComplianceLabels();
+
     void arrangeWidgets();
+
     void createChart(const std::vector<Measurement> &filteredData);
 
-    QLabel *title;
+    void addComplianceLevelLine(QChart *chart, QDateTimeAxis *xAxis, QValueAxis *yAxis, double level, QColor color,
+                                const QString &label);
 
+    QLabel *title;
     QLabel *locationLabel;
     QLabel *timeRangeLabel;
     QLabel *pollutantLabel;
     QComboBox *location;
     QComboBox *timeRange;
-    searchableComboBox *pollutant;
+    QComboBox *pollutant;
 
     QLabel *red;
     QLabel *orange;
     QLabel *green;
-
     QChartView *popChartView;
 
-    QLabel *pcbs;
+    QLabel *pops;
     QLabel *otherPops;
     QPushButton *moreInfo;
     QPushButton *viewList;

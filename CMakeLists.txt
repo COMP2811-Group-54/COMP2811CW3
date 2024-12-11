@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find required Qt components
-find_package(Qt6 REQUIRED COMPONENTS Widgets Charts Core Network Quick Qml Location Positioning QuickWidgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Charts Core Network Quick Qml Positioning QuickWidgets)
 
 # Standard Qt project setup
 qt_standard_project_setup()
@@ -42,7 +42,7 @@ qt_add_executable(waterQuality
 )
 
 # Link against Qt libraries
-target_link_libraries(waterQuality PRIVATE Qt6::Widgets Qt6::Charts Qt6::Core Qt6::Network Qt6::Quick Qt6::Qml Qt6::Location Qt6::Positioning Qt6::QuickWidgets)
+target_link_libraries(waterQuality PRIVATE Qt6::Widgets Qt6::Charts Qt6::Core Qt6::Network Qt6::Quick Qt6::Qml Qt6::Positioning Qt6::QuickWidgets)
 
 # Set build type if not defined
 if (NOT CMAKE_BUILD_TYPE)
