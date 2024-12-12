@@ -282,8 +282,12 @@ void OverviewCards::updateDataDisplays() {
     ExPFA3->setText(QString(tr("OC_EX_PFA3")+" %1").arg(pfaRed));
 
     // Update text for PO (metals and VOCs combined metrics)
-
     ExPO1->setText(QString(tr("OC_EX_PO1")+" %1").arg(metalGreen + vocGreen));
     ExPO2->setText(QString(tr("OC_EX_PO2")+" %1").arg(metalOrange + vocOrange));
     ExPO3->setText(QString(tr("OC_EX_PO3")+" %1").arg(metalRed + vocRed));
+
+    // Update text for Locations
+    ExCD1->setText(QString("Green Locations: %1").arg(greenLocations));
+    ExCD2->setText(QString("Orange Locations: %1").arg(orangeLocations));
+    ExCD3->setText(QString("Red Locations: %1").arg(redLocations));
 }
