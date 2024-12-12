@@ -100,13 +100,11 @@ void ComplianceDashboard::createFilters() {
 void ComplianceDashboard::createPollutantIndicator() {
     currentPollutant = new QLabel(tr("CD_CURRENT_POLLUTANT"));
     currentPollutantCompliance = new QLabel(tr("CD_CURRENT_POLLUTANT_COMPLIANCE"));
-    currentPollutantCompliance->setStyleSheet("background-color: red; color: white;");
 }
 
 void ComplianceDashboard::setMainLayout() {
     QVBoxLayout *pollutantInfo = new QVBoxLayout();
     pollutantInfo->addWidget(pollutant);
-    pollutantInfo->addWidget(currentPollutant);
     pollutantInfo->addWidget(currentPollutantCompliance);
 
     QVBoxLayout *filters = new QVBoxLayout();

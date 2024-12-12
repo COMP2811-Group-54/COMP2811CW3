@@ -327,7 +327,7 @@ void PollutantOverview::createComplianceLabels() {
 
 void PollutantOverview::arrangeWidgets()
 {
-    // Title and searchbar
+    // Title
 
     QHBoxLayout* header = new QHBoxLayout();
     header->addWidget(title);
@@ -344,6 +344,8 @@ void PollutantOverview::arrangeWidgets()
     filters->addSpacing(15);
     filters->addWidget(pollutantLabel);
     filters->addWidget(pollutant);
+    filters->addSpacing(15);
+    filters->addWidget(pollutantSearchBar);
 
 
     QHBoxLayout* chartContext = new QHBoxLayout();
@@ -352,13 +354,8 @@ void PollutantOverview::arrangeWidgets()
     chartContext->addStretch();
     chartContext->addSpacing(20);
     chartContext->addWidget(green);
-    chartContext->addSpacing(20);
-    chartContext->addStretch();
     chartContext->addWidget(orange);
-    chartContext->addSpacing(20);
-    chartContext->addStretch();
     chartContext->addWidget(red);
-    chartContext->addStretch();
 
     // Graph layout
 

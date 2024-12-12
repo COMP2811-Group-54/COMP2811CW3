@@ -19,12 +19,12 @@ void OverviewCards::createPO() {
     FramePO = new QFrame();
     FramePO->setFrameShape(QFrame::Box);
     FramePO->setLineWidth(1);
-    FramePO->setFixedSize(500, 250);
 
     CrdPO = new QVBoxLayout(FramePO);
 
     TitlePO = new QLabel(tr("OC_PO_TITLE"));
     TitlePO->setAlignment(Qt::AlignCenter);
+
 
     QHBoxLayout *ComponentsPO = new QHBoxLayout();
     QVBoxLayout *ExamplesPO = new QVBoxLayout();
@@ -56,7 +56,6 @@ void OverviewCards::createPOP() {
     FramePOP = new QFrame();
     FramePOP->setFrameShape(QFrame::Box);
     FramePOP->setLineWidth(1);
-    FramePOP->setFixedSize(500, 250);
 
     CrdPOP = new QVBoxLayout(FramePOP);
 
@@ -93,7 +92,6 @@ void OverviewCards::createPFA() {
     FramePFA = new QFrame();
     FramePFA->setFrameShape(QFrame::Box);
     FramePFA->setLineWidth(1);
-    FramePFA->setFixedSize(500, 250);
 
     CrdPFA = new QVBoxLayout(FramePFA);
 
@@ -150,6 +148,16 @@ void OverviewCards::arrangeWidgets() {
     gridLayout->addWidget(FramePFA, 0, 1);
     gridLayout->addWidget(FramePO, 1, 0);
     gridLayout->addWidget(FrameCD, 1, 1);
+
+    gridLayout->setHorizontalSpacing(50);
+    gridLayout->setVerticalSpacing(50);
+    gridLayout->setContentsMargins(50, 50, 50, 50);
+
+    gridLayout->setRowStretch(0, 1);
+    gridLayout->setRowStretch(1, 1);
+    gridLayout->setColumnStretch(0, 1);
+    gridLayout->setColumnStretch(1, 1);
+
     setLayout(gridLayout);
 }
 
