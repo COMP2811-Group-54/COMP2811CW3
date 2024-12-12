@@ -39,19 +39,21 @@ void PFApage::createButtons() {
 }
 
 void PFApage::createBoxes() {
-    QFont infoBoxFont("Arial", 8);
+    QFont infoBoxFont("Arial", 12);
 
     pfas = new QLabel("<h2>PFAs<h2>"
         "<p>Per- and polyfluoroalkyl substances (PFAS) are a large, complex group of synthetic chemicals<p>");
     pfas->setFont(infoBoxFont);
     pfas->setWordWrap(true);
     pfas->setAlignment(Qt::AlignCenter);
+    pfas->setScaledContents(true);
 
     otherPfas = new QLabel("<h2>Other PFAs<h2>"
         "Examples include PFOAs and PFOS. These substances have various origins and effects<p>");
     otherPfas->setFont(infoBoxFont);
     otherPfas->setWordWrap(true);
     otherPfas->setAlignment(Qt::AlignCenter);
+    otherPfas->setScaledContents(true);
 }
 
 void PFApage::createFilters() {
@@ -150,7 +152,7 @@ void PFApage::arrangeWidgets() {
     auto moreInfoFrame = new QFrame();
     moreInfoFrame->setFrameShape(QFrame::Box);
     moreInfoFrame->setLineWidth(1);
-    moreInfoFrame->setFixedSize(200, 200);
+    moreInfoFrame->setMinimumSize(200, 250);
 
     QVBoxLayout *moreInfoLayout = new QVBoxLayout(moreInfoFrame);
     moreInfoLayout->addWidget(pfas);
@@ -159,7 +161,7 @@ void PFApage::arrangeWidgets() {
     auto viewListFrame = new QFrame();
     viewListFrame->setFrameShape(QFrame::Box);
     viewListFrame->setLineWidth(1);
-    viewListFrame->setFixedSize(200, 200);
+    viewListFrame->setFixedSize(200, 250);
 
     QVBoxLayout *viewListLayout = new QVBoxLayout(viewListFrame);
     viewListLayout->addWidget(otherPfas);
