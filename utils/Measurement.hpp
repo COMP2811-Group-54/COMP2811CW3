@@ -9,11 +9,11 @@
 class Measurement {
 public:
     // Constructor now directly takes a datetime string and converts it
-    Measurement(std::string id, std::string samplingPoint, std::string label,
+    Measurement(std::string id, std::string samplingPoint, std::string notation, std::string label,
                 const std::string &datetimeStr,
                 std::string compoundName, std::string description, std::string unit, const double value,
                 const int determinand)
-        : id(std::move(id)), samplingPoint(std::move(samplingPoint)), label(std::move(label)),
+        : id(std::move(id)), samplingPoint(std::move(samplingPoint)), notation(std::move(notation)), label(std::move(label)),
           datetime(QDateTime::fromString(QString::fromStdString(datetimeStr), "yyyy-MM-dd'T'HH:mm:ss")),
           compoundName(std::move(compoundName)), description(std::move(description)), unit(std::move(unit)),
           value(value), compoundDeterminand(determinand) {
@@ -21,6 +21,7 @@ public:
 
     std::string getId() const { return id; }
     std::string getSamplingPoint() const { return samplingPoint; }
+    std::string getSamplingPointNotation() const { return notation; }
     std::string getLabel() const { return label; }
     QDateTime getDatetime() const { return datetime; }
     std::string getCompoundName() const { return compoundName; }
@@ -35,6 +36,7 @@ private:
     std::string id;
     std::string samplingPoint;
     std::string label;
+    std::string notation;
     QDateTime datetime; // Now stored as QDateTime
     std::string compoundName;
     std::string description;

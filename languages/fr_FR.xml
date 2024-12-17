@@ -874,7 +874,7 @@
         </message>
         <message>
             <source>CD_CURRENT_POLLUTANT_COMPLIANCE</source>
-            <translation>rouge/jaune/vert</translation>
+            <translation>rouge/jaune/vert:</translation>
         </message>
     </context>
 </TS>

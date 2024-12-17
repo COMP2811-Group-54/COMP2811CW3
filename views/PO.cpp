@@ -3,6 +3,9 @@
 #include <QtCore>
 #include "PO.hpp"
 
+#include <iostream>
+#include <cmath>
+
 #include "../utils/Compliance.hpp"
 #include "../utils/Measurement.hpp"
 #include "../utils/GlobalDataModel.hpp"
@@ -29,7 +32,24 @@ void PollutantOverview::createTitle() {
     title->setAlignment(Qt::AlignCenter);
 }
 
-void PollutantOverview::createChart(const std::vector<Measurement> &filteredData) {
+double calculateMean(const std::vector<Measurement>& data) {
+    double sum = 0;
+    for (const auto& measurement : data) {
+        sum += measurement.getValue();
+    }
+    return sum / data.size();
+}
+
+double calculateStandardDeviation(const std::vector<Measurement>& data, double mean) {
+    double sumSquaredDifferences = 0;
+    for (const auto& measurement : data) {
+        sumSquaredDifferences += std::pow(measurement.getValue() - mean, 2);
+    }
+    return std::sqrt(sumSquaredDifferences / data.size());
+}
+
+
+void PollutantOverview::createChart(const std::vector<Measurement>& filteredData) {
     QChart *overviewChart = new QChart();
     overviewChart->removeAllSeries();
     overviewChart->setAnimationOptions(QChart::SeriesAnimations);
@@ -49,34 +69,61 @@ void PollutantOverview::createChart(const std::vector<Measurement> &filteredData
     overviewChart->addAxis(yAxis, Qt::AlignLeft);
 
     // Iterate through all pollutant categories dynamically
-    const std::map<QString, std::vector<std::string> > pollutantCategories = {
+    const std::map<QString, std::vector<std::string>> pollutantCategories = {
         {"PFAs", ComplianceChecker::getPFAs()},
         {"POPs", ComplianceChecker::getPOPs()},
         {"Metals", ComplianceChecker::getMetals()},
         {"VOCs", ComplianceChecker::getVOCs()}
     };
 
-    for (const auto &[category, pollutants]: pollutantCategories) {
-        for (const auto &compound: pollutants) {
-            auto *series = new QLineSeries();
-            bool seriesHasData = false;
+    std::vector<std::string> extremePollutants;
+    for (const auto &[category, pollutants] : pollutantCategories) {
+        for (const auto &compound : pollutants) {
+            std::vector<Measurement> compoundData;
 
-            for (const auto &measurement: filteredData) {
+            // Collect data for the compound
+            for (const auto &measurement : filteredData) {
                 if (measurement.getCompoundName() == compound) {
-                    series->append(measurement.getDatetime().toMSecsSinceEpoch(), measurement.getValue());
-                    seriesHasData = true;
+                    compoundData.push_back(measurement);
                 }
             }
 
-            if (seriesHasData) {
+            // Skip if no data for this compound
+            if (compoundData.empty()) continue;
+
+            // Calculate mean and standard deviation for the compound
+            double mean = calculateMean(compoundData);
+            double stdDev = calculateStandardDeviation(compoundData, mean);
+
+            // Check if any values are extreme (e.g., more than 10 times the standard deviation)
+            for (const auto &measurement : compoundData) {
+                if (measurement.getValue() > mean + 10 * stdDev) {
+                    extremePollutants.push_back(compound);
+                    break;  // No need to check further for this compound
+                }
+            }
+
+            // Only add the compound if it doesn't have extreme values
+            if (std::find(extremePollutants.begin(), extremePollutants.end(), compound) == extremePollutants.end()) {
+                auto *series = new QLineSeries();
+                for (const auto &measurement : compoundData) {
+                    series->append(measurement.getDatetime().toMSecsSinceEpoch(), measurement.getValue());
+                }
                 series->setName(QString::fromStdString(compound));
                 overviewChart->addSeries(series);
                 series->attachAxis(xAxis);
                 series->attachAxis(yAxis);
-            } else {
-                delete series;
             }
         }
+    }
+
+    // Show pop-up for extreme pollutants
+    if (!extremePollutants.empty()) {
+        QString extremeMessage = "The following pollutants have extreme values and are not displayed:\n";
+        for (const auto &pollutant : extremePollutants) {
+            extremeMessage += QString::fromStdString(pollutant) + "\n";
+        }
+        QMessageBox::warning(this, tr("Extreme Pollutant Values"), extremeMessage);
     }
 
     // Add compliance threshold lines
@@ -85,7 +132,7 @@ void PollutantOverview::createChart(const std::vector<Measurement> &filteredData
     auto *orangeThreshold = new QLineSeries();
     auto *redThreshold = new QLineSeries();
 
-    for (const auto &measurement: filteredData) {
+    for (const auto &measurement : filteredData) {
         if (measurement.getDatetime().isValid()) {
             qint64 timestamp = measurement.getDatetime().toMSecsSinceEpoch();
             greenThreshold->append(timestamp, baseThreshold * 0.8);
@@ -96,7 +143,8 @@ void PollutantOverview::createChart(const std::vector<Measurement> &filteredData
 
     overviewChart->setTitle(tr("Pollutant Overview for %1").arg(
         pollutant->currentText().isEmpty() ? "All" : pollutant->currentText()));
-    // Example of adding compliance level lines to chart
+
+    // Add threshold lines if not displaying all pollutants
     if (pollutant->currentText() != "All pollutants") {
         overviewChart->addSeries(greenThreshold);
         greenThreshold->attachAxis(xAxis);
@@ -112,18 +160,8 @@ void PollutantOverview::createChart(const std::vector<Measurement> &filteredData
         redThreshold->attachAxis(xAxis);
         redThreshold->attachAxis(yAxis);
         redThreshold->setName("Red Threshold");
-
-        addComplianceLevelLine(overviewChart, xAxis, yAxis, baseThreshold * 0.8, "green", "Green Threshold");
-        addComplianceLevelLine(overviewChart, xAxis, yAxis, baseThreshold, "orange", "Orange Threshold");
-        addComplianceLevelLine(overviewChart, xAxis, yAxis, baseThreshold * 1.2, "red", "Red Threshold");
-        green->show();
-        orange->show();
-        red->show();
-    } else {
-        green->hide();
-        orange->hide();
-        red->hide();
     }
+
     overviewChartView->setChart(overviewChart);
     overviewChartView->setMinimumSize(1000, 400);
 }
@@ -140,11 +178,11 @@ void PollutantOverview::updateChart() {
     // Validate dropdown logic: 'All pollutants' and 'All locations' not allowed
     if (pollutant->currentText() == "All pollutants" && location->currentText() == "All locations") {
         QMessageBox::warning(this, tr("Invalid Selection"),
-                             tr(
-                                 "You cannot select 'All pollutants' and 'All locations' simultaneously. Resetting pollutant selection."));
+                             tr("You cannot select 'All pollutants' and 'All locations' simultaneously. Resetting pollutant selection."));
         pollutant->setCurrentIndex(1); // Reset to a specific pollutant
         return;
     }
+
     const std::vector<Measurement> dataset = GlobalDataModel::instance().getDataset().sortByTimestamp();
     const QString selectedLocation = location->currentText();
     const QString selectedPollutant = pollutant->currentText();
@@ -158,44 +196,65 @@ void PollutantOverview::updateChart() {
     std::vector<Measurement> filteredData;
     qint64 filterStartTime = lastTimestamp;
 
-    // Time range filter
-    if (selectedTimeRange == "3 days") {
-        filterStartTime -= 3ll * 24 * 60 * 60 * 1000;
-    } else if (selectedTimeRange == "1 week") {
-        filterStartTime -= 7ll * 24 * 60 * 60 * 1000;
-    } else if (selectedTimeRange == "6 months") {
-        filterStartTime -= 180ll * 24 * 60 * 60 * 1000;
-    } else if (selectedTimeRange == "1 year") {
-        filterStartTime -= 365ll * 24 * 60 * 60 * 1000;
-    }
+    std::unordered_map<std::string, long long> timeAdjustments = {
+        {"3 days", 3ll * 24 * 60 * 60 * 1000},
+        {"1 week", 7ll * 24 * 60 * 60 * 1000},
+        {"2 weeks", 14ll * 24 * 60 * 60 * 1000},
+        {"1 month", 30ll * 24 * 60 * 60 * 1000},
+        {"3 months", 90ll * 24 * 60 * 60 * 1000},
+        {"6 months", 180ll * 24 * 60 * 60 * 1000},
+        {"9 months", 270ll * 24 * 60 * 60 * 1000},
+        {"1 year", 365ll * 24 * 60 * 60 * 1000}
+    };
 
-    for (const auto &measurement: dataset) {
+    filterStartTime -= timeAdjustments[selectedTimeRange.toStdString()];
+
+    std::vector<Measurement> extremeMeasurements; // For outliers
+    std::vector<Measurement> validMeasurements; // For valid measurements
+
+    for (const auto &measurement : dataset) {
         const qint64 timestamp = measurement.getDatetime().toMSecsSinceEpoch();
         if (timestamp < filterStartTime || timestamp > lastTimestamp) {
             continue;
         }
 
         // Location and pollutant filters
-        bool matchLocation = (selectedLocation == "All locations" || measurement.getLabel() == selectedLocation.
-                              toStdString());
-        bool matchPollutant = (selectedPollutant == "All pollutants" || measurement.getCompoundName() ==
-                               selectedPollutant.toStdString());
+        bool matchLocation = (selectedLocation == "All locations" || measurement.getLabel() == selectedLocation.toStdString());
+        bool matchPollutant = (selectedPollutant == "All pollutants" || measurement.getCompoundName() == selectedPollutant.toStdString());
 
         if (matchLocation && matchPollutant) {
-            filteredData.push_back(measurement);
+            // Check if the value is within an acceptable range
+            double threshold = ComplianceChecker().getComplianceThreshold(measurement.getCompoundName());
+            double value = measurement.getValue();
+
+            if (value > threshold * 5) { // Value significantly higher than threshold
+                extremeMeasurements.push_back(measurement);
+            } else {
+                validMeasurements.push_back(measurement);
+            }
         }
     }
 
-    if (filteredData.empty()) {
+    if (!extremeMeasurements.empty()) {
+        QString extremeValuesList = "Extreme values detected for the following pollutants:\n";
+        for (const auto &extreme : extremeMeasurements) {
+            extremeValuesList += QString::fromStdString(extreme.getCompoundName()) + ": " +
+                                 QString::number(extreme.getValue()) + "\n";
+        }
+
+        QMessageBox::warning(this, tr("Extreme Values Detected"), extremeValuesList);
+    }
+
+    if (validMeasurements.empty()) {
         QMessageBox::warning(this, tr("No Data"), tr("No data available for the selected filters."));
         overviewChartView->chart()->removeAllSeries();
     } else {
-        createChart(filteredData);
+        createChart(validMeasurements); // Create chart only for valid measurements
     }
 }
 
-void PollutantOverview::createButtons()
-{
+
+void PollutantOverview::createButtons() {
     // *UI Job* buttons for more info on pollutant categories
 
     // Heavy Metals Info Button
@@ -221,8 +280,8 @@ void PollutantOverview::createButtons()
     // Volatile Organic Compounds (VOCs) Info Button
     volatileOrganicCompoundsInfo = new QPushButton("Volatile Organic Compounds Info");
     volatileOrganicCompoundsInfo->setMinimumHeight(75);
-    connect(volatileOrganicCompoundsInfo, &QPushButton::clicked, this, &PollutantOverview::volatileOrganicCompoundsInfoMsgBox);
-
+    connect(volatileOrganicCompoundsInfo, &QPushButton::clicked, this,
+            &PollutantOverview::volatileOrganicCompoundsInfoMsgBox);
 }
 
 void PollutantOverview::createFilters() {
@@ -262,7 +321,7 @@ void PollutantOverview::createFilters() {
 
     // Time range combo box setup
     QStringList timeRangeOptions;
-    timeRangeOptions << "3 days" << "1 week" << "2 weeks"
+    timeRangeOptions << "3 days" << "1 week" << "2 weeks" << "1 month"
             << "3 months" << "6 months" << "9 months"
             << "1 year";
     timeRange = new QComboBox();
@@ -292,12 +351,19 @@ void PollutantOverview::createFilters() {
     std::vector<std::string> vocs = ComplianceChecker::getVOCs();
     pollutants.insert(pollutants.end(), vocs.begin(), vocs.end());
 
+    std::vector<std::string> organics = ComplianceChecker::getOrganicChemicals();
+    pollutants.insert(pollutants.end(), organics.begin(), organics.end());
+
+    std::vector<std::string> inorganics = ComplianceChecker::getInOrganicChemicals();
+    pollutants.insert(pollutants.end(), inorganics.begin(), inorganics.end());
+
     for (const std::string &chemical: pollutants) {
         pollutantOptions << QString::fromStdString(chemical);
     }
 
     pollutant = new QComboBox();
     pollutant->addItems(pollutantOptions);
+    pollutant->setCurrentText("FOSA");
     pollutantLabel = new QLabel("&Pollutant:");
     pollutantLabel->setBuddy(pollutant);
 
@@ -316,6 +382,7 @@ void PollutantOverview::createComplianceLabels() {
     red->setStyleSheet("background-color: red; color: white;");
     red->setToolTip("Exceeds compliance threshold by 20%");
 
+
     orange = new QLabel(QString("Orange level: %1-%2").arg(threshold * 0.8).arg(threshold));
     orange->setStyleSheet("background-color: orange; color: white;");
     orange->setToolTip("Within compliance threshold");
@@ -325,16 +392,15 @@ void PollutantOverview::createComplianceLabels() {
     green->setToolTip("Below compliance threshold by 20%");
 }
 
-void PollutantOverview::arrangeWidgets()
-{
+void PollutantOverview::arrangeWidgets() {
     // Title and searchbar
 
-    QHBoxLayout* header = new QHBoxLayout();
+    QHBoxLayout *header = new QHBoxLayout();
     header->addWidget(title);
 
     // Filters and Compliance Indicators
 
-    QHBoxLayout* filters = new QHBoxLayout();
+    QHBoxLayout *filters = new QHBoxLayout();
     filters->setSizeConstraint(QLayout::SetMinimumSize);
     filters->addWidget(locationLabel);
     filters->addWidget(location);
@@ -346,7 +412,7 @@ void PollutantOverview::arrangeWidgets()
     filters->addWidget(pollutant);
 
 
-    QHBoxLayout* chartContext = new QHBoxLayout();
+    QHBoxLayout *chartContext = new QHBoxLayout();
     chartContext->setSizeConstraint(QLayout::SetMinimumSize);
     chartContext->addLayout(filters);
     chartContext->addStretch();
@@ -362,13 +428,13 @@ void PollutantOverview::arrangeWidgets()
 
     // Graph layout
 
-    QVBoxLayout* chart = new QVBoxLayout();
+    QVBoxLayout *chart = new QVBoxLayout();
     chart->setSizeConstraint(QLayout::SetMinimumSize);
     chart->addWidget(overviewChartView, 19);
     chart->addLayout(chartContext, 1);
     chart->addStretch();
 
-    QVBoxLayout* info = new QVBoxLayout();
+    QVBoxLayout *info = new QVBoxLayout();
     info->addStretch();
     info->addWidget(heavyMetalsInfo);
     info->addSpacing(10);
@@ -384,13 +450,13 @@ void PollutantOverview::arrangeWidgets()
 
     // Main body layout
 
-    QHBoxLayout* body = new QHBoxLayout();
+    QHBoxLayout *body = new QHBoxLayout();
     body->setSizeConstraint(QLayout::SetMinimumSize);
     body->addLayout(chart, 4);
     body->addLayout(info, 1);
     body->addStretch();
 
-    QVBoxLayout* layout = new QVBoxLayout();
+    QVBoxLayout *layout = new QVBoxLayout();
     layout->setSizeConstraint(QLayout::SetMinimumSize);
     layout->addLayout(header);
     layout->addLayout(body);
@@ -417,7 +483,6 @@ void PollutantOverview::retranslateUI() {
     orange->setToolTip(tr("PO_COMPLIANCE_ORANGE_TOOLTIP"));
     green->setText(tr("PO_COMPLIANCE_GREEN"));
     green->setToolTip(tr("PO_COMPLIANCE_GREEN_TOOLTIP"));
-
 }
 
 void PollutantOverview::createSearchBar() {
@@ -453,80 +518,75 @@ void PollutantOverview::addComplianceLevelLine(QChart *chart, QAbstractAxis *xAx
 }
 
 // *UI Job* msg boxes for pollutant categories
-void PollutantOverview::heavyMetalsInfoMsgBox()
-{
+void PollutantOverview::heavyMetalsInfoMsgBox() {
     QMessageBox::information(this, tr("PO_HEAVY_METALS_TITLE"),
-    tr("PO_HEAVY_METALS_DESC_1") + "\n" +
-    tr("PO_HEAVY_METALS_DESC_2") + "\n" +
-    tr("PO_HEAVY_METALS_DESC_3") + "\n\n" +
-    tr("PO_HEAVY_METALS_1") + "\n" +
-    tr("PO_HEAVY_METALS_2") + "\n" +
-    tr("PO_HEAVY_METALS_3") + "\n" +
-    tr("PO_HEAVY_METALS_4") + "\n" +
-    tr("PO_HEAVY_METALS_5") + "\n" +
-    tr("PO_HEAVY_METALS_6") + "\n" +
-    tr("PO_HEAVY_METALS_7"));
+                             tr("PO_HEAVY_METALS_DESC_1") + "\n" +
+                             tr("PO_HEAVY_METALS_DESC_2") + "\n" +
+                             tr("PO_HEAVY_METALS_DESC_3") + "\n\n" +
+                             tr("PO_HEAVY_METALS_1") + "\n" +
+                             tr("PO_HEAVY_METALS_2") + "\n" +
+                             tr("PO_HEAVY_METALS_3") + "\n" +
+                             tr("PO_HEAVY_METALS_4") + "\n" +
+                             tr("PO_HEAVY_METALS_5") + "\n" +
+                             tr("PO_HEAVY_METALS_6") + "\n" +
+                             tr("PO_HEAVY_METALS_7"));
 }
 
-void PollutantOverview::organicChemicalsInfoMsgBox()
-{
+void PollutantOverview::organicChemicalsInfoMsgBox() {
     QMessageBox::information(this, tr("PO_ORGANIC_CHEMICALS_TITLE"),
-    tr("PO_ORGANIC_CHEMICALS_DESC_1") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_DESC_2") + "\n\n" +
-    tr("PO_ORGANIC_CHEMICALS_1") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_2") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_3") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_4") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_5") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_6") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_7") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_8") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_9") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_10") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_11") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_12") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_13") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_14") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_15") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_16") + "\n" +
-    tr("PO_ORGANIC_CHEMICALS_17"));
+                             tr("PO_ORGANIC_CHEMICALS_DESC_1") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_DESC_2") + "\n\n" +
+                             tr("PO_ORGANIC_CHEMICALS_1") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_2") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_3") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_4") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_5") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_6") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_7") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_8") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_9") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_10") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_11") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_12") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_13") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_14") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_15") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_16") + "\n" +
+                             tr("PO_ORGANIC_CHEMICALS_17"));
 }
 
-void PollutantOverview::inorganicChemicalsInfoMsgBox()
-{
+void PollutantOverview::inorganicChemicalsInfoMsgBox() {
     QMessageBox::information(this, tr("PO_INORGANIC_CHEMICALS_TITLE"),
-    tr("PO_INORGANIC_CHEMICALS_DESC_1") + "\n" +
-    tr("PO_INORGANIC_CHEMICALS_DESC_2") + "\n\n" +
-    tr("PO_INORGANIC_CHEMICALS_1") + "\n" +
-    tr("PO_INORGANIC_CHEMICALS_2") + "\n" +
-    tr("PO_INORGANIC_CHEMICALS_3") + "\n" +
-    tr("PO_INORGANIC_CHEMICALS_4") + "\n" +
-    tr("PO_INORGANIC_CHEMICALS_5"));
+                             tr("PO_INORGANIC_CHEMICALS_DESC_1") + "\n" +
+                             tr("PO_INORGANIC_CHEMICALS_DESC_2") + "\n\n" +
+                             tr("PO_INORGANIC_CHEMICALS_1") + "\n" +
+                             tr("PO_INORGANIC_CHEMICALS_2") + "\n" +
+                             tr("PO_INORGANIC_CHEMICALS_3") + "\n" +
+                             tr("PO_INORGANIC_CHEMICALS_4") + "\n" +
+                             tr("PO_INORGANIC_CHEMICALS_5"));
 }
 
-void PollutantOverview::nutrientsInfoMsgBox()
-{
+void PollutantOverview::nutrientsInfoMsgBox() {
     QMessageBox::information(this, tr("PO_NUTRIENTS_TITLE"),
-    tr("PO_NUTRIENTS_DESC_1") + "\n" +
-    tr("PO_NUTRIENTS_DESC_2") + "\n\n" +
-    tr("PO_NUTRIENTS_1") + "\n" +
-    tr("PO_NUTRIENTS_2"));
+                             tr("PO_NUTRIENTS_DESC_1") + "\n" +
+                             tr("PO_NUTRIENTS_DESC_2") + "\n\n" +
+                             tr("PO_NUTRIENTS_1") + "\n" +
+                             tr("PO_NUTRIENTS_2"));
 }
 
-void PollutantOverview::volatileOrganicCompoundsInfoMsgBox()
-{
+void PollutantOverview::volatileOrganicCompoundsInfoMsgBox() {
     QMessageBox::information(this, tr("PO_VOC_TITLE"),
-    tr("PO_VOC_DESC_1") + "\n" +
-    tr("PO_VOC_DESC_2") + "\n" +
-    tr("PO_VOC_DESC_3") + "\n\n" +
-    tr("PO_VOC_1") + "\n" +
-    tr("PO_VOC_2") + "\n" +
-    tr("PO_VOC_3") + "\n" +
-    tr("PO_VOC_4") + "\n" +
-    tr("PO_VOC_5") + "\n" +
-    tr("PO_VOC_6") + "\n" +
-    tr("PO_VOC_7") + "\n" +
-    tr("PO_VOC_8") + "\n" +
-    tr("PO_VOC_9") + "\n" +
-    tr("PO_VOC_10"));
+                             tr("PO_VOC_DESC_1") + "\n" +
+                             tr("PO_VOC_DESC_2") + "\n" +
+                             tr("PO_VOC_DESC_3") + "\n\n" +
+                             tr("PO_VOC_1") + "\n" +
+                             tr("PO_VOC_2") + "\n" +
+                             tr("PO_VOC_3") + "\n" +
+                             tr("PO_VOC_4") + "\n" +
+                             tr("PO_VOC_5") + "\n" +
+                             tr("PO_VOC_6") + "\n" +
+                             tr("PO_VOC_7") + "\n" +
+                             tr("PO_VOC_8") + "\n" +
+                             tr("PO_VOC_9") + "\n" +
+                             tr("PO_VOC_10"));
 }

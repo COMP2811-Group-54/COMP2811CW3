@@ -63,81 +63,52 @@ public:
         };
     };
 
-    // List of locations with more than 3 PFAs
-    static std::vector<std::string> getLocations() {
+    static std::vector<std::string> getNutrients() {
         return {
-            "ACRON FARM, DRIFFIELD",
-            "AIRE AT BEAL BRIDGE",
-            "AIRE D/S LOADPIT BECK"
-            "BRIMHAM HALL FARM HARROGATE 3094",
-            "BURTIS BECK CARR HOUSE",
-            "CLIVE SOANES BROILERS",
-            "COMMON FARM 2/26/31/009",
-            "CORPSLANDING FARM 2/26/31/010",
-            "COVER AT COVERHAM",
-            "CRESKELD HALL FARM ARTHINGTON 0313",
-            "CRIMPLE BECK AT ALMSFORD BRIDGE",
-            "CRIMPLE BECK AT BLACKSTONES",
-            "CRODA CHEMICALS 2/27/09/120",
-            "DARRINGTON GOLF CLUB",
-            "DERWENT AT LOFTSOME BRIDGE",
-            "DON AT HALFPENNY BRIDGE",
-            "ELMSWELL BECK AT SPRINGWELL FARM",
-            "ELSLACK SPRING 2/27/15/209",
-            "ESK AT RUSWARP - BANKSIDE",
-            "GAYLE BECK AT GAYLE",
-            "GRAINHOLME FARM, GUNNERSIDE, RICHMOND",
-            "GUNDRIFS BECK AT RIBSTON PARK",
-            "GYPSEY RACE AT RUDSTON",
-            "HAYWOLD FARM",
-            "HIGH EWECOTE, CHOPGATE",
-            "HIGH JERVAULX FARM MASHAM 5236",
-            "HOLMFIRTH DYERS LTD, DUNFORD RD",
-            "HOME FARM WATH RIPON 6009",
-            "JAGGER WELL",
-            "KEX BECK D/S KIRKBY MALZEARD",
-            "KILPIN PIKE 2/27/24/111",
-            "KIPLINGCOTES FARM 2/26/32/159",
-            "KYLE AT RASKELF BRIDGE",
-            "LITTLE LANGTON GRANGE NORTHALLERTON 2446",
-            "LOW FARM 2/26/32/181",
-            "LOWER HEIGHTS FARM THRESHFIELD 5577",
-            "LUND WOLD HOUSE - LUND",
-            "LYLANDS FARM - LITTLE OUSEBURN - 1016(1)",
-            "MALHAM TARN FSC",
-            "MC CAINS RAW (CONSTANT PUMPING)",
-            "MOUNT PLEASANT",
-            "NEW HALL FARM BOLTON ABBEY 6051",
-            "NEWBY FOODS SE363883",
-            "NIDD AT CATTAL",
-            "OUSE AT LINTON LOCK",
-            "OUSE AT NABURN LOCK",
-            "OUSE AT NETHER POPPLETON (SKELTON BANK)",
-            "OUSE AT SKELDERGATE BRIDGE",
-            "PARK BECK AT SHAW BRIDGE - SPOFFORTH",
-            "POPLAR NURSERIES 2/26/32/343",
-            "RIVELIN LODGE SPRING 2/27/05/120",
-            "ROTHER AT CANKLOW",
-            "SARIA LTD",
-            "SEAL HOUSES, ARKENGARTHDALE",
-            "SOUR BECK - BEECHWOOD GROVE",
-            "SWINITHWAITE HALL 4461   LEYBURN",
-            "TANGLEWOOD SPRING BUCKDEN",
-            "THE HAGG, FREMINGTON, RICHMOND",
-            "THIRSK RACECOURSE",
-            "TOWER BREWERY TADCASTER",
-            "VIEWLY HILL FARM, HIGH WORSALL, YARM",
-            "WANSFORD FISH FARM",
-            "WAYWORTH FARM, GUISBOROUGH",
-            "WEST SCRAFTON WEST SCRAFTON LEYBURN 0630",
-            "WESTWOOD FARM WEST TANFIELD RIPON 094"
+            "Nitrate-N",
+            "Ammonia(N)",
+            "Phosphorus-P"
         };
     }
 
+    static std::vector<std::string> getOrganicChemicals() {
+        return {
+            "Carbendazim",
+            "Chlorothalnl",
+            "Cypermethrin",
+            "Diazinon",
+            "Dimethoate",
+            "Glyphosate",
+            "Linuron",
+            "Mecoprop",
+            "Pendimethaln",
+            "Permethrn-cs",
+            "Methiocarb",
+            "BenzButPhtha",
+            "1122TetClEth",
+            "Toluene",
+            "24Dichloropl",
+            "Phenol",
+            "Triclosan"
+        };
+    }
+
+    static std::vector<std::string> getInOrganicChemicals() {
+        return {
+            "Chlorine",
+            "Cyanide - CN",
+            "Fluoride - F",
+            "SiO2 Rv",
+            "Bicarb HCO3"
+        };
+    }
 
     int complianceCheck(const string &name, double value) const;
 
-    double getComplianceThreshold(const string &name) const { return complianceThresholds.at(name); }
+    double getComplianceThreshold(const string &name) const {
+        return complianceThresholds.at(name);
+    }
+
     unordered_map<string, double> complianceThresholds;
 
     // Green < 0.8

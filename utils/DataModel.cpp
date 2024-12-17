@@ -1,32 +1,23 @@
 #include "DataModel.hpp"
 
-
-#include "DataModel.hpp"
-
-// Your existing includes and namespace declarations
-// ...
-
+// Provide header labels for the table view
 QVariant DataModel::headerData(int section, Qt::Orientation orientation, int role) const {
     if (role != Qt::DisplayRole || orientation != Qt::Horizontal) {
         return QVariant();
     }
 
+    // Column headers
     switch (section) {
-        case 0:
-            return QString("Compound Name");
-        case 1:
-            return QString("Sample DateTime");
-        case 2:
-            return QString("Description");
-        case 3:
-            return QString("Value");
-        case 4:
-            return QString("Unit");
-        default:
-            return QVariant();
+        case 0: return QString("Compound Name");
+        case 1: return QString("Sample DateTime");
+        case 2: return QString("Description");
+        case 3: return QString("Value");
+        case 4: return QString("Unit");
+        default: return QVariant();
     }
 }
 
+// Provide data for each cell in the table view
 QVariant DataModel::data(const QModelIndex &index, int role) const {
     if (!index.isValid() || !dataset) {
         return QVariant();
@@ -44,5 +35,6 @@ QVariant DataModel::data(const QModelIndex &index, int role) const {
             default: return QVariant();
         }
     }
+
     return QVariant();
 }

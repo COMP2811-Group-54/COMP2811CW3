@@ -64,7 +64,7 @@ void PFApage::createFilters() {
     // Connect to dataReady to update dynamically after data loads
     connect(&GlobalDataModel::instance(), &GlobalDataModel::dataReady, this, [this]() {
         QStringList updatedLocationOptions{"All locations"};
-        auto complianceLocations = GlobalDataModel::instance().getDataset().getHighDataPointLocations();
+        auto complianceLocations = GlobalDataModel::instance().getDataset().getHighDataPointLocations("PFAS");
 
         for (const std::string &locationStr: complianceLocations) {
             updatedLocationOptions << QString::fromStdString(locationStr);
@@ -79,7 +79,7 @@ void PFApage::createFilters() {
 
     // Time range combo box setup
     QStringList timeRangeOptions;
-    timeRangeOptions << "3 days" << "1 week" << "2 weeks"
+    timeRangeOptions << "3 days" << "1 week" << "2 weeks" << "1 month"
             << "3 months" << "6 months" << "9 months"
             << "1 year";
     timeRange = new QComboBox();
@@ -202,37 +202,27 @@ void PFApage::updateChart() {
 
     std::vector<Measurement> filteredData;
     qint64 filterStartTime = lastTimestamp; // Initialize start time for filtering
-    std::cout << "initialised start time: " << filterStartTime << std::endl;
 
-    if (selectedTimeRange == "3 days") {
-        filterStartTime -= 3ll * 24 * 60 * 60 * 1000; // 3 days in milliseconds
-    } else if (selectedTimeRange == "1 week") {
-        filterStartTime -= 7ll * 24 * 60 * 60 * 1000; // 1 week
-    } else if (selectedTimeRange == "2 weeks") {
-        filterStartTime -= 14ll * 24 * 60 * 60 * 1000; // 2 weeks
-    } else if (selectedTimeRange == "3 months") {
-        cout << "adjustin 3 months" << std::endl;
-        filterStartTime -= 90ll * 24 * 60 * 60 * 1000; // Approx. 3 months
-    } else if (selectedTimeRange == "6 months") {
-        cout << "adjustin 6 months" << std::endl;
-        filterStartTime -= 180ll * 24 * 60 * 60 * 1000; // Approx. 6 months
-    } else if (selectedTimeRange == "9 months") {
-        cout << "adjustin 9 months" << std::endl;
-        filterStartTime -= 270ll * 24 * 60 * 60 * 1000; // Approx. 9 months
-    } else if (selectedTimeRange == "1 year") {
-        cout << "adjustin 1 yeaer" << std::endl;
-        filterStartTime -= 365ll * 24 * 60 * 60 * 1000; // Approx. 1 year
-    }
-    std::cout << "Filtered timestamp: " << filterStartTime << std::endl;
+    std::unordered_map<std::string, long long> timeAdjustments = {
+        {"3 days", 3ll * 24 * 60 * 60 * 1000},
+        {"1 week", 7ll * 24 * 60 * 60 * 1000},
+        {"2 weeks", 14ll * 24 * 60 * 60 * 1000},
+        {"1 month", 30ll * 24 * 60 * 60 * 1000},
+        {"3 months", 90ll * 24 * 60 * 60 * 1000},
+        {"6 months", 180ll * 24 * 60 * 60 * 1000},
+        {"9 months", 270ll * 24 * 60 * 60 * 1000},
+        {"1 year", 365ll * 24 * 60 * 60 * 1000}
+    };
 
+    filterStartTime -= timeAdjustments[selectedTimeRange.toStdString()];
 
     for (const auto &measurement: dataset) {
         const qint64 timestamp = measurement.getDatetime().toMSecsSinceEpoch();
-        std::cout << "Timestamp: " << timestamp << std::endl;
         if (timestamp < filterStartTime || timestamp > lastTimestamp) {
             continue; // Skip if not within the selected time range
         }
-        std::cout << "Filtered timestamp: " << timestamp << std::endl;
+
+        // std::cout << "Measurement: " << measurement.getCompoundName() << " " << measurement.getValue() << std::endl;
 
         bool matchLocation = selectedLocation == "All locations" || measurement.getLabel() == selectedLocation.
                              toStdString();
@@ -313,17 +303,17 @@ void PFApage::retranslateUI() {
     timeRangeLabel->setText(tr("PFA_TIME_RANGE"));
     pollutantLabel->setText(tr("PFA_POLLUTANT"));
 
-    red->setText(tr("PFA_COMPLIANCE_RED"));
+    red->setText(tr("PFA_COMPLIANCE_RED") + " " + QString::number(1.2 * 0.05));
     red->setToolTip(tr("PFA_RED_TOOL_TIP"));
-    orange->setText(tr("PFA_COMPLIANCE_ORANGE"));
+    orange->setText(tr("PFA_COMPLIANCE_ORANGE") + " " + QString::number(0.05));
     orange->setToolTip(tr("PFA_ORANGE_TOOL_TIP"));
-    green->setText(tr("PFA_COMPLIANCE_GREEN"));
+    green->setText(tr("PFA_COMPLIANCE_GREEN") + " " + QString::number(0.8 * 0.05));
     green->setToolTip(tr("PFA_GREEN_TOOL_TIP"));
 }
 
 void PFApage::moreInfoMsgBox() {
-    QMessageBox::information(this, tr("PFA_MORE_INFO_TITLE"), 
-    tr("PFA_MORE_INFO_BODY"));
+    QMessageBox::information(this, tr("PFA_MORE_INFO_TITLE"),
+                             tr("PFA_MORE_INFO_BODY"));
 }
 
 void PFApage::addComplianceLevelLine(QChart *chart, QDateTimeAxis *xAxis, QValueAxis *yAxis,
@@ -353,19 +343,19 @@ void PFApage::addComplianceLevelLine(QChart *chart, QDateTimeAxis *xAxis, QValue
 }
 
 void PFApage::viewListMsgBox() {
-    QMessageBox::information(this, tr("PFA_VIEW_LIST_TITLE"), 
-    tr("PFA_VIEW_LIST_BODY_1")+
-    "\n"+
-    tr("PFA_VIEW_LIST_BODY_2")+
-    "\n"+
-    tr("PFA_VIEW_LIST_BODY_3")+
-    "\n"+
-    tr("PFA_VIEW_LIST_BODY_4")+
-    "\n"+
-    tr("PFA_VIEW_LIST_BODY_5")+
-    "\n"+
-    tr("PFA_VIEW_LIST_BODY_6")+
-    "\n"+
-    tr("PFA_VIEW_LIST_BODY_7")+
-    "\n");
+    QMessageBox::information(this, tr("PFA_VIEW_LIST_TITLE"),
+                             tr("PFA_VIEW_LIST_BODY_1") +
+                             "\n" +
+                             tr("PFA_VIEW_LIST_BODY_2") +
+                             "\n" +
+                             tr("PFA_VIEW_LIST_BODY_3") +
+                             "\n" +
+                             tr("PFA_VIEW_LIST_BODY_4") +
+                             "\n" +
+                             tr("PFA_VIEW_LIST_BODY_5") +
+                             "\n" +
+                             tr("PFA_VIEW_LIST_BODY_6") +
+                             "\n" +
+                             tr("PFA_VIEW_LIST_BODY_7") +
+                             "\n");
 }

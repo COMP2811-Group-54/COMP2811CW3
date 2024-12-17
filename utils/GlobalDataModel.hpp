@@ -11,20 +11,25 @@ public:
     static GlobalDataModel &instance();
 
     DataModel &getDataModel();
+
     Dataset &getDataset();
 
     void loadData(const std::string &filePath);
+
     void emitFetchesComplete();
 
-    signals:
-        void dataReady();
+signals:
+    void dataReady();
+
     void allRequestsComplete();
 
 private:
     GlobalDataModel();
+
     ~GlobalDataModel() = default;
 
     GlobalDataModel(const GlobalDataModel &) = delete;
+
     GlobalDataModel &operator=(const GlobalDataModel &) = delete;
 
     DataModel dataModel;

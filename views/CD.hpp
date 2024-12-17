@@ -19,9 +19,10 @@ class ComplianceDashboard : public QWidget {
 
 public:
     explicit ComplianceDashboard(QWidget *parent = nullptr);
+
     void retranslateUI();
 
-    private slots:
+private slots:
 
 private:
     void createTitle();

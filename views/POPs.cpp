@@ -62,7 +62,7 @@ void PersistentOrganicPollutants::createFilters() {
     // Connect to dataReady to update dynamically after data loads
     connect(&GlobalDataModel::instance(), &GlobalDataModel::dataReady, this, [this]() {
         QStringList updatedLocationOptions{"All locations"};
-        auto complianceLocations = GlobalDataModel::instance().getDataset().getHighDataPointLocations();
+        auto complianceLocations = GlobalDataModel::instance().getDataset().getHighDataPointLocations("POPS");
 
         for (const std::string &locationStr: complianceLocations) {
             updatedLocationOptions << QString::fromStdString(locationStr);
@@ -79,7 +79,7 @@ void PersistentOrganicPollutants::createFilters() {
     // Time range combo box setup
     QStringList timeRangeOptions;
 
-    timeRangeOptions << "3 days" << "1 week" << "2 weeks"
+    timeRangeOptions << "3 days" << "1 week" << "2 weeks" << "1 month"
             << "3 months" << "6 months" << "9 months"
             << "1 year";
     timeRange = new QComboBox();
@@ -195,21 +195,19 @@ void PersistentOrganicPollutants::updateChart() {
     std::vector<Measurement> filteredData;
     qint64 filterStartTime = lastTimestamp; // Initialize start time for filtering
 
-    if (selectedTimeRange == "3 days") {
-        filterStartTime -= 3ll * 24 * 60 * 60 * 1000; // 3 days in milliseconds
-    } else if (selectedTimeRange == "1 week") {
-        filterStartTime -= 7ll * 24 * 60 * 60 * 1000; // 1 week
-    } else if (selectedTimeRange == "2 weeks") {
-        filterStartTime -= 14ll * 24 * 60 * 60 * 1000; // 2 weeks
-    } else if (selectedTimeRange == "3 months") {
-        filterStartTime -= 90ll * 24 * 60 * 60 * 1000; // Approx. 3 months
-    } else if (selectedTimeRange == "6 months") {
-        filterStartTime -= 180ll * 24 * 60 * 60 * 1000; // Approx. 6 months
-    } else if (selectedTimeRange == "9 months") {
-        filterStartTime -= 270ll * 24 * 60 * 60 * 1000; // Approx. 9 months
-    } else if (selectedTimeRange == "1 year") {
-        filterStartTime -= 365ll * 24 * 60 * 60 * 1000; // Approx. 1 year
-    }
+
+    std::unordered_map<std::string, long long> timeAdjustments = {
+        {"3 days", 3ll * 24 * 60 * 60 * 1000},
+        {"1 week", 7ll * 24 * 60 * 60 * 1000},
+        {"2 weeks", 14ll * 24 * 60 * 60 * 1000},
+        {"1 month", 30ll * 24 * 60 * 60 * 1000},
+        {"3 months", 90ll * 24 * 60 * 60 * 1000},
+        {"6 months", 180ll * 24 * 60 * 60 * 1000},
+        {"9 months", 270ll * 24 * 60 * 60 * 1000},
+        {"1 year", 365ll * 24 * 60 * 60 * 1000}
+    };
+
+    filterStartTime -= timeAdjustments[selectedTimeRange.toStdString()];
 
     for (const auto &measurement: dataset) {
         const qint64 timestamp = measurement.getDatetime().toMSecsSinceEpoch();
@@ -325,36 +323,36 @@ void PersistentOrganicPollutants::retranslateUI() {
     timeRangeLabel->setText(tr("POPs_TIME_RANGE_LABEL"));
     pollutantLabel->setText(tr("POPs_POLLUTANT_LABEL"));
 
-    red->setText(tr("POPs_COMPLIANCE_RED"));
+    red->setText(tr("POPs_COMPLIANCE_RED") + " " + QString::number(1.2 * 0.1));
     red->setToolTip(tr("POPs_COMPLIANCE_RED_TOOLTIP"));
-    orange->setText(tr("POPs_COMPLIANCE_ORANGE"));
+    orange->setText(tr("POPs_COMPLIANCE_ORANGE") + " " + QString::number(0.1));
     orange->setToolTip(tr("POPs_COMPLIANCE_ORANGE_TOOLTIP"));
-    green->setText(tr("POPs_COMPLIANCE_GREEN"));
+    green->setText(tr("POPs_COMPLIANCE_GREEN") + " " + QString::number(0.8 * 0.1));
     green->setToolTip(tr("POPs_COMPLIANCE_GREEN_TOOLTIP"));
 }
 
 void PersistentOrganicPollutants::moreInfoMsgBox() {
-    QMessageBox::information(this, tr("POPs_INFO_TITLE"), 
-    tr("POPs_INFO_BODY"));
+    QMessageBox::information(this, tr("POPs_INFO_TITLE"),
+                             tr("POPs_INFO_BODY"));
 }
 
 void PersistentOrganicPollutants::viewListMsgBox() {
-    QMessageBox::information(this, tr("POPs_LIST_TITLE"), 
-    tr("POPs_BODY_1") +
-    "\n" +
-    tr("POPs_BODY_2") +
-    "\n" +
-    tr("POPs_BODY_3") +
-    "\n" +
-    tr("POPs_BODY_4") +
-    "\n" +
-    tr("POPs_BODY_5") +
-    "\n" +
-    tr("POPs_BODY_6") +
-    "\n" +
-    tr("POPs_BODY_7") +
-    "\n" +
-    tr("POPs_BODY_8") +
-    "\n" +
-    tr("POPs_BODY_9"));
+    QMessageBox::information(this, tr("POPs_LIST_TITLE"),
+                             tr("POPs_BODY_1") +
+                             "\n" +
+                             tr("POPs_BODY_2") +
+                             "\n" +
+                             tr("POPs_BODY_3") +
+                             "\n" +
+                             tr("POPs_BODY_4") +
+                             "\n" +
+                             tr("POPs_BODY_5") +
+                             "\n" +
+                             tr("POPs_BODY_6") +
+                             "\n" +
+                             tr("POPs_BODY_7") +
+                             "\n" +
+                             tr("POPs_BODY_8") +
+                             "\n" +
+                             tr("POPs_BODY_9"));
 }

@@ -6,7 +6,6 @@ ComplianceChecker::ComplianceChecker() {
     complianceThresholds = {
         // PFAs (based off the RSoC drinking water regulations)
         {"FOSA", 0.01},
-        {"Perfluorooctanoic", 0.01},
         {"PFoctncAcid", 0.01},
         {"PFHxSA", 0.01},
         {"PFdecncAcid", 0.01},
@@ -14,10 +13,8 @@ ComplianceChecker::ComplianceChecker() {
         {"PFpentncAcid", 0.01},
 
         // POPs (effectively banned, but trace amounts are acceptable)
-        {"PCB Con 052", 0.1},
         {"DDT (PP)", 0.1},
         {"Hexachlorbnz", 0.1},
-        {"Chlrdn-cs/Z/", 0.1},
         {"Aldrin", 0.1},
         {"Dieldrin", 0.1},
         {"Endrin", 0.1},
@@ -25,49 +22,32 @@ ComplianceChecker::ComplianceChecker() {
         {"Carbofuran", 0.1},
 
         // // Heavy Metals
-        {"As-Filtered", 50},
         {"Chromium -Cr", 4.7},
         {"Copper - Cu", 1},
         {"Iron - as Fe", 1},
-        {"Manganse-Mn", 123},
         {"Zinc - as Zn", 10.9},
 
-        // // Organic Chemicals
-        // {"Carbendazim", 0.15},
-        // {"Chlorothalnl", 0.035},
-        // {"Cypermethrin", 0.1},
-        // {"Diazinon", 0.01},
-        // {"Dimethoate", 0.48},
-        // {"Glyphosate", 196},
-        // {"Linuron", 0.5},
-        // {"Mecoprop", 18},
-        // {"Pendimethaln", 0.3},
-        // {"Permethrn-cs", 0.001},
-        // {"Methiocarb", 0.01},
-        // {"BenzButPhtha", 7.5},
-        // {"1122TetClEth", 140},
-        // {"Toluene", 74},
-        // {"24Dichloropl", 4.2},
-        // {"Phenol", 7.7},
-        // {"Triclosan", 0.1},
-        // {"Chlorine", 2},
-        // {"Cyanide - CN", 1},
-        // {"Fluoride - F", 1.5},
-        // {"SiO2 Rv", 300},
-        // {"Bicarb HCO3", 4000},
+        // Organic Chemicals
+        {"Carbendazim", 0.15},
+        {"Chlorothalnl", 0.035},
+        {"Cypermethrin", 0.1},
+        {"Diazinon", 0.01},
+        {"Permethrn-cs", 0.001},
+        {"Methiocarb", 0.01},
+        {"Triclosan", 0.1},
 
-        //
-        // // Nutrients
-        // {"Nitrate-N", 25},
-        // {"Ammonia(N)", 25},
-        // {"Phosphorus-P", 75},
-        //
+        // Inorganic Chemicals
+        {"Chlorine", 2},
+        {"Cyanide - CN", 1},
+        {"Fluoride - F", 1.5},
+
+        // Nutrients
+        {"Nitrate-N", 25},
+        {"Ammonia(N)", 25},
+        {"Phosphorus-P", 75},
+
         // // Volatile Organic Compounds
-        {"Ethylbenzene", 300},
         {"o-Xylene", 0.1},
-        {"Chloroform", 100},
-        {"Trichloroeth", 40},
-        {"TetClEthene", 10},
         {"Vinyl Cl", 0.5},
         {"Carbon Tet", 3},
         {"DiClMe", 0.1}

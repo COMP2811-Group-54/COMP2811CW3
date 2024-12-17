@@ -16,8 +16,7 @@ Dataset& GlobalDataModel::getDataset() {
 void GlobalDataModel::loadData(const std::string &filePath) {
     dataset.loadDataset(filePath);
     dataModel.setDataset(&dataset); // Set loaded dataset to dataModel
-    updateDataModel();
-    emit dataReady();
+
 }
 
 void GlobalDataModel::emitFetchesComplete() {

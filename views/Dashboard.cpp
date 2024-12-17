@@ -13,6 +13,7 @@
 #include "DataPage.hpp"
 #include "CD.hpp"
 #include "GH.hpp"
+#include "../utils/GlobalDataModel.hpp"
 
 Dashboard::Dashboard() : QWidget(), translator(new QTranslator(this)) {
     createMainLayout();
@@ -23,6 +24,8 @@ Dashboard::Dashboard() : QWidget(), translator(new QTranslator(this)) {
     combineLayouts();
 
     setWindowTitle(tr("DASHBOARD_TITLE"));
+
+    connect(&GlobalDataModel::instance(), &GlobalDataModel::dataReady, this, &Dashboard::onDataLoaded);
 }
 
 void Dashboard::createMainLayout() {
@@ -33,13 +36,13 @@ void Dashboard::createMainLayout() {
 void Dashboard::createStackedWidget() {
     stackedLayout = new QVBoxLayout();
     stackedLayout->setSizeConstraint(QLayout::SetMinimumSize);
-    OverviewCards *page1 = new OverviewCards();
-    PersistentOrganicPollutants *page2 = new PersistentOrganicPollutants();
-    PFApage *page3 = new PFApage();
-    PollutantOverview *page4 = new PollutantOverview();
-    DataPage *page5 = new DataPage();
-    ComplianceDashboard *page6 = new ComplianceDashboard();
-    GeographicalHotspotsPage *page7 = new GeographicalHotspotsPage();
+    auto *page1 = new OverviewCards();
+    auto *page2 = new PersistentOrganicPollutants();
+    auto *page3 = new PFApage();
+    auto *page4 = new PollutantOverview();
+    auto *page5 = new DataPage();
+    auto *page6 = new ComplianceDashboard();
+    auto *page7 = new GeographicalHotspotsPage();
 
 
     pages = new QStackedWidget();
@@ -92,6 +95,10 @@ void Dashboard::createTopLayout() {
     BtnPOP = new QPushButton(tr("DASHBOARD_POPS"));
     BtnPFA->setObjectName("BtnPFA");
     BtnPOP->setObjectName("BtnPOP");
+
+    BtnPOP->setEnabled(false); // Disable buttons initially
+    BtnPFA->setEnabled(false);
+
     QShortcut *POsc = new QShortcut(QKeySequence("2"), this);
     QShortcut *PFAsc = new QShortcut(QKeySequence("3"), this);
     QShortcut *POPsc = new QShortcut(QKeySequence("4"), this);
@@ -250,6 +257,15 @@ void Dashboard::combineLayouts() {
     setLayout(mainLayout);
 }
 
+
+void Dashboard::onDataLoaded() {
+    // Enable buttons once data is loaded
+    BtnPOP->setEnabled(true);
+    BtnPFA->setEnabled(true);
+
+    QMessageBox::information(this, tr("Data Loaded"), tr("All data has been loaded successfully!"));
+}
+
 void Dashboard::onLanguageChanged(int index) {
     // Load the appropriate translation file for the language
     QString languageCode = language->currentData().toString();
@@ -345,31 +361,31 @@ void Dashboard::retranslateUI() {
 }
 
 void Dashboard::helpMsgBox() {
-    QMessageBox::information(this, tr("DASHBOARD_HELP"), 
-    tr("DASHBOARD_HELP_TEXT_BODY_1")+
-    "\n"+
-    tr("DASHBOARD_HELP_TEXT_BODY_2")+
-    "\n"+
-    tr("DASHBOARD_HELP_TEXT_BODY_3")+
-    "\n"+
-    tr("DASHBOARD_HELP_TEXT_BODY_4")+
-    "\n"+
-    tr("DASHBOARD_HELP_TEXT_BODY_5")+
-    "\n"+
-    tr("DASHBOARD_HELP_TEXT_BODY_6")+
-    "\n"+
-    tr("DASHBOARD_HELP_TEXT_BODY_7")+
-    "\n"+
-    tr("DASHBOARD_HELP_TEXT_BODY_8")+
-    "\n"+
-    tr("DASHBOARD_HELP_TEXT_BODY_9")+
-    "\n"+
-    tr("DASHBOARD_HELP_TEXT_BODY_10"));
+    QMessageBox::information(this, tr("DASHBOARD_HELP"),
+                             tr("DASHBOARD_HELP_TEXT_BODY_1") +
+                             "\n" +
+                             tr("DASHBOARD_HELP_TEXT_BODY_2") +
+                             "\n" +
+                             tr("DASHBOARD_HELP_TEXT_BODY_3") +
+                             "\n" +
+                             tr("DASHBOARD_HELP_TEXT_BODY_4") +
+                             "\n" +
+                             tr("DASHBOARD_HELP_TEXT_BODY_5") +
+                             "\n" +
+                             tr("DASHBOARD_HELP_TEXT_BODY_6") +
+                             "\n" +
+                             tr("DASHBOARD_HELP_TEXT_BODY_7") +
+                             "\n" +
+                             tr("DASHBOARD_HELP_TEXT_BODY_8") +
+                             "\n" +
+                             tr("DASHBOARD_HELP_TEXT_BODY_9") +
+                             "\n" +
+                             tr("DASHBOARD_HELP_TEXT_BODY_10"));
 }
 
 void Dashboard::dataSourcesMsgBox() {
     QMessageBox::information(this, tr("DASHBOARD_DS"),
-    tr("DASHBOARD_DATA_SOURCES_TEXT"));
+                             tr("DASHBOARD_DATA_SOURCES_TEXT"));
 }
 
 void Dashboard::resizeEvent(QResizeEvent *event) {

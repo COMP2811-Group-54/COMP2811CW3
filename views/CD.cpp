@@ -74,6 +74,12 @@ void ComplianceDashboard::createFilters() {
     std::vector<std::string> vocs = ComplianceChecker::getVOCs();
     pollutants.insert(pollutants.end(), vocs.begin(), vocs.end());
 
+    std::vector<std::string> organics = ComplianceChecker::getOrganicChemicals();
+    pollutants.insert(pollutants.end(), organics.begin(), organics.end());
+
+    std::vector<std::string> inorganics = ComplianceChecker::getInOrganicChemicals();
+    pollutants.insert(pollutants.end(), inorganics.begin(), inorganics.end());
+
     for (const std::string &chemical: pollutants) {
         pollutantOptions << QString::fromStdString(chemical);
     }
@@ -96,17 +102,16 @@ void ComplianceDashboard::createFilters() {
     connect(compliance, QOverload<int>::of(&QComboBox::currentIndexChanged), this, &ComplianceDashboard::filterData);
 }
 
-
 void ComplianceDashboard::createPollutantIndicator() {
-    currentPollutant = new QLabel(tr("CD_CURRENT_POLLUTANT"));
     currentPollutantCompliance = new QLabel(tr("CD_CURRENT_POLLUTANT_COMPLIANCE"));
     currentPollutantCompliance->setStyleSheet("background-color: red; color: white;");
 }
 
+
 void ComplianceDashboard::setMainLayout() {
     QVBoxLayout *pollutantInfo = new QVBoxLayout();
     pollutantInfo->addWidget(pollutant);
-    pollutantInfo->addWidget(currentPollutant);
+
     pollutantInfo->addWidget(currentPollutantCompliance);
 
     QVBoxLayout *filters = new QVBoxLayout();
@@ -152,9 +157,13 @@ void ComplianceDashboard::filterData() {
 
     std::vector<Measurement> filteredData;
     int targetCompliance = 0;
-    if (selectedCompliance == "Red") targetCompliance = 3;
-    else if (selectedCompliance == "Orange") targetCompliance = 2;
-    else if (selectedCompliance == "Green") targetCompliance = 1;
+
+    int orangeCount, greenCount;
+    int redCount = orangeCount = greenCount = 0;
+
+    if (selectedCompliance == tr("CD_COMPLIANCE_OPTION2")) targetCompliance = 3;
+    else if (selectedCompliance == tr("CD_COMPLIANCE_OPTION3")) targetCompliance = 2;
+    else if (selectedCompliance == tr("CD_COMPLIANCE_OPTION4")) targetCompliance = 1;
 
     for (const auto &measurement: dataset) {
         bool matchLocation = selectedLocation == "All locations" || measurement.getLabel() == selectedLocation.
@@ -164,14 +173,43 @@ void ComplianceDashboard::filterData() {
         if (matchLocation && matchPollutant) {
             int complianceStatus = complianceChecker.complianceCheck(measurement.getCompoundName(),
                                                                      measurement.getValue());
-            if (selectedCompliance == "All compliances" || complianceStatus == targetCompliance) {
+
+
+            if (selectedCompliance == tr("CD_COMPLIANCE_OPTION1") || complianceStatus == targetCompliance) {
+                if (complianceStatus == 3) redCount++;
+                else if (complianceStatus == 2) orangeCount++;
+                else if (complianceStatus == 1) greenCount++;
                 filteredData.push_back(measurement);
             }
         }
     }
 
+    currentPollutantCompliance->setText(
+        tr("CD_CURRENT_POLLUTANT_COMPLIANCE") + " " + QString::number(redCount) + "/" +
+        QString::number(orangeCount) + "/" + QString::number(greenCount));
+
+    int maxCount = orangeCount;
+    std::string maxColor = "orange";
+
+    // Compare with greenCount
+    if (greenCount > maxCount) {
+        maxCount = greenCount;
+        maxColor = "green";
+    }
+
+    // Compare with redCount
+    if (redCount > maxCount) {
+        maxCount = redCount;
+        maxColor = "red";
+    }
+
+    currentPollutantCompliance->setStyleSheet("background-color:" + QString::fromStdString(maxColor) + "; color: white;");
+
+
     // Cache the filtered data
     cachedFilteredData = filteredData;
+
+    cout << "Data: " << redCount << " / " << orangeCount << " " << greenCount << endl;
 
     model.setDataset(new Dataset(filteredData));
     table->setModel(&model);
@@ -181,6 +219,9 @@ void ComplianceDashboard::filterData() {
 void ComplianceDashboard::retranslateUI() {
     // Force re-translate of all UI components (this ensures that UI updates even if translator is installed after initial load)
     title->setText(tr("CD_TITLE"));
-    currentPollutant->setText(tr("CD_CURRENT_POLLUTANT"));
-    currentPollutantCompliance->setText(tr("CD_CURRENT_POLLUTANT_COMPLIANCE"));
+
+    compliance->addItems(QStringList{
+        tr("CD_COMPLIANCE_OPTION1"), tr("CD_COMPLIANCE_OPTION2"), tr("CD_COMPLIANCE_OPTION3"),
+        tr("CD_COMPLIANCE_OPTION4")
+    });
 }

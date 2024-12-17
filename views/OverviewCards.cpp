@@ -1,4 +1,8 @@
 #include "OverviewCards.hpp"
+
+#include <iostream>
+#include <ostream>
+
 #include "../utils/Compliance.hpp"
 #include "../utils/GlobalDataModel.hpp"
 
@@ -11,8 +15,6 @@ OverviewCards::OverviewCards(QWidget *parent) : QWidget(parent) {
 
     // Connect the dataReady signal to the updateDataDisplays slot
     connect(&GlobalDataModel::instance(), &GlobalDataModel::dataReady, this, &OverviewCards::updateDataDisplays);
-
-    updateDataDisplays(); // Initial call to populate data once construction is complete
 }
 
 void OverviewCards::createPO() {
@@ -177,6 +179,8 @@ void OverviewCards::updateDataDisplays() {
     auto &dataset = GlobalDataModel::instance().getDataset();
     ComplianceChecker complianceChecker;
 
+    std::cout << "UPDATING DATA" << std::endl;
+
     int popGreen = 0, popOrange = 0, popRed = 0;
     int pfaGreen = 0, pfaOrange = 0, pfaRed = 0;
     int metalGreen = 0, metalOrange = 0, metalRed = 0;
@@ -188,7 +192,7 @@ void OverviewCards::updateDataDisplays() {
     auto metals = ComplianceChecker::getMetals();
     auto vocs = ComplianceChecker::getVOCs();
 
-    auto locations = ComplianceChecker::getLocations();
+    auto locations = GlobalDataModel::instance().getDataset().getHighDataPointLocations();
 
     // This map holds each location and its assigned tier (r/o/g, 3/2/1)
     unordered_map<string, int> locationTiers;

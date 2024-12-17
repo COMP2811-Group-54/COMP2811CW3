@@ -26,6 +26,7 @@ void GeographicalHotspotsPage::initializeMapWithData() {
 
     auto model = new SamplingPointModel(this);
     mapView->rootContext()->setContextProperty("samplingPointModel", model);
+    mapView->rootContext()->setContextProperty("dataset", &GlobalDataModel::instance().getDataset());
 
 
     // Set the source after the model is ready

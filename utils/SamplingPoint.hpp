@@ -42,18 +42,24 @@ public slots:
         for (const auto &pair: counts) {
             QVariantMap pointData;
             // Fetch the coordinates
-            auto coords = dataset.samplingPointCoordinates.find(pair.first);
+            // Get the location notation (sampling point name)
+            std::string locationNotation = pair.second.second;
+            std::cout << locationNotation << std::endl;
+
+            // Fetch the coordinates from the dataset
+            auto coords = dataset.samplingPointCoordinates.find(locationNotation);
+            // std::cout << "Sampling point: " << pair.second.first << std::endl;
+            //
             if (coords != dataset.samplingPointCoordinates.end()) {
                 pointData["lat"] = coords->second.first;
                 pointData["lon"] = coords->second.second;
-                std::cout << coords->second.first << " " << coords->second.second << std::endl;
             } else {
                 pointData["lat"] = QVariant(); // or some default value
                 pointData["lon"] = QVariant(); // or some default value
             }
 
-            pointData["count"] = pair.second;
-            pointData["color"] = getColorForCount(pair.second).name();
+            pointData["count"] = pair.second.first;
+            pointData["color"] = getColorForCount(pair.second.first).name();
             m_points.append(pointData);
         }
         emit pointsChanged();

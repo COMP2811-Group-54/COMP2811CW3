@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Find required Qt components
-find_package(Qt6 REQUIRED COMPONENTS Widgets Charts Core Network Quick Qml Positioning QuickWidgets)
+find_package(Qt6 REQUIRED COMPONENTS Widgets Charts Core Network Quick Qml Positioning QuickWidgets Concurrent)
 
 # Standard Qt project setup
 qt_standard_project_setup()
@@ -42,7 +42,7 @@ qt_add_executable(waterQuality
 )
 
 # Link against Qt libraries
-target_link_libraries(waterQuality PRIVATE Qt6::Widgets Qt6::Charts Qt6::Core Qt6::Network Qt6::Quick Qt6::Qml Qt6::Positioning Qt6::QuickWidgets)
+target_link_libraries(waterQuality PRIVATE Qt6::Widgets Qt6::Charts Qt6::Core Qt6::Network Qt6::Quick Qt6::Qml Qt6::Positioning Qt6::QuickWidgets Qt6::Concurrent)
 
 # Set build type if not defined
 if (NOT CMAKE_BUILD_TYPE)
@@ -84,9 +84,11 @@ add_custom_command(
 
 # Ensure all data files are copied to the runtime directory
 file(GLOB QML_FILES "${CMAKE_SOURCE_DIR}/qml/*.qml")
+file(GLOB GIF_FILES "${CMAKE_SOURCE_DIR}/qml/*.gif")
 add_custom_command(
         TARGET waterQuality POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E make_directory $<TARGET_FILE_DIR:waterQuality>/qml
         COMMAND ${CMAKE_COMMAND} -E copy ${QML_FILES} $<TARGET_FILE_DIR:waterQuality>/qml
+        COMMAND ${CMAKE_COMMAND} -E copy ${GIF_FILES} $<TARGET_FILE_DIR:waterQuality>/qml
         COMMENT "Copying all qml files to runtime directory in the 'qml' folder"
 )

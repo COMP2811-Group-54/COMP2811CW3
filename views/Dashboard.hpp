@@ -59,6 +59,9 @@ private:
 
     QMap<QWidget *, QString> originalTexts;
 
+    bool dataLoadedPOPs = false;
+    bool dataLoadedPFAs = false;
+
 private slots:
     void goToOverviewCards();
 
@@ -79,4 +82,6 @@ private slots:
     void dataSourcesMsgBox();
 
     void resizeEvent(QResizeEvent *event);
+
+    void onDataLoaded();
 };

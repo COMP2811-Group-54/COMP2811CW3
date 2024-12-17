@@ -11,6 +11,9 @@ Rectangle {
         name: "osm"
     }
 
+    // Property to track the total number of initial requests
+    property int totalInitialRequests: 0
+
     Map {
         id: map
         anchors.fill: parent
@@ -45,12 +48,12 @@ Rectangle {
                                  center: QtPositioning.coordinate(' + lat + ', ' + lon + '); \
                                  radius: 1000; \
                                  color: "' + color + '"; \
-                                 border.width: 3; \
+                                 opacity: 0.5; \
+                                 border.width: 0.5; \
                                  MouseArea { \
                                      anchors.fill: parent; \
                                      onClicked: { \
                                          map.center = QtPositioning.coordinate(' + lat + ', ' + lon + '); \
-                                         console.log("Focus on: " + ' + lat + ' + ", " + ' + lon + '); \
                                      } \
                                  } \
                              }',
@@ -71,47 +74,7 @@ Rectangle {
         Component.onCompleted: {
             updateCircles()
         }
-Component {
-    id: circularSpinner
-    Rectangle {
-        width: 48
-        height: 48
-        color: "transparent"
-        radius: width / 2
-        border.color: "gray"
-        border.width: 3
-        layer.enabled: true
-        SequentialAnimation {
-            running: true
-            loops: Animation.Infinite
-            NumberAnimation {
-                target: spinnerRectangle
-                property: "rotation"
-                from: 0
-                to: 360
-                loops: Animation.Infinite
-                duration: 1000
-            }
-        }
-        Rectangle {
-            id: spinnerRectangle
-            width: 48
-            height: 48
-            radius: width / 2
-            border.color: "gray"
-            border.width: 3
-            anchors.centerIn: parent
-            rotation: 0
-        }
 
-        RotationAnimation on rotation {
-            from: 0; to: 360
-            running: true
-            loops: Animation.Infinite
-            duration: 1000
-        }
-    }
-}
         PinchHandler {
             id: pinch
             target: null
@@ -128,59 +91,106 @@ Component {
             }
             grabPermissions: PointerHandler.TakeOverForbidden
         }
-        WheelHandler {
-            id: wheel
-            acceptedDevices: Qt.platform.pluginName === "cocoa" || Qt.platform.pluginName === "wayland"
-                ? PointerDevice.Mouse | PointerDevice.TouchPad
-                : PointerDevice.Mouse
-            property real zoomIncrement: 1.2
-            onWheel: {
-                let zoomFactor = wheel.angleDelta.y > 0 ? zoomIncrement : (1 / zoomIncrement)
-                map.zoomLevel = Math.max(map.minimumZoomLevel, Math.min(map.maximumZoomLevel, map.zoomLevel * zoomFactor))
-            }
-        }
+
         DragHandler {
             id: drag
             target: null
             onTranslationChanged: (delta) => map.pan(-delta.x, -delta.y)
         }
-        Shortcut {
-            enabled: map.zoomLevel < map.maximumZoomLevel
-            sequence: StandardKey.ZoomIn
-            onActivated: map.zoomLevel = Math.round(map.zoomLevel + 1)
+    }
+
+    // Circular Progress Indicator
+    Item {
+        id: progressContainer
+        anchors.centerIn: parent
+        width: 200
+        height: 130
+
+        // Initially hidden, will show when there are pending requests
+        visible: false
+        opacity: 0
+
+        Canvas {
+            id: progressCanvas
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            width: 100
+            height: 100
+
+            onPaint: {
+                var ctx = getContext("2d");
+                ctx.reset(); // Clear previous drawing
+
+                // Background circle
+                ctx.beginPath();
+                ctx.arc(width/2, height/2, 40, 0, 2 * Math.PI);
+                ctx.lineWidth = 10;
+                ctx.strokeStyle = "rgba(224, 224, 224, 0.5)"; // Translucent gray background
+                ctx.stroke();
+
+                // Check total and pending requests
+                var totalRequests = totalInitialRequests;
+                var pendingRequests = dataset.getPendingRequestsCount();
+
+                // Progress arc (starts full and empties)
+                var angle = ((totalRequests - pendingRequests) / totalRequests) * 2 * Math.PI;
+
+                ctx.beginPath();
+                ctx.arc(width/2, height/2, 40, -Math.PI / 2, -Math.PI / 2 + angle);
+                ctx.lineWidth = 10;
+                ctx.strokeStyle = "#4CAF50"; // Green progress
+                ctx.stroke();
+            }
         }
-        Shortcut {
-            enabled: map.zoomLevel > map.minimumZoomLevel
-            sequence: StandardKey.ZoomOut
-            onActivated: map.zoomLevel = Math.round(map.zoomLevel - 1)
+
+        Text {
+            id: progressText
+            anchors.top: progressCanvas.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.topMargin: 10
+            font.pixelSize: 16
+            font.weight: Font.Bold
+            text: "Fetching data..."
+            color: "white"
+            style: Text.Outline
+            styleColor: "black"
+        }
+    }
+
+    // Connections to update progress indicator
+    Connections {
+        target: dataset
+        function onPendingRequestsChanged() {
+            var pendingRequests = dataset.getPendingRequestsCount();
+
+            // Cache the total initial requests when first fetch starts
+            if (totalInitialRequests === 0 && pendingRequests > 0) {
+                totalInitialRequests = pendingRequests;
+            }
+
+            console.log("Remaining fetches: " + pendingRequests);
+
+            // Show progress container when there are pending requests
+            progressContainer.visible = pendingRequests > 0;
+            progressContainer.opacity = pendingRequests > 0 ? 1 : 0;
+
+            // Update progress text
+            progressText.text = pendingRequests + " fetches remaining";
+
+            // Reset total requests when all fetches are done
+            if (pendingRequests === 0) {
+                totalInitialRequests = 0;
+            }
+
+            // Update progress canvas
+            progressCanvas.requestPaint();
         }
     }
 
     Connections {
         target: samplingPointModel
-
         function onPointsChanged() {
             map.updateCircles()
         }
     }
-
-Item {
-    anchors.centerIn: parent
-    visible: !samplingPointModel || samplingPointModel.points.length === 0
-
-    Loader {
-        anchors.centerIn: parent
-        active: true
-        sourceComponent: circularSpinner
-    }
-
-    Text {
-        anchors.horizontalCenter: parent.horizontalCenter
-        anchors.verticalCenterOffset: 40
-        font.pixelSize: 24
-        font.bold: true
-        text: "Loading water sampling data..."
-        color: "gray"
-    }
-}
 }
