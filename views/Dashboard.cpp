@@ -71,7 +71,7 @@ void Dashboard::createStackedWidget() {
     });
 
 
-    pages->setMinimumSize(1250, 600);
+    pages->setMinimumSize(1500, 700);
 
     stackedLayout->addWidget(pages);
 }
@@ -169,10 +169,14 @@ void Dashboard::createLeftLayout() {
     connect(CDsc, &QShortcut::activated, BtnCD, &QPushButton::click);
     connect(GHsc, &QShortcut::activated, BtnGH, &QPushButton::click);
 
-    BtnDashboard->setMinimumSize(200, 200);
-    BtnCD->setMinimumSize(200, 100);
-    BtnDP->setMinimumSize(200, 100);
-    BtnGH->setMinimumSize(200, 100);
+    BtnDashboard->setMinimumSize(300, 200);
+    BtnDashboard->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    BtnCD->setMinimumSize(300, 100);
+    BtnCD->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    BtnDP->setMinimumSize(300, 100);
+    BtnDP->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
+    BtnGH->setMinimumSize(300, 100);
+    BtnGH->setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
 
     QFont sideBtnFont("Arial", 13, QFont::Bold);
     BtnDashboard->setFont(sideBtnFont);
@@ -196,7 +200,7 @@ void Dashboard::createLeftLayout() {
     sideLayout->addSpacing(20);
     sideLayout->addStretch();
     sideLayout->addWidget(BtnDashboard);
-    sideLayout->addSpacing(20);
+    sideLayout->addSpacing(50);
     sideLayout->addWidget(BtnDP);
     sideLayout->addSpacing(20);
     sideLayout->addWidget(BtnCD);
@@ -245,8 +249,8 @@ void Dashboard::combineLayouts() {
     // Combine side and grid layout into one content layout
     QHBoxLayout *contentLayout = new QHBoxLayout();
     contentLayout->setSizeConstraint(QLayout::SetMinimumSize);
-    contentLayout->addLayout(sideLayout, 1);
-    contentLayout->addLayout(stackedLayout, 6);
+    contentLayout->addLayout(sideLayout, 2);
+    contentLayout->addLayout(stackedLayout, 8);
 
     // Add the top, content, and bottom layouts to the main.qss layout
     mainLayout->setSizeConstraint(QLayout::SetMinimumSize);

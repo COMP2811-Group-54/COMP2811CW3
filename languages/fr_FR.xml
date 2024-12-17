@@ -488,7 +488,7 @@
         </message>
         <message>
             <source>PO_COMPLIANCE_GREEN_TOOLTIP</source>
-            <translation>Au-dessus du seuil de sécurité</translation>
+            <translation>En dessous de 0.8 du seuil de sécurité</translation>
         </message>
         <message>
             <source>PO_COMPLIANCE_ORANGE_TOOLTIP</source>
@@ -496,7 +496,7 @@
         </message>
         <message>
             <source>PO_COMPLIANCE_RED_TOOLTIP</source>
-            <translation>En dessous de 0.8 du seuil de sécurité</translation>
+            <translation>Au-dessus du seuil de sécurité</translation>
         </message>
     </context>
     <context>
@@ -545,7 +545,7 @@
         </message>
         <message>
             <source>PFA_LOCATION</source>
-            <translation>Localisation</translation>
+            <translation>Localisation:</translation>
         </message>
         <message>
             <source>PFA_ALL_TIME</source>
@@ -553,7 +553,7 @@
         </message>
         <message>
             <source>PFA_TIME_RANGE</source>
-            <translation>Période</translation>
+            <translation>Période:</translation>
         </message>
         <message>
             <source>PFA_ALL_POLLUTANTS</source>
@@ -561,7 +561,7 @@
         </message>
         <message>
             <source>PFA_POLLUTANT</source>
-            <translation>Polluant</translation>
+            <translation>Polluant:</translation>
         </message>
         <message>
             <source>PFA_COMPLIANCE_RED</source>
@@ -656,7 +656,7 @@
         </message>
         <message>
             <source>POPs_MORE_INFO</source>
-            <translation>Plus d'informations</translation>
+            <translation>Plus d'infos</translation>
         </message>
         <message>
             <source>POPs_VIEW_LIST</source>

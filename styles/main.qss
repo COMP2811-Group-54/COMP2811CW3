@@ -15,7 +15,7 @@ QLabel#title {
 QPushButton {
     background-color: #1E90FF;
     color: #FFFFFF;
-    font-size: 16px;
+    font-size: 20px;
     font-weight: bold;
     border: 2px solid #FFFFFF;
     border-radius: 10px;
@@ -52,17 +52,19 @@ QFrame {
 
 /* Side Buttons */
 QPushButton#BtnDashboard {
-    font-size: 30px;
+    font-size: 32px;
     font-weight: bold;
     background-color: #1E90FF;
     color: #FFFFFF;
     border: 2px solid #FFFFFF;
     border-radius: 10px;
+    
 }
 QPushButton#BtnPO,
 QPushButton#BtnCD,
-QPushButton#BtnDP {
-    font-size: 18px;
+QPushButton#BtnDP,
+QPushButton#BtnGH{
+    font-size: 20px;
     font-weight: bold;
     background-color: #1E90FF;
     color: #FFFFFF;
@@ -71,9 +73,15 @@ QPushButton#BtnDP {
     padding: 1px;
 }
 QPushButton#BtnDashboard:focus,
+QPushButton#BtnDashboard:hover,
 QPushButton#BtnPO:focus,
+QPushButton#BtnPO:hover,
 QPushButton#BtnCD:focus,
-QPushButton#BtnDP:focus {
+QPushButton#BtnCD:hover,
+QPushButton#BtnDP:focus,
+QPushButton#BtnDP:hover,
+QPushButton#BtnGH:focus,
+QPushButton#BtnGH:hover {
     background-color: #4682B4;
     border: 3px solid;
 }

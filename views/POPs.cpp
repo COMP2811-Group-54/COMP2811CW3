@@ -39,7 +39,7 @@ void PersistentOrganicPollutants::createButtons() {
 }
 
 void PersistentOrganicPollutants::createBoxes() {
-    QFont infoBoxFont("Arial", 8);
+    QFont infoBoxFont("Arial", 12);
 
     pops = new QLabel("PCBs (Polychlorinated Biphenyls)");
     pops->setFont(infoBoxFont);
@@ -150,19 +150,29 @@ void PersistentOrganicPollutants::arrangeWidgets() {
     chart->addLayout(chartContext, 1);
     chart->addStretch();
 
-    QVBoxLayout *moreInfoLayout = new QVBoxLayout();
+    auto moreInfoFrame = new QFrame();
+    moreInfoFrame->setFrameShape(QFrame::Box);
+    moreInfoFrame->setLineWidth(1);
+    moreInfoFrame->setMinimumSize(200, 250);
+
+    QVBoxLayout *moreInfoLayout = new QVBoxLayout(moreInfoFrame);
     moreInfoLayout->addWidget(pops);
     moreInfoLayout->addWidget(moreInfo);
 
-    QVBoxLayout *viewListLayout = new QVBoxLayout();
+    auto viewListFrame = new QFrame();
+    viewListFrame->setFrameShape(QFrame::Box);
+    viewListFrame->setLineWidth(1);
+    viewListFrame->setFixedSize(200, 250);
+
+    QVBoxLayout *viewListLayout = new QVBoxLayout(viewListFrame);
     viewListLayout->addWidget(otherPops);
     viewListLayout->addWidget(viewList);
 
     QVBoxLayout *info = new QVBoxLayout();
     info->addStretch();
-    info->addLayout(moreInfoLayout);
+    info->addWidget(moreInfoFrame);
     info->addSpacing(50);
-    info->addLayout(viewListLayout);
+    info->addWidget(viewListFrame);
     info->addSpacing(50);
     info->addStretch();
 
