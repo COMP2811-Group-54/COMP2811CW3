@@ -22,3 +22,5 @@ void GlobalDataModel::loadData(const std::string &filePath) {
 void GlobalDataModel::emitFetchesComplete() {
     emit allRequestsComplete();
 }
+
+GlobalDataModel::GlobalDataModel() {}
