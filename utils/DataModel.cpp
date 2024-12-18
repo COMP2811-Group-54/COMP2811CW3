@@ -10,9 +10,10 @@ QVariant DataModel::headerData(int section, Qt::Orientation orientation, int rol
     switch (section) {
         case 0: return QString("Compound Name");
         case 1: return QString("Sample DateTime");
-        case 2: return QString("Description");
-        case 3: return QString("Value");
-        case 4: return QString("Unit");
+        case 2: return QString("Sample Location");
+        case 3: return QString("Description");
+        case 4: return QString("Value");
+        case 5: return QString("Unit");
         default: return QVariant();
     }
 }
@@ -29,9 +30,10 @@ QVariant DataModel::data(const QModelIndex &index, int role) const {
         switch (index.column()) {
             case 0: return QString::fromStdString(m.getCompoundName());
             case 1: return m.getDatetime().toString("yyyy-MM-dd HH:mm:ss");
-            case 2: return QString::fromStdString(m.getDescription());
-            case 3: return m.getValue();
-            case 4: return QString::fromStdString(m.getUnit());
+            case 2: return QString::fromStdString(m.getLabel());
+            case 3: return QString::fromStdString(m.getDescription());
+            case 4: return m.getValue();
+            case 5: return QString::fromStdString(m.getUnit());
             default: return QVariant();
         }
     }

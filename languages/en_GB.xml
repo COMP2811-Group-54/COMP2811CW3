@@ -157,7 +157,7 @@
         </message>
         <message>
             <source>OC_CD_TITLE</source>
-            <translation>Chemical Distribution</translation>
+            <translation>&lt;h2&gt;Chemical Distribution&lt;/h2&gt;</translation>
         </message>
         <message>
             <source>OC_CD_DETAILS</source>

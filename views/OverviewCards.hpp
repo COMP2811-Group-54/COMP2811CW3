@@ -64,4 +64,25 @@ private:
     QLabel* ExCD2;
     QLabel* ExCD3;
     QPushButton* CDDetails;
+
+
+    int popGreen;
+    int popOrange;
+    int popRed;
+
+    int pfaGreen;
+    int pfaOrange;
+    int pfaRed;
+
+    int metalGreen;
+    int metalOrange;
+    int metalRed;
+
+    int vocGreen;
+    int vocOrange;
+    int vocRed;
+
+    int locationGreen;
+    int locationOrange;
+    int locationRed;
 };

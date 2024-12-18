@@ -98,6 +98,7 @@ void Dashboard::createTopLayout() {
 
     BtnPOP->setEnabled(false); // Disable buttons initially
     BtnPFA->setEnabled(false);
+    BtnPO->setEnabled(false);
 
     QShortcut *POsc = new QShortcut(QKeySequence("2"), this);
     QShortcut *PFAsc = new QShortcut(QKeySequence("3"), this);
@@ -158,6 +159,9 @@ void Dashboard::createLeftLayout() {
     BtnDP->setObjectName("BtnDP");
     BtnGH = new QPushButton(tr("DASHBOARD_GH"));
     BtnGH->setObjectName("BtnGH");
+
+    BtnCD->setEnabled(false);
+    BtnGH->setEnabled(false);
 
     QShortcut *DASHsc = new QShortcut(QKeySequence("1"), this);
     QShortcut *DPsc = new QShortcut(QKeySequence("5"), this);
@@ -259,13 +263,18 @@ void Dashboard::combineLayouts() {
     mainLayout->addLayout(bottomLayout);
 
     setLayout(mainLayout);
+
+    QMessageBox::information(this, tr("Notification"), tr("Functionality is limited until you load a dataset"));
 }
 
 
 void Dashboard::onDataLoaded() {
     // Enable buttons once data is loaded
-    BtnPOP->setEnabled(true);
+    BtnPOP->setEnabled(true); // Disable buttons initially
     BtnPFA->setEnabled(true);
+    BtnPO->setEnabled(true);
+    BtnCD->setEnabled(true);
+    BtnGH->setEnabled(true);
 
     QMessageBox::information(this, tr("Data Loaded"), tr("All data has been loaded successfully!"));
 }

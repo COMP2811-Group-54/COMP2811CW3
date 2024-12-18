@@ -128,20 +128,38 @@ void OverviewCards::createPFA() {
 
 void OverviewCards::createCD() {
     FrameCD = new QFrame();
+    FrameCD->setFrameShape(QFrame::Box);
+    FrameCD->setLineWidth(1);
+
     CrdCD = new QVBoxLayout(FrameCD);
+
     TitleCD = new QLabel(tr("OC_CD_TITLE"));
-    ExCD1 = new QLabel();
-    ExCD2 = new QLabel();
-    ExCD3 = new QLabel();
+    TitleCD->setAlignment(Qt::AlignCenter);
+
+    QHBoxLayout *ComponentsCD = new QHBoxLayout();
+    QVBoxLayout *ExamplesCD = new QVBoxLayout();
+
+    ExCD1 = new QLabel(tr("OC_EX_PFA1"));
+    ExCD2 = new QLabel(tr("OC_EX_PFA2"));
+    ExCD3 = new QLabel(tr("OC_EX_PFA3"));
+
+    QFont buttonsFont("Arial", 16, QFont::Normal);
     CDDetails = new QPushButton(tr("OC_CD_DETAILS"));
+    CDDetails->setMinimumSize(50, 50);
+    CDDetails->setFont(buttonsFont);
 
     connect(CDDetails, &QPushButton::clicked, this, &OverviewCards::goToCD);
 
+    // Arrange the widgets in the layout
+    ComponentsCD->addLayout(ExamplesCD);
+    ComponentsCD->addWidget(CDDetails);
+
+    ExamplesCD->addWidget(ExCD1);
+    ExamplesCD->addWidget(ExCD2);
+    ExamplesCD->addWidget(ExCD3);
+
     CrdCD->addWidget(TitleCD);
-    CrdCD->addWidget(ExCD1);
-    CrdCD->addWidget(ExCD2);
-    CrdCD->addWidget(ExCD3);
-    CrdCD->addWidget(CDDetails);
+    CrdCD->addLayout(ComponentsCD);
 }
 
 void OverviewCards::arrangeWidgets() {
@@ -165,22 +183,33 @@ void OverviewCards::arrangeWidgets() {
 
 void OverviewCards::retranslateUI() {
     TitlePO->setText(tr("OC_PO_TITLE"));
-    ExPO1->setText(tr("OC_EX_PO1"));
-    ExPO2->setText(tr("OC_EX_PO2"));
-    ExPO3->setText(tr("OC_EX_PO3"));
     PODetails->setText(tr("OC_PO_DETAILS"));
     TitlePOP->setText(tr("OC_POP_TITLE"));
-    ExPOP1->setText(tr("OC_EX_POP1"));
-    ExPOP2->setText(tr("OC_EX_POP2"));
-    ExPOP3->setText(tr("OC_EX_POP3"));
     POPsDetails->setText(tr("OC_POP_DETAILS"));
     TitlePFA->setText(tr("OC_PFA_TITLE"));
-    ExPFA1->setText(tr("OC_EX_PFA1"));
-    ExPFA2->setText(tr("OC_EX_PFA2"));
-    ExPFA3->setText(tr("OC_EX_PFA3"));
     PFAsDetails->setText(tr("OC_PFA_DETAILS"));
     TitleCD->setText(tr("OC_CD_TITLE"));
     CDDetails->setText(tr("OC_CD_DETAILS"));
+
+    // Update text for POP
+    ExPOP1->setText(QString(tr("OC_EX_POP1") + " %1").arg(popGreen));
+    ExPOP2->setText(QString(tr("OC_EX_POP2") + " %1").arg(popOrange));
+    ExPOP3->setText(QString(tr("OC_EX_POP3") + " %1").arg(popRed));
+
+    // Update text for PFA
+    ExPFA1->setText(QString(tr("OC_EX_PFA1") + " %1").arg(pfaGreen));
+    ExPFA2->setText(QString(tr("OC_EX_PFA2") + " %1").arg(pfaOrange));
+    ExPFA3->setText(QString(tr("OC_EX_PFA3") + " %1").arg(pfaRed));
+
+    // Update text for PO (metals and VOCs combined metrics)
+    ExPO1->setText(QString(tr("OC_EX_PO1") + " %1").arg(metalGreen + vocGreen));
+    ExPO2->setText(QString(tr("OC_EX_PO2") + " %1").arg(metalOrange + vocOrange));
+    ExPO3->setText(QString(tr("OC_EX_PO3") + " %1").arg(metalRed + vocRed));
+
+    // Update text for Locations
+    ExCD1->setText(QString(tr("OC_EX_PFA1") + " %1").arg(locationGreen));
+    ExCD2->setText(QString(tr("OC_EX_PFA1") + " %1").arg(locationGreen));
+    ExCD3->setText(QString(tr("OC_EX_PFA1") + " %1").arg(locationRed));
 }
 
 void OverviewCards::updateDataDisplays() {
@@ -189,10 +218,11 @@ void OverviewCards::updateDataDisplays() {
 
     std::cout << "UPDATING DATA" << std::endl;
 
-    int popGreen = 0, popOrange = 0, popRed = 0;
-    int pfaGreen = 0, pfaOrange = 0, pfaRed = 0;
-    int metalGreen = 0, metalOrange = 0, metalRed = 0;
-    int vocGreen = 0, vocOrange = 0, vocRed = 0;
+    popGreen = 0, popOrange = 0, popRed = 0;
+    pfaGreen = 0, pfaOrange = 0, pfaRed = 0;
+    metalGreen = 0, metalOrange = 0, metalRed = 0;
+    vocGreen = 0, vocOrange = 0, vocRed = 0;
+    locationGreen = 0, locationOrange = 0, locationRed = 0;
 
     // Fetch compound data only once, to avoid calling the getter each time in the loop
     auto pops = ComplianceChecker::getPOPs();
@@ -215,15 +245,12 @@ void OverviewCards::updateDataDisplays() {
 
         // Check the compliance of the measurement at the location
         if (std::find(locations.begin(), locations.end(), locationName) != locations.end()) {
-
             // Locations sorted into tiers (correspponding to r/o/g)
             if (complianceStatus == 3) {
                 locationTiers[locationName] = 3;
-            }
-            else if (complianceStatus == 2 && locationTiers[locationName] < 3) {
+            } else if (complianceStatus == 2 && locationTiers[locationName] < 3) {
                 locationTiers[locationName] = 2;
-            }
-            else if (complianceStatus == 1 && locationTiers[locationName] < 2) {
+            } else if (complianceStatus == 1 && locationTiers[locationName] < 2) {
                 locationTiers[locationName] = 1;
             }
         }
@@ -266,40 +293,34 @@ void OverviewCards::updateDataDisplays() {
         }
     }
 
-    // Count number of locations in each category (r/o/g)
-    int greenLocations = 0;
-    int orangeLocations = 0;
-    int redLocations = 0;
-
-    for (const auto& [key, value] : locationTiers) {
+    for (const auto &[key, value]: locationTiers) {
         if (value == 1) {
-            greenLocations++;
-        }
-        else if (value == 2) {
-            orangeLocations++;
-        }
-        else if (value == 3) {
-            redLocations++;
+            locationGreen++;
+        } else if (value == 2) {
+            locationOrange++;
+        } else if (value == 3) {
+            locationRed++;
         }
     }
 
+
     // Update text for POP
-    ExPOP1->setText(QString(tr("OC_EX_POP1")+" %1").arg(popGreen));
-    ExPOP2->setText(QString(tr("OC_EX_POP2")+" %1").arg(popOrange));
-    ExPOP3->setText(QString(tr("OC_EX_POP3")+" %1").arg(popRed));
+    ExPOP1->setText(QString(tr("OC_EX_POP1") + " %1").arg(popGreen));
+    ExPOP2->setText(QString(tr("OC_EX_POP2") + " %1").arg(popOrange));
+    ExPOP3->setText(QString(tr("OC_EX_POP3") + " %1").arg(popRed));
 
     // Update text for PFA
-    ExPFA1->setText(QString(tr("OC_EX_PFA1")+" %1").arg(pfaGreen));
-    ExPFA2->setText(QString(tr("OC_EX_PFA2")+" %1").arg(pfaOrange));
-    ExPFA3->setText(QString(tr("OC_EX_PFA3")+" %1").arg(pfaRed));
+    ExPFA1->setText(QString(tr("OC_EX_PFA1") + " %1").arg(pfaGreen));
+    ExPFA2->setText(QString(tr("OC_EX_PFA2") + " %1").arg(pfaOrange));
+    ExPFA3->setText(QString(tr("OC_EX_PFA3") + " %1").arg(pfaRed));
 
     // Update text for PO (metals and VOCs combined metrics)
-    ExPO1->setText(QString(tr("OC_EX_PO1")+" %1").arg(metalGreen + vocGreen));
-    ExPO2->setText(QString(tr("OC_EX_PO2")+" %1").arg(metalOrange + vocOrange));
-    ExPO3->setText(QString(tr("OC_EX_PO3")+" %1").arg(metalRed + vocRed));
+    ExPO1->setText(QString(tr("OC_EX_PO1") + " %1").arg(metalGreen + vocGreen));
+    ExPO2->setText(QString(tr("OC_EX_PO2") + " %1").arg(metalOrange + vocOrange));
+    ExPO3->setText(QString(tr("OC_EX_PO3") + " %1").arg(metalRed + vocRed));
 
     // Update text for Locations
-    ExCD1->setText(QString("Green Locations: %1").arg(greenLocations));
-    ExCD2->setText(QString("Orange Locations: %1").arg(orangeLocations));
-    ExCD3->setText(QString("Red Locations: %1").arg(redLocations));
+    ExCD1->setText(QString(tr("OC_EX_PFA1") + " %1").arg(locationGreen));
+    ExCD2->setText(QString(tr("OC_EX_PFA1") + " %1").arg(locationGreen));
+    ExCD3->setText(QString(tr("OC_EX_PFA1") + " %1").arg(locationRed));
 }
