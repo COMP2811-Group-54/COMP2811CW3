@@ -25,7 +25,7 @@ ComplianceDashboard::ComplianceDashboard(QWidget *parent)
 void ComplianceDashboard::createTable() {
     table = new QTableView();
     table->setModel(&model);
-    table->setItemDelegate(new ComplianceDelegate(this)); // Assuming ComplianceDelegate is set
+    table->setItemDelegate(new ComplianceDelegate(this));
 
     QFont tableFont = QFontDatabase::systemFont(QFontDatabase::FixedFont);
     table->setFont(tableFont);
@@ -165,11 +165,14 @@ void ComplianceDashboard::filterData() {
     else if (selectedCompliance == tr("CD_COMPLIANCE_OPTION3")) targetCompliance = 2;
     else if (selectedCompliance == tr("CD_COMPLIANCE_OPTION4")) targetCompliance = 1;
 
+    // Check all measurements to see if they meet the selected criteria
     for (const auto &measurement: dataset) {
         bool matchLocation = selectedLocation == "All locations" || measurement.getLabel() == selectedLocation.
                              toStdString();
         bool matchPollutant = selectedPollutant == "All pollutants" || measurement.getCompoundName() ==
                               selectedPollutant.toStdString();
+
+        // Append and calculate compliance values
         if (matchLocation && matchPollutant) {
             int complianceStatus = complianceChecker.complianceCheck(measurement.getCompoundName(),
                                                                      measurement.getValue());
@@ -203,7 +206,8 @@ void ComplianceDashboard::filterData() {
         maxColor = "red";
     }
 
-    currentPollutantCompliance->setStyleSheet("background-color:" + QString::fromStdString(maxColor) + "; color: white;");
+    currentPollutantCompliance->setStyleSheet(
+        "background-color:" + QString::fromStdString(maxColor) + "; color: white;");
 
 
     // Cache the filtered data
@@ -220,6 +224,7 @@ void ComplianceDashboard::retranslateUI() {
     // Force re-translate of all UI components (this ensures that UI updates even if translator is installed after initial load)
     title->setText(tr("CD_TITLE"));
 
+    compliance->clear();
     compliance->addItems(QStringList{
         tr("CD_COMPLIANCE_OPTION1"), tr("CD_COMPLIANCE_OPTION2"), tr("CD_COMPLIANCE_OPTION3"),
         tr("CD_COMPLIANCE_OPTION4")

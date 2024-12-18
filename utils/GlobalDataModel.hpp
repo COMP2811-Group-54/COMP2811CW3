@@ -4,6 +4,9 @@
 #include "DataModel.hpp"
 #include "Dataset.hpp"
 
+
+// Instance of DataModel that is publicly accessible
+
 class GlobalDataModel : public QObject {
     Q_OBJECT
 
@@ -34,6 +37,4 @@ private:
 
     DataModel dataModel;
     Dataset dataset;
-
-    void updateDataModel(); // Placeholder for future enhancements
 };

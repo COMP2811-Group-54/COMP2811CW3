@@ -24,7 +24,9 @@ DataPage::DataPage(QWidget *parent)
 
 void DataPage::createLoadingSpinner() {
     loadingSpinner = new QLabel(this);
-    loadingMovie = new QMovie("./qml/spinner.gif"); // Assumes a spinner.gif in resources
+
+    // Spinner gif obtained from: https://discuss.wxpython.org/t/loading-spinner-animation/35657
+    loadingMovie = new QMovie("./qml/spinner.gif");
 
     // Create loading text label
     loadingText = new QLabel(tr("Loading..."), this);
@@ -207,6 +209,7 @@ void DataPage::setDataLocation() {
 void DataPage::displayStats() {
     int rowCount = model.rowCount(QModelIndex());
     int columnCount = model.columnCount(QModelIndex());
+
     // Assuming each cell is a QVariant and calculating data size roughly
     int dataSize = rowCount * columnCount * sizeof(QVariant);
 

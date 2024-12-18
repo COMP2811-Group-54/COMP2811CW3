@@ -132,7 +132,6 @@ Rectangle {
                 var totalRequests = totalInitialRequests;
                 var pendingRequests = dataset.getPendingRequestsCount();
 
-                // Progress arc (starts full and empties)
                 var angle = ((totalRequests - pendingRequests) / totalRequests) * 2 * Math.PI;
 
                 ctx.beginPath();

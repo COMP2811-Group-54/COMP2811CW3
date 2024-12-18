@@ -6,8 +6,6 @@
 #include <vector>
 #include <unordered_map>
 #include <unordered_set>
-#include <QObject>
-#include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include "Measurement.hpp"
 

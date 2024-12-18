@@ -122,6 +122,7 @@ private:
 };
 
 // ComplianceDelegate class for custom rendering based on compliance
+// Derived from: https://forum.qt.io/topic/125874/qtableview-set-background-color-to-some-columns/4
 class ComplianceDelegate : public QStyledItemDelegate {
 public:
     explicit ComplianceDelegate(QObject *parent = nullptr);

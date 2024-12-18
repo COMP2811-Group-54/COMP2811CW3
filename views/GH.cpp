@@ -10,7 +10,6 @@ GeographicalHotspotsPage::GeographicalHotspotsPage(QWidget *parent) : QWidget(pa
 
     std::cout << "DISPLAYING MAP" << std::endl;
 
-    // Delay setting source until model is ready
     mapView->setResizeMode(QQuickWidget::SizeRootObjectToView);
 
     QVBoxLayout *layout = new QVBoxLayout(this);

@@ -1,20 +1,17 @@
 #include "Dataset.hpp"
-#include "Measurement.hpp"
-#include "csv.hpp"
-#include "Compliance.hpp"
-#include "GlobalDataModel.hpp"
 
-#include <unordered_set>
-#include <QNetworkRequest>
-#include <QNetworkReply>
-#include <QJsonDocument>
-#include <QJsonObject>
-#include <QJsonArray>
 #include <QDebug>
-#include <QFuture>
-#include <QFutureWatcher>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QObject>
+#include <QNetworkAccessManager>
 #include <QtConcurrent>
+#include <unordered_set>
 
+#include "Compliance.hpp"
+#include "csv.hpp"
+#include "GlobalDataModel.hpp"
+#include "Measurement.hpp"
 
 // Column constants
 const std::string ID_COLUMN = "@id";
@@ -35,8 +32,12 @@ void Dataset::loadDataset(const std::string &path) {
     measurementsBySamplingPoint.clear();
 
     // Run CSV parsing and processing in a background thread
+    //  QTConcurrency has been utilised to minimise "freezing"
+    // Derived from: https://stackoverflow.com/questions/70054114/how-to-run-a-member-function-in-qtconcurrent-in-qt6
     QFuture<void> future = QtConcurrent::run([this, path]() {
+        // Import csvReader
         csv::CSVReader csvReader(path);
+
         ComplianceChecker complianceChecker;
 
         // Preload valid compounds
@@ -45,6 +46,7 @@ void Dataset::loadDataset(const std::string &path) {
             validCompounds.insert(pair.first);
         }
 
+        // Iterate through each row
         for (const auto &row: csvReader) {
             const std::string determinandLabel = row[DETERMINAND_LABEL_COLUMN].get<>();
             const std::string samplingPoint = row[SAMPLING_POINT_LABEL_COLUMN].get<>();
@@ -53,6 +55,7 @@ void Dataset::loadDataset(const std::string &path) {
                 continue; // Skip invalid rows
             }
 
+            // Instance a measurement object with the specified data
             Measurement measurement{
                 row[ID_COLUMN].get<>(),
                 row[SAMPLE_POINT_COLUMN].get<>(),
@@ -66,6 +69,7 @@ void Dataset::loadDataset(const std::string &path) {
                 row[DETERMINAND_NOTATION_COLUMN].get<int>()
             };
 
+            // Push to storage structures
             data.push_back(measurement);
             measurementsByDeterminand[measurement.getCompoundName()].push_back(measurement);
             measurementsBySamplingPoint[measurement.getLabel()].push_back(measurement);
@@ -83,6 +87,7 @@ void Dataset::loadDataset(const std::string &path) {
     watcher->setFuture(future);
 }
 
+// Fetch requests to get Latitude and Longitude
 void Dataset::fetchLatLonForSamplingPoints() {
     std::unordered_set<std::string> uniqueSamplingPoints;
 
@@ -91,8 +96,11 @@ void Dataset::fetchLatLonForSamplingPoints() {
     }
 
     pendingRequests = uniqueSamplingPoints.size();
+
+    // Derived from: https://doc.qt.io/qt-6/qnetworkaccessmanager.html
     QNetworkAccessManager *manager = new QNetworkAccessManager(this);
 
+    // Fetch only unique sampling points to minimise fetches
     for (const auto &notation: uniqueSamplingPoints) {
         QString urlString;
         for (const auto &sample: data) {
@@ -113,8 +121,10 @@ void Dataset::fetchLatLonForSamplingPoints() {
     }
 }
 
+// Derived from: https://doc.qt.io/qt-6/qnetworkaccessmanager.html
 void Dataset::handleNetworkData(QNetworkReply *reply, const std::string &locationNotationStr) {
     if (reply->error() == QNetworkReply::NoError) {
+        // Decode data and push to appropriate data structures
         QByteArray responseData = reply->readAll();
         QJsonDocument jsonDoc = QJsonDocument::fromJson(responseData);
         QJsonObject jsonObj = jsonDoc.object();
@@ -131,6 +141,7 @@ void Dataset::handleNetworkData(QNetworkReply *reply, const std::string &locatio
 
     reply->deleteLater();
 
+    // Broadcast that fetching has been completed
     if (--pendingRequests == 0) {
         qDebug() << "All fetches complete.";
         emit GlobalDataModel::instance().emitFetchesComplete();
@@ -138,7 +149,6 @@ void Dataset::handleNetworkData(QNetworkReply *reply, const std::string &locatio
     emit pendingRequestsChanged();
 }
 
-// Implementation of getSamplingPointCounts
 std::unordered_map<std::string, std::pair<int, std::string>> Dataset::getSamplingPointCounts() const {
     std::unordered_map<std::string, std::pair<int, std::string>> samplingPointCounts;
 
@@ -152,6 +162,7 @@ std::unordered_map<std::string, std::pair<int, std::string>> Dataset::getSamplin
 }
 
 
+// Only fetch locations that have sufficient measurements
 std::vector<std::string> Dataset::getHighDataPointLocations() {
     std::unordered_set<std::string> highDataPointSet;
     std::vector<std::string> highDataPointLocations;
@@ -209,6 +220,7 @@ void Dataset::checkDataExists() const {
     }
 }
 
+// Sort by Timestamp
 std::vector<Measurement> Dataset::sortByTimestamp() {
     std::sort(data.begin(), data.end(), [](const Measurement &a, const Measurement &b) {
         return a.getDatetime() < b.getDatetime();

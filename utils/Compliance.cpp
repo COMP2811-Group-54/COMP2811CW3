@@ -69,17 +69,22 @@ int ComplianceChecker::complianceCheck(const string &name, double value) const {
     return underThreshold; // Default to Green if no specific case matches
 }
 
+
 // Constructor for ComplianceDelegate
 ComplianceDelegate::ComplianceDelegate(QObject *parent)
     : QStyledItemDelegate(parent), complianceChecker() {
 }
 
+
+// Utilising: https://doc.qt.io/qt-6/qstyleditemdelegate.html
+// Derived from: https://forum.qt.io/topic/125874/qtableview-set-background-color-to-some-columns/4
 void ComplianceDelegate::paint(QPainter *painter, const QStyleOptionViewItem &option,
-                                const QModelIndex &index) const {
+                               const QModelIndex &index) const {
     QVariant value = index.data(Qt::DisplayRole);
 
-    if (index.column() == 3) { // Assuming column 3 is for measured values
-        QString name = index.sibling(index.row(), 0).data().toString(); // Column 0 has parameter names
+    // Hard coded compliance field
+    if (index.column() == 3) {
+        QString name = index.sibling(index.row(), 0).data().toString();
         double value = index.data().toDouble();
 
         // Get the compliance level
@@ -89,23 +94,22 @@ void ComplianceDelegate::paint(QPainter *painter, const QStyleOptionViewItem &op
         QColor backgroundColor;
         switch (complianceStatus) {
             case 1: // Green
-                backgroundColor = Qt::green;
-            break;
+                backgroundColor = Qt::darkGreen;
+                break;
             case 2: // Orange/Yellow
-                backgroundColor = QColor(255, 165, 0); // RGB value for Orange
-            break;
+                backgroundColor = QColor(255, 165, 0);
+                break;
             case 3: // Red
                 backgroundColor = Qt::red;
-            break;
+                break;
             default: // Default background color
                 backgroundColor = Qt::white;
-            break;
+                break;
         }
 
         // Paint the background
         painter->fillRect(option.rect, backgroundColor);
     }
 
-    // Draw the text as usual
     QStyledItemDelegate::paint(painter, option, index);
 }

@@ -205,6 +205,7 @@ void PFApage::updateChart() {
     std::vector<Measurement> filteredData;
     qint64 filterStartTime = lastTimestamp; // Initialize start time for filtering
 
+    // Time dictionary
     std::unordered_map<std::string, long long> timeAdjustments = {
         {"3 days", 3ll * 24 * 60 * 60 * 1000},
         {"1 week", 7ll * 24 * 60 * 60 * 1000},

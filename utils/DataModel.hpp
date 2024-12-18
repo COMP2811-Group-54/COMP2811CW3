@@ -1,5 +1,7 @@
 #pragma once
 
+/* Derived from template code provided by Nick Efford */
+
 #include <QAbstractTableModel>
 #include "Dataset.hpp"
 
@@ -29,7 +31,7 @@ public:
     // Column count: Fixed at 5 columns (Compound Name, Sample DateTime, Description, Value, Unit)
     int columnCount(const QModelIndex &parent = QModelIndex()) const override {
         Q_UNUSED(parent);
-        return 5;
+        return 6;
     }
 
     // Header data for table view

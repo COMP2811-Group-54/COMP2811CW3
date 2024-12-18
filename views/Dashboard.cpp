@@ -26,6 +26,8 @@ Dashboard::Dashboard() : QWidget(), translator(new QTranslator(this)) {
     setWindowTitle(tr("DASHBOARD_TITLE"));
 
     connect(&GlobalDataModel::instance(), &GlobalDataModel::dataReady, this, &Dashboard::onDataLoaded);
+
+    QMessageBox::information(this, tr("Notification"), tr("Functionality is limited until you load a dataset"));
 }
 
 void Dashboard::createMainLayout() {
@@ -263,8 +265,6 @@ void Dashboard::combineLayouts() {
     mainLayout->addLayout(bottomLayout);
 
     setLayout(mainLayout);
-
-    QMessageBox::information(this, tr("Notification"), tr("Functionality is limited until you load a dataset"));
 }
 
 
