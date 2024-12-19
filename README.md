@@ -78,7 +78,7 @@ The code is modularised into several folders for clarity and maintainability:
    - Stores CSV files (2021–2024) for quick access.
      
 5. **`<project>/languages`**
-   - Contains a language file with raw `.xml` files and compiled translations for internationalisation.
+   - Contains the language files in raw `.xml` and the compiled translations for internationalisation.
 
 ---
 
